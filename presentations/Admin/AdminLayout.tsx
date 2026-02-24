@@ -7,7 +7,8 @@ import {
     Calendar,
     LogOut,
     ClipboardList,
-    Settings
+    Settings,
+    MessageSquare,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             group: "Management", items: [
                 { icon: LayoutDashboard, label: "Dashboard", view: "DASHBOARD" },
                 { icon: ClipboardList, label: "Bookings", view: "BOOKINGS" },
+                { icon: MessageSquare, label: "Chats", view: "CHATS" },
                 { icon: Calendar, label: "Events", view: "EVENTS" },
             ]
         }

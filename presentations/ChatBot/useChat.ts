@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import api from "@/lib/axios";
 
 /**
@@ -29,6 +29,19 @@ export function useChat() {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const sessionIdRef = useRef<string | null>(null);
+
+  // Initialize unique session ID
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let id = localStorage.getItem("booky_session_id");
+      if (!id) {
+        id = `session_${Math.random().toString(36).substring(2, 15)}_${Date.now()}`;
+        localStorage.setItem("booky_session_id", id);
+      }
+      sessionIdRef.current = id;
+    }
+  }, []);
 
   const send = useCallback(async () => {
     const text = input.trim();
@@ -61,6 +74,7 @@ export function useChat() {
 
     try {
       const payload = {
+        sessionId: sessionIdRef.current,
         messages: [...messages, userMessage].map((m) => ({
           role: m.role,
           content: m.content,

@@ -10,8 +10,14 @@ import {
     CalendarCheck,
     CreditCard,
     TrendingUp,
+    MessageSquare,
+    Globe,
+    Fingerprint
 } from "lucide-react";
 import { DashboardCalendar } from "./sub-components/DashboardCalendar";
+import { ChatManager } from "./sub-components/ChatManager";
+import { useState, useEffect } from "react";
+import api from "@/lib/axios";
 
 import { formatPHP } from "@/lib/format";
 
@@ -25,13 +31,27 @@ export default function AdminPresentation() {
         currentView
     } = useAdminContext();
 
+    const [analytics, setAnalytics] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchAnalytics = async () => {
+            try {
+                const res = await api.get("/api/analytics");
+                setAnalytics(res.data);
+            } catch (error) {
+                console.error("Failed to fetch analytics", error);
+            }
+        };
+        if (currentView === "DASHBOARD") fetchAnalytics();
+    }, [currentView]);
+
     // DASHBOARD VIEW (Analytics + 5 Recent)
     if (currentView === "DASHBOARD") {
         const stats = [
-            { label: "Total Bookings", value: bookings.length, icon: CalendarCheck, color: "text-blue-600", bg: "bg-blue-50" },
-            { label: "Pending Approval", value: pendingCount, icon: Users, color: "text-amber-600", bg: "bg-amber-50" },
-            { label: "Completed Events", value: approvedCount, icon: TrendingUp, color: "text-emerald-600", bg: "bg-emerald-50" },
-            { label: "Revenue Stream", value: formatPHP(approvedCount * 1500), icon: CreditCard, color: "text-indigo-600", bg: "bg-indigo-50" },
+            { label: "Daily Visits", value: analytics?.today?.visits || 0, icon: Globe, color: "text-blue-600", bg: "bg-blue-50" },
+            { label: "Unique Users", value: analytics?.today?.uniques || 0, icon: Fingerprint, color: "text-indigo-600", bg: "bg-indigo-50" },
+            { label: "Total Bookings", value: bookings.length, icon: CalendarCheck, color: "text-emerald-600", bg: "bg-emerald-50" },
+            { label: "Pending Tasks", value: pendingCount, icon: Users, color: "text-amber-600", bg: "bg-amber-50" },
         ];
 
         return (
@@ -138,6 +158,21 @@ export default function AdminPresentation() {
                 </div>
 
                 <EventManager />
+            </div>
+        );
+    }
+
+    // CHATS VIEW
+    if (currentView === "CHATS") {
+        return (
+            <div className="space-y-10 animate-in fade-in duration-700">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="space-y-1">
+                        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Communication Center</h1>
+                        <p className="text-sm text-slate-900 font-normal uppercase tracking-tight">Real-time recording of chatbot interactions per session.</p>
+                    </div>
+                </div>
+                <ChatManager />
             </div>
         );
     }

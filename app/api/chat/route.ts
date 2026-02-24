@@ -4,7 +4,10 @@ import connectDB from "@/lib/db";
 import Event from "@/lib/models/Event";
 import Settings from "@/lib/models/Settings";
 import Booking from "@/lib/models/Booking";
+import Conversation from "@/lib/models/Conversation";
+import VisitorStats from "@/lib/models/VisitorStats";
 import { startOfDay, endOfDay } from "date-fns";
+
 import { readFileSync } from "fs";
 import path from "path";
 
@@ -46,7 +49,8 @@ try {
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, checkDate } = await req.json();
+    const { messages, checkDate, sessionId } = await req.json();
+
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: "Invalid request. messages[] is required." }, { status: 400 });
@@ -150,9 +154,52 @@ ${availabilityContext}
 
     const reply = response.choices[0]?.message?.content || "Sorry, I couldn't generate a response. Please try again.";
 
+    // --- Record Analytics & Conversation (Background) ---
+    if (sessionId) {
+      (async () => {
+        try {
+          const today = startOfDay(new Date());
+
+          // 1. Log Visitor Stats
+          await VisitorStats.findOneAndUpdate(
+            { date: today },
+            { 
+              $inc: { count: 1 },
+              $addToSet: { uniqueSessions: sessionId } 
+            },
+            { upsert: true, new: true }
+          );
+
+          // 2. Log Conversation History
+          // We record the last user message and the current assistant reply
+          const lastUserMessage = messages[messages.length - 1];
+          if (lastUserMessage) {
+            await Conversation.findOneAndUpdate(
+              { sessionId },
+              {
+                $push: {
+                  messages: {
+                    $each: [
+                      { role: "user", content: lastUserMessage.content, timestamp: new Date() },
+                      { role: "assistant", content: reply, timestamp: new Date() }
+                    ]
+                  }
+                },
+                $set: { lastMessageAt: new Date(), status: "active" }
+              },
+              { upsert: true }
+            );
+          }
+        } catch (analyticsError) {
+          console.error("[Analytics] Error logging data:", analyticsError);
+        }
+      })();
+    }
+
     return NextResponse.json({ reply });
   } catch (error: unknown) {
     console.error("[API] POST /api/chat error:", error);
     return NextResponse.json({ error: "Chat service unavailable." }, { status: 500 });
   }
 }
+
