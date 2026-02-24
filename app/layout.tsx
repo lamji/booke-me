@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   authors: [{ name: "OrbitNest Team" }],
   creator: "OrbitNest",
   publisher: "OrbitNest",
-  metadataBase: new URL("https://book-me-event.vercel.app"), // Replace with actual domain when ready
+  metadataBase: new URL("https://booke-me-tau.vercel.app"),
   openGraph: {
     title: "BOOK.ME | Premium Minimalist Event Booking",
     description: "Experience the next level of event booking with our minimalist, reliable, and powerful platform.",
@@ -30,10 +30,10 @@ export const metadata: Metadata = {
     siteName: "BOOK.ME",
     images: [
       {
-        url: "/icons/favicon-512x512.png",
-        width: 512,
-        height: 512,
-        alt: "BOOK.ME Logo",
+        url: "/preview.png",
+        width: 1200,
+        height: 630,
+        alt: "BOOK.ME | Premium Minimalist Event Booking",
       },
     ],
     locale: "en_US",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BOOK.ME | Minimalist Event Booking",
     description: "A premium minimalist booking experience for elite events.",
-    images: ["/icons/favicon-512x512.png"],
+    images: ["/preview.png"],
   },
   icons: {
     icon: [
