@@ -10,10 +10,13 @@ This document outlines the complete feature set of the Book.Me Event Booking Man
 A high-performance, humanized AI assistant specialized in administrative operations.
 - **Explanation**: The Tiger has direct "Search & Destroy" access to the MongoDB collections. It can parse complex requests about bookings, clients, and revenue without requiring manual menu navigation.
 - **Capabilities**:
-    - Query status (e.g., "Any pending bookings for next week?")
-    - Execute commands (e.g., "Approve booking BKG-123")
-    - Inspect details (e.g., "Does Jick have add-ons for his wedding?")
-    - Send manual emails directly from the chat interface.
+    - **Read-Only Intelligence**: Query status (e.g., "Any pending bookings for next week?")
+    - **Status Orchestration**: Execute state changes (e.g., "Approve booking BKG-123")
+    - **Deep Inspection**: Inspect details (e.g., "Does Jick have add-ons for his wedding?")
+    - **Client Outreach**: Send manual emails directly from the chat interface.
+- **Security Guardrails**:
+    - **Zero-Deletion Policy**: Strictly forbidden from deleting any records from the database.
+    - **Restricted Modification**: Cannot edit client profiles, prices, or configuration directly. Modifications are restricted to authorized **UPDATE_STATUS** workflows only.
 - **User Flow**:
     1. Admin opens the Tiger UI (terminal icon).
     2. Inputs a directive in natural language.
@@ -112,3 +115,10 @@ Public reputation management.
 The "Heartbeat" of the platform.
 - **Explanation**: All modules (Clients, Bookings, Notifications) are wired to the Socket.IO bridge.
 - **Benefit**: No page refreshes are ever required. When a user chats with the AI or books an event, the Admin UI updates the tables and charts live.
+
+---
+
+## 5. Security & Data Integrity Protocol
+- **Audit Trails**: All status updates and administrative emails are logged for accountability.
+- **Immutable Records**: Core client and booking data are protected against accidental deletion by the AI assistant.
+- **Role-Based Command Execution**: Data-mutating commands (like status changes) require specific formatting and are validated against current record states before execution.
