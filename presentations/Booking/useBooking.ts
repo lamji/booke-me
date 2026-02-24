@@ -39,6 +39,7 @@ export function useBooking() {
   const [submitResult, setSubmitResult] = useState<{ success: boolean; message: string } | null>(null);
   const [isPreSelected, setIsPreSelected] = useState(false);
   const [missingFields, setMissingFields] = useState<string[]>([]);
+  const [showSummary, setShowSummary] = useState(false);
 
   // Fetch active events
   const fetchEvents = useCallback(async () => {
@@ -91,7 +92,23 @@ export function useBooking() {
     );
   }, []);
 
-  const submitBooking = useCallback(async () => {
+  // Derived: Get current event object
+  const currentEvent = events.find(e => e.name === eventType);
+
+  const calculateTotalPrice = useCallback(() => {
+    if (!currentEvent) return 0;
+    let total = currentEvent.basePrice || 0;
+    if (currentEvent.addons) {
+      currentEvent.addons.forEach(a => {
+        if (addOns.includes(a.name)) {
+          total += a.price;
+        }
+      });
+    }
+    return total;
+  }, [currentEvent, addOns]);
+
+  const handleSummary = useCallback(() => {
     // Reset previous missing fields
     setMissingFields([]);
     
@@ -112,6 +129,11 @@ export function useBooking() {
       return;
     }
 
+    setSubmitResult(null);
+    setShowSummary(true);
+  }, [eventType, eventDate, eventTime, clientName, clientEmail, clientPhone]);
+
+  const submitBooking = useCallback(async () => {
     setIsSubmitting(true);
     setSubmitResult(null);
 
@@ -151,9 +173,6 @@ export function useBooking() {
     }
   }, [eventType, eventDate, eventTime, clientName, clientEmail, clientPhone, notes, addOns, emit, router]);
 
-  // Derived: Get current event object
-  const currentEvent = events.find(e => e.name === eventType);
-
   return {
     events,
     isDataLoading,
@@ -171,6 +190,9 @@ export function useBooking() {
     submitBooking,
     isPreSelected,
     missingFields, setMissingFields,
+    showSummary, setShowSummary,
+    handleSummary,
+    calculateTotalPrice,
   };
 }
 

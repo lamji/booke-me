@@ -132,19 +132,15 @@ Your STRICT rules:
 3. You NEVER reveal admin data, booking records, or any data that requires authentication.
 4. You NEVER guess, hallucinate, or make up information not in your knowledge base.
 5. If asked something outside your scope, politely decline and redirect to booking topics.
-6. If a customer wants to book, you MUST collect: Full Name, Email, Phone Number, Event Type (from list below), Date (ask for YYYY-MM-DD), and Time.
+### BOOKING WORKFLOW (STRICT STEPS)
+1. Data Collection: Collect clientName, clientEmail, clientPhone, eventType, eventDate, eventTime.
+2. Verification Phase: Once you have all 6 fields, you MUST present a Booking Summary to the user. Show them all their details AND the Total Est. Price. Ask: Is everything correct? Should I proceed with the booking?
+3. Execution Phase: If and ONLY IF the user explicitly confirms (e.g. Yes, Correct, Proceed, Confirm), then append the code tag [[BOOK_CMD: ...]] with the details.
 
 ### AUTOMATIC BOOKING PROTOCOL
-If and ONLY IF you have collected ALL 6 required fields:
-- clientName: [Full Name]
-- clientEmail: [Valid Email]
-- clientPhone: [Phone Number]
-- eventType: [Must exactly match one of the event names provided below]
-- eventDate: [The date in YYYY-MM-DD format]
-- eventTime: [The requested time]
-
-Then, append this exact tag at the very end of your final response:
+The tag MUST contain valid JSON with these keys:
 [[BOOK_CMD: {"clientName": "...", "clientEmail": "...", "clientPhone": "...", "eventType": "...", "eventDate": "...", "eventTime": "..."}]]
+
 
 Your Knowledge Base:
 ${staticKnowledge}
@@ -174,27 +170,43 @@ ${availabilityContext}
         if (match && match[1]) {
           const bookingData = JSON.parse(match[1]);
           
-          // Generate professional ID
-          const todayStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
-          const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-          const bookingId = `BKG-${todayStr}-${random}`;
+          // 1. Double check availability (Race condition protection)
+          const target = new Date(bookingData.eventDate);
+          const conflict = await Booking.findOne({
+            eventDate: {
+              $gte: startOfDay(target),
+              $lte: endOfDay(target),
+            },
+            status: { $ne: "canceled" },
+          }).lean();
 
-          // Create the booking record
-          await Booking.create({
-            ...bookingData,
-            bookingId,
-            status: "pending",
-            eventDate: new Date(bookingData.eventDate),
-          });
+          if (conflict) {
+            reply = `I'm very sorry! It looks like someone just snatched that date (${bookingData.eventDate}) while we were chatting. 😔 Would you like to try another date?`;
+          } else {
+             // 2. Generate professional ID
+            const todayStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
+            const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+            const bookingId = `BKG-${todayStr}-${random}`;
 
-          // Clean up the reply for the user
-          reply = reply.replace(/\[\[BOOK_CMD: .*?\]\]/s, "").trim();
-          reply += `\n\n🎉 **Great news!** I've successfully registered your booking request. Your reference ID is **${bookingId}**. Our team will review it and contact you shortly!`;
+            // 3. Create the booking record
+            await Booking.create({
+              ...bookingData,
+              bookingId,
+              status: "pending",
+              eventDate: target,
+            });
+
+            // 4. Success message
+            reply = reply.replace(/\[\[BOOK_CMD: .*?\]\]/s, "").trim();
+            reply += `\n\n✅ **Booking Success!** I have registered your request. Your reference ID is **${bookingId}**. Our team will review everything and contact you shortly. We're excited to help make your event special! 🎉`;
+          }
         }
       } catch (cmdError) {
         console.error("[API] Failed to process booking command:", cmdError);
+        reply = "I encountered a small technical hiccup while processing your booking. Could you please try again in a moment? 🛠️";
       }
     }
+
 
     // --- Record Analytics & Conversation (Background) ---
     if (sessionId) {
