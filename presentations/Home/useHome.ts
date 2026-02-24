@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
 import type {
   CheckAvailabilityResponse,
+  IReview,
 } from "@/types/booking";
 
 /**
@@ -22,6 +23,7 @@ export function useHome() {
   const [isChecking, setIsChecking] = useState(false);
   const [availability, setAvailability] = useState<CheckAvailabilityResponse | null>(null);
   const [bookedDates, setBookedDates] = useState<Date[]>([]);
+  const [reviews, setReviews] = useState<IReview[]>([]);
 
   useEffect(() => {
     // Fetch fully booked dates on mount
@@ -35,7 +37,18 @@ export function useHome() {
         console.error("Failed to fetch booked dates", error);
       }
     };
+
+    const fetchReviews = async () => {
+      try {
+        const res = await api.get("/api/reviews");
+        setReviews(res.data);
+      } catch (error) {
+        console.error("Failed to fetch reviews", error);
+      }
+    };
+
     fetchBookedDates();
+    fetchReviews();
   }, []);
 
 
@@ -78,6 +91,7 @@ export function useHome() {
     isChecking,
     availability,
     bookedDates,
+    reviews,
     checkAvailability,
     navigateToBooking,
   };

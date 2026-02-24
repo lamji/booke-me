@@ -22,6 +22,8 @@ export function NotificationDropdown() {
         setCurrentView
     } = useAdminContext();
 
+    const [open, setOpen] = React.useState(false);
+
     const recentNotifications = notifications.slice(0, 5);
 
     const handleNotificationClick = (notification: INotification) => {
@@ -29,10 +31,16 @@ export function NotificationDropdown() {
             markNotificationRead(notification._id);
         }
         setSelectedNotification(notification);
+        setOpen(false);
+    };
+
+    const handleViewAll = () => {
+        setCurrentView("NOTIFICATIONS");
+        setOpen(false);
     };
 
     return (
-        <DropdownMenu>
+        <DropdownMenu open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger asChild>
                 <Button
                     variant="ghost"
@@ -92,7 +100,7 @@ export function NotificationDropdown() {
                     <Button
                         variant="ghost"
                         className="w-full text-xs font-bold text-blue-600 hover:text-blue-700 hover:bg-blue-50 py-4 h-auto rounded-xl"
-                        onClick={() => setCurrentView("NOTIFICATIONS")}
+                        onClick={handleViewAll}
                     >
                         View All Notifications
                     </Button>

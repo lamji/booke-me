@@ -38,8 +38,9 @@ Event types and pricing are managed dynamically by the admin team. Use the booki
 
 ## Booking Status Flow
 - **Pending** → After you submit, your booking waits for admin approval
-- **Approved** → Our team confirmed your slot. You'll receive an email
-- **Cancelled** → The booking was declined or cancelled
+- **Approved** → Our team confirmed your slot. You'll receive an email.
+- **Cancelled** → The booking was declined or cancelled.
+- **Completed** → The event is finished. You'll receive a 'Thank You' email with a link to share your feedback.
 
 ## Finding Your Booking
 - If you've already submitted a booking, you can look it up by visiting the "Find My Booking" feature using the email address you registered with

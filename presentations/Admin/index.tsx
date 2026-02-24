@@ -2,24 +2,31 @@
 
 import { useAdminContext } from "./AdminProvider";
 import { BookingTable } from "./sub-components/BookingTable";
+import { ReviewTable } from "./sub-components/ReviewTable";
 import { EventManager } from "./sub-components/EventManager";
 import { NotificationList } from "./sub-components/NotificationList";
 import {
     LayoutDashboard,
     Users,
-    CalendarCheck,
-    CreditCard,
-    TrendingUp,
-    MessageSquare,
     Globe,
-    Fingerprint
+    Fingerprint,
+    Star
 } from "lucide-react";
 import { DashboardCalendar } from "./sub-components/DashboardCalendar";
 import { ChatManager } from "./sub-components/ChatManager";
+import { ClientTable } from "./sub-components/ClientTable";
+import { FollowUpModal } from "./sub-components/FollowUpModal";
+import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import api from "@/lib/axios";
+import type { IClientDocument } from "@/lib/models/Client";
 
-import { formatPHP } from "@/lib/format";
+
+interface AnalyticsData {
+    today: { visits: number; uniques: number };
+    totals: { bookings: number; chats: number };
+    history: Array<{ date: string; visits: number; uniques: number }>;
+}
 
 export default function AdminPresentation() {
     const {
@@ -27,11 +34,21 @@ export default function AdminPresentation() {
         updateStatus,
         updatingId,
         pendingCount,
-        approvedCount,
-        currentView
+        reviews,
+        updateReviewStatus,
+        averageRating,
+        currentView,
+        clients,
+        fetchClients,
+        sendFollowUp
     } = useAdminContext();
 
-    const [analytics, setAnalytics] = useState<any>(null);
+    const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
+    const [selectedClient, setSelectedClient] = useState<IClientDocument | null>(null);
+
+    useEffect(() => {
+        if (currentView === "CLIENTS") fetchClients();
+    }, [currentView, fetchClients]);
 
     useEffect(() => {
         const fetchAnalytics = async () => {
@@ -50,8 +67,8 @@ export default function AdminPresentation() {
         const stats = [
             { label: "Daily Visits", value: analytics?.today?.visits || 0, icon: Globe, color: "text-blue-600", bg: "bg-blue-50" },
             { label: "Unique Users", value: analytics?.today?.uniques || 0, icon: Fingerprint, color: "text-indigo-600", bg: "bg-indigo-50" },
-            { label: "Total Bookings", value: bookings.length, icon: CalendarCheck, color: "text-emerald-600", bg: "bg-emerald-50" },
             { label: "Pending Tasks", value: pendingCount, icon: Users, color: "text-amber-600", bg: "bg-amber-50" },
+            { label: "Average Rating", value: averageRating, icon: Star, color: "text-amber-500", bg: "bg-amber-50" },
         ];
 
         return (
@@ -180,6 +197,86 @@ export default function AdminPresentation() {
     // NOTIFICATIONS VIEW
     if (currentView === "NOTIFICATIONS") {
         return <NotificationList />;
+    }
+
+    // REVIEWS MODERATION VIEW
+    if (currentView === "REVIEWS") {
+        return (
+            <div className="space-y-10 animate-in fade-in duration-700">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="space-y-1">
+                        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Review Moderation</h1>
+                        <p className="text-sm text-slate-900 font-normal uppercase tracking-tight">Manage and approve client testimonials for public display.</p>
+                    </div>
+                </div>
+
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-lg font-bold text-slate-800">Feedback Ledger</h2>
+                        <span className="text-xs font-normal text-slate-900 uppercase tracking-widest">Total Reviews: {reviews.length}</span>
+                    </div>
+
+                    <ReviewTable
+                        data={reviews}
+                        onUpdateStatus={updateReviewStatus}
+                    />
+                </div>
+            </div>
+        );
+    }
+
+    // CLIENTS REGISTRY VIEW
+    if (currentView === "CLIENTS") {
+        return (
+            <div className="space-y-10 animate-in fade-in duration-700">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="space-y-1">
+                        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Clients & Leads Registry</h1>
+                        <p className="text-sm text-slate-900 font-normal uppercase tracking-tight">Manage existing customers and follow up with potential leads captured from chat.</p>
+                    </div>
+                </div>
+
+                <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => fetchClients()}
+                                className="text-[10px] font-bold uppercase tracking-widest text-slate-900 border-b-2 border-slate-900 rounded-none h-auto pb-1 px-0"
+                            >
+                                All Contacts
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => fetchClients("potential")}
+                                className="text-[10px] font-bold uppercase tracking-widest text-slate-900/40 hover:text-slate-900 rounded-none h-auto pb-1 px-0"
+                            >
+                                Potential Leads
+                            </Button>
+                        </div>
+                        <span className="text-xs font-normal text-slate-900 uppercase tracking-widest">Total Registry: {clients.length}</span>
+                    </div>
+
+                    <ClientTable
+                        data={clients}
+                        onFollowUp={(client) => setSelectedClient(client)}
+                    />
+                </div>
+
+                <FollowUpModal
+                    client={selectedClient}
+                    isOpen={!!selectedClient}
+                    onClose={() => setSelectedClient(null)}
+                    onSend={async (email, subject, body, footer) => {
+                        const res = await sendFollowUp(email, subject, body, footer);
+                        if (res.success) fetchClients(); // Refresh to update last followed up date
+                        return res;
+                    }}
+                />
+            </div>
+        );
     }
 
     // FALLBACK / OTHER VIEWS

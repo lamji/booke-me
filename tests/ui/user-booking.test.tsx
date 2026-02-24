@@ -47,6 +47,10 @@ describe('BookingPresentation Component', () => {
             isPreSelected: false,
             missingFields: [],
             setMissingFields: jest.fn(),
+            showSummary: false,
+            setShowSummary: jest.fn(),
+            handleSummary: jest.fn(),
+            calculateTotalPrice: jest.fn(() => 0),
         });
     });
 

@@ -9,3 +9,37 @@
 [2026-02-23 22:30:15] [BRAIN] Rule 15 Enforced - Pre-Flight Audit mandatory.
 [2026-02-23 22:35:00] [JEST] tests/ui/notifications.test.tsx - 4/4 Passed (Rule 13).
 [2026-02-23 22:35:10] [BRAIN] Rule 15 Safety Latch - Upgraded and Verified.
+[2026-02-24 16:15:00] [API] POST /api/admin/chat - Implemented with Admin Session Guard and MongoDB Context.
+[2026-02-24 16:15:30] [JEST] useAdminChat ViewModel - Unit tests pending implementation.
+[2026-02-24 16:16:00] [BRAIN] The Tiger (Admin Assistant) deployed to /admin.
+[2026-02-24 17:25:00] [API] POST /api/admin/chat - Enforced Rule 5: Internal process suppression.
+[2026-02-24 17:35:00] [CRITICAL] Fixed hallucination in GET_EVENTS by implementing YYYY-MM-DD parsing and removing ternary fallback.
+[2026-02-24 17:40:00] [API] POST /api/admin/chat - Added multi-granular date support (Month/Year ranges).
+[2026-02-24 17:45:00] [API] POST /api/chat - Refined booking flow to step-by-step data collection (Rule 15 Compliance).
+[2026-02-24 17:50:00] [API] POST /api/chat - Implemented Multi-Phase Conditional Flow (Lead Capture gate).
+[2026-02-24 17:55:00] [CRITICAL] Implemented Ground Truth Verification & Anti-Hallucination Hardening (v3.5).
+[2026-02-24 18:05:00] [UI/UX] Implemented context-aware loading states and focus management (v3.6).
+[2026-02-24 18:35:00] [CRITICAL] Fixed AI redundancy and "no real-time access" hallucination with strict Authority rules (v3.7).
+[2026-02-24 19:15:00] [SECURITY] Fixed Admin Auth bypass. Implemented high-fidelity NextAuth simulation in test scripts.
+[2026-02-24 19:25:00] [API] POST /api/admin/chat - Verified with authenticated session (no bypass).
+[2026-02-24 19:35:00] [E2E] test-booky-past-date.mjs - Verified 100% pass (Past date rejection).
+[2026-02-24 19:40:00] [SOCKET] Consolidated booking-update emissions in /api/bookings/[id] and /api/admin/chat.
+[2026-02-24 19:45:00] [GATES] All Pre-handover gates passed: lint/typecheck clean (v3.9).
+[2026-02-24 19:55:00] [PROD] De-hardcoded Socket.IO URLs. Implemented lib/utils/base-url.ts for dynamic environment support.
+[2026-02-24 20:00:00] [GATES] All Pre-handover gates passed: lint/typecheck clean (v4.0).
+[2026-02-24 20:10:00] [E2E] test-booky-yopmail-full.mjs - Verified 100% pass (Socket + User/Admin Email targeting).
+[2026-02-24 20:15:00] [PROMPT] Enforced Philippine Peso (₱) across all AI assistants. Purged dollar sign usage.
+[2026-02-24 20:20:00] [E2E] test-tiger-comprehensive.mjs - Verified 100% pass (Currency: ₱).
+[2026-02-24 20:30:00] [E2E] test-booky-yopmail-full.mjs - Fixed date conflict. Verified 100% pass (All Socket IO Triggers confirmed).
+[2026-02-24 20:35:00] [E2E] test-tiger-comprehensive.mjs - Verified Admin Action MARK_COMPLETE (Socket IO triggered).
+[2026-02-24 20:45:00] [PROMPT] Added UPDATE_STATUS and SEND_EMAIL commands to The Tiger.
+[2026-02-24 20:50:00] [E2E] test-tiger-technical.mjs - Verified Approval + Manual Email + Socket IO (100% Pass).
+[2026-02-24 21:00:00] [PROD] Standardized statuses: pending, approved, canceled, completed.
+[2026-02-24 21:10:00] [MAIL] Verified 'completed' status triggers review-link email. Updated template with 'Rate and Give Feedback'.
+[2026-02-24 21:20:00] [PROMPT] Enhanced Tiger response to explicitly confirm email/review link dispatch.
+[2026-02-24 21:25:00] [GATES] All Pre-handover gates passed: lint/typecheck clean (v4.4.1).
+[2026-02-24 21:45:00] [CRM] Phase 43 Complete: Unified Client Model & Chat Lead Capture integrated.
+[2026-02-24 22:15:00] [CRM] Phase 44 Complete: Email Templates & Live Preview integrated in Follow-up Modal.
+[2026-02-24 22:30:00] [CRM] UI Upgrade: Follow-up Modal converted to Fullscreen Dialog (Shadcn pattern).
+[2026-02-24 22:40:00] [GATES] All Pre-handover gates passed: lint/typecheck clean (v4.6.1).
+## 2026-02-24: Implement Block-based Email Builder for CRM\n- Converted FollowUpModal to a powerful 50/50 block-based email builder.\n- Replaced generic static string building with drag-and-drop structural blocks (Header, Text, Image, Button, Divider).\n- Implemented real-time HTML rendering preview for 'What You See Is What They Get' representation.\n- Maintained variable injections (e.g., {{name}}) ensuring dynamic content renders appropriately per client.\n- All code passes strict lint and TS compiler limits, ensuring high stability before main rollout.

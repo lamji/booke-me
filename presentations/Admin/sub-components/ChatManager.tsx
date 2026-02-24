@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     MessageSquare,
     Calendar,
@@ -17,6 +17,7 @@ import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { useSocket } from "@/lib/hooks/useSocket";
 
 interface Message {
     role: "user" | "assistant" | "system";
@@ -41,22 +42,48 @@ export function ChatManager() {
     const [selectedChat, setSelectedChat] = useState<Conversation | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
+    const { socket } = useSocket();
 
-    useEffect(() => {
-        fetchConversations();
-    }, []);
-
-    const fetchConversations = async () => {
+    const fetchConversations = useCallback(async () => {
         setIsLoading(true);
         try {
             const res = await api.get("/api/conversations");
             setConversations(res.data.conversations);
+
+            // If the selected chat is currently open, update it to seamlessly show new messages/lead data
+            setSelectedChat(prev => {
+                if (!prev) return prev;
+                const updated = res.data.conversations.find((c: Conversation) => c.sessionId === prev.sessionId);
+                return updated || prev;
+            });
         } catch (error) {
             console.error("[Admin] Failed to fetch chats:", error);
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        fetchConversations();
+    }, [fetchConversations]);
+
+    // Real-time Socket.IO Listeners for Active Sessions
+    useEffect(() => {
+        if (!socket) return;
+
+        socket.emit("join-admin"); // Ensure we are indeed in the admin room to receive events
+
+        const onChatUpdated = (chatData: unknown) => {
+            console.log("[Admin] Chat updated via socket:", chatData);
+            fetchConversations();
+        };
+
+        socket.on("chat-updated", onChatUpdated);
+
+        return () => {
+            socket.off("chat-updated", onChatUpdated);
+        };
+    }, [socket, fetchConversations]);
 
     const filteredChats = conversations.filter(chat =>
         chat.sessionId.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -189,8 +216,8 @@ export function ChatManager() {
 
                                         <div className="space-y-1">
                                             <div className={`px-4 py-2.5 rounded-2xl text-sm shadow-sm ${msg.role === 'user'
-                                                    ? 'bg-blue-600 text-white rounded-tr-none'
-                                                    : 'bg-white border border-slate-100 text-slate-800 rounded-tl-none'
+                                                ? 'bg-blue-600 text-white rounded-tr-none'
+                                                : 'bg-white border border-slate-100 text-slate-800 rounded-tl-none'
                                                 }`}>
                                                 {msg.content}
                                             </div>

@@ -29,6 +29,7 @@ describe('BookingTable Component', () => {
     const mockData = [
         {
             _id: 'booking1',
+            bookingId: 'BK-123456',
             eventType: 'Wedding',
             eventDate: new Date().toISOString(),
             eventTime: '10:00 AM',

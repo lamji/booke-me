@@ -75,19 +75,39 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
       await Notification.create({
         type: "status_change",
         message: `Booking for ${booking.clientName} on ${format(new Date(booking.eventDate), "PPP")} has been ${status}`,
-        link: "/admin",
+        link: `/admin/bookings/${String(booking._id)}`,
       });
     } catch (nErr) {
       console.error("[Booking Status API] Failed to create notification:", nErr);
     }
 
     // Fire & Forget Email Notification
-    sendMail({
-      to: booking.clientEmail,
-      subject: `BOOK.ME - Booking ${status.charAt(0).toUpperCase() + status.slice(1)}`,
-      html: EmailTemplates.bookingStatusChange(booking.clientName, status, booking.bookingId),
+    if (status === "completed") {
+      sendMail({
+        to: booking.clientEmail,
+        subject: `Thank you for choosing BOOK.ME! - ${booking.eventType}`,
+        html: EmailTemplates.reviewRequest(booking.clientName, booking.bookingId, booking.eventType),
+      }).catch(console.error);
+    } else {
+      sendMail({
+        to: booking.clientEmail,
+        subject: `BOOK.ME - Booking ${status.charAt(0).toUpperCase() + status.slice(1)}`,
+        html: EmailTemplates.bookingStatusChange(booking.clientName, status, booking.bookingId),
+      }).catch(console.error);
+    }
 
-    }).catch(console.error);
+    // Socket.IO Emission
+    try {
+      const { io } = await import("socket.io-client");
+      const { getBaseUrl } = await import("@/lib/utils/base-url");
+      const socket = io(getBaseUrl(), { path: "/api/socketio", addTrailingSlash: false });
+      socket.on("connect", () => {
+        socket.emit("booking-update", booking);
+        setTimeout(() => socket.disconnect(), 1000);
+      });
+    } catch (sErr) {
+      console.error("[Booking Status API] Failed to emit socket event:", sErr);
+    }
 
     return NextResponse.json({
       message: `Booking ${status} successfully.`,

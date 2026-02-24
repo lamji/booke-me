@@ -29,13 +29,14 @@ interface BookingViewModalProps {
     booking: IBooking | null;
     isOpen: boolean;
     onClose: () => void;
-    onUpdateStatus: (id: string, status: "approved" | "canceled") => void;
+    onUpdateStatus: (id: string, status: "approved" | "canceled" | "completed") => void;
     updatingId: string | null;
 }
 
 const STATUS_CONFIG = {
     pending: { color: "bg-yellow-400", text: "text-amber-700", bg: "bg-amber-50", label: "Pending Review" },
-    approved: { color: "bg-green-500", text: "text-emerald-700", bg: "bg-emerald-50", label: "Completed" },
+    approved: { color: "bg-emerald-500", text: "text-emerald-700", bg: "bg-emerald-50", label: "Approved" },
+    completed: { color: "bg-indigo-600", text: "text-indigo-700", bg: "bg-indigo-50", label: "Completed" },
     canceled: { color: "bg-red-500", text: "text-rose-700", bg: "bg-rose-50", label: "Canceled" },
 };
 
@@ -209,6 +210,26 @@ export function BookingViewModal({ booking, isOpen, onClose, onUpdateStatus, upd
                                 >
                                     Approve
                                 </Button>
+                            </>
+                        ) : booking.status === "approved" ? (
+                            <>
+                                <Button
+                                    className="h-10 px-6 font-normal bg-indigo-600 text-white"
+                                    onClick={() => onUpdateStatus(booking._id, "completed")}
+                                    disabled={updatingId === booking._id}
+                                    data-test-id="admin-btn-modal-complete"
+                                >
+                                    Complete Event
+                                </Button>
+                                <DialogClose asChild>
+                                    <Button
+                                        variant="outline"
+                                        className="h-10 px-6 font-normal text-slate-600 border-slate-200"
+                                        data-test-id="admin-btn-modal-close"
+                                    >
+                                        Close
+                                    </Button>
+                                </DialogClose>
                             </>
                         ) : (
                             <DialogClose asChild>

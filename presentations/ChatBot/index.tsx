@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Loader2, Bot } from "lucide-react";
 import { useChat } from "./useChat";
@@ -16,11 +17,13 @@ import { useChat } from "./useChat";
  */
 
 export default function ChatBot() {
+    const pathname = usePathname();
     const {
         messages,
         input,
         setInput,
         isLoading,
+        loadingType,
         isOpen,
         openChat,
         closeChat,
@@ -32,8 +35,13 @@ export default function ChatBot() {
 
     // Auto-scroll to latest message
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages, isLoading]);
+        if (!pathname?.startsWith("/admin")) {
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [messages, isLoading, pathname]);
+
+    // Hide public bot on admin pages
+    if (pathname?.startsWith("/admin")) return null;
 
     return (
         <>
@@ -134,15 +142,18 @@ export default function ChatBot() {
                                 {/* Typing indicator */}
                                 {isLoading && (
                                     <div className="flex justify-start">
-                                        <div className="mr-2 flex-shrink-0 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-orange-500">
+                                        <div className="mr-2 flex-shrink-0 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-orange-500 shadow-sm shadow-orange-500/20">
                                             <Bot className="h-3.5 w-3.5 text-white" />
                                         </div>
-                                        <div className="rounded-2xl rounded-tl-sm bg-white border border-gray-100 shadow-sm px-4 py-3">
-                                            <div className="flex gap-1.5 items-center">
-                                                <span className="h-2 w-2 rounded-full bg-orange-400 animate-bounce [animation-delay:0ms]" />
-                                                <span className="h-2 w-2 rounded-full bg-orange-400 animate-bounce [animation-delay:150ms]" />
-                                                <span className="h-2 w-2 rounded-full bg-orange-400 animate-bounce [animation-delay:300ms]" />
+                                        <div className="rounded-2xl rounded-tl-sm bg-white border border-gray-100 shadow-sm px-4 py-3 flex items-center gap-3">
+                                            <div className="flex gap-1 items-center">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-bounce [animation-delay:0ms]" />
+                                                <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-bounce [animation-delay:150ms]" />
+                                                <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-bounce [animation-delay:300ms]" />
                                             </div>
+                                            <span className="text-[11px] font-medium text-orange-600/80 animate-pulse">
+                                                {loadingType === "availability" ? "Checking availability..." : "Thinking..."}
+                                            </span>
                                         </div>
                                     </div>
                                 )}

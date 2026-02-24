@@ -11,8 +11,14 @@ export const createBookingSchema = z.object({
   // eventType is now dynamic — pulled from the Events collection in MongoDB.
   // Hardcoded enum removed. Any non-empty string from the Events registry is valid.
   eventType: z.string().min(1, "Event type is required"),
-  eventDate: z.string().refine((val) => !isNaN(Date.parse(val)), {
-    message: "Invalid date format",
+  eventDate: z.string().refine((val) => {
+    const d = new Date(val);
+    if (isNaN(d.getTime())) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return d >= today;
+  }, {
+    message: "Event date must be today or in the future",
   }),
   eventTime: z.string().min(1, "Time is required"),
   clientName: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -23,10 +29,16 @@ export const createBookingSchema = z.object({
 });
 
 export const checkAvailabilitySchema = z.object({
-  eventDate: z.string().refine((val) => !isNaN(Date.parse(val)), {
-    message: "Invalid date format",
+  eventDate: z.string().refine((val) => {
+    const d = new Date(val);
+    if (isNaN(d.getTime())) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return d >= today;
+  }, {
+    message: "Event date must be today or in the future",
   }),
-  eventTime: z.string().min(1, "Time is required"),
+  eventTime: z.string().optional(),
 });
 
 export const updateBookingStatusSchema = z.object({

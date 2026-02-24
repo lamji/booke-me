@@ -28,8 +28,10 @@ import {
     User,
     Info,
     ChevronLeft,
-    ChevronRight
+    ChevronRight,
+    Share2
 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { IBooking } from "@/types/booking";
@@ -62,6 +64,35 @@ export function DashboardCalendar({ bookings }: DashboardCalendarProps) {
     const getBookingsForDay = (date: Date) =>
         bookings.filter(b => isSameDay(new Date(b.eventDate), date) && b.status !== "canceled");
 
+    const copyToSocialMedia = () => {
+        const monthLabel = format(currentMonth, "MMMM yyyy");
+        const monthBookings = bookings.filter(b => isSameMonth(new Date(b.eventDate), currentMonth) && b.status !== "canceled");
+
+        if (monthBookings.length === 0) {
+            toast.error("No bookings found for this month to share.");
+            return;
+        }
+
+        let plainText = `✨ ${monthLabel} SCHEDULE OVERVIEW ✨\n\n`;
+
+        // Group by day to make it pretty
+        const grouped = monthBookings.reduce((acc, b) => {
+            const dateStr = format(new Date(b.eventDate), "MMM dd (EEE)");
+            if (!acc[dateStr]) acc[dateStr] = [];
+            acc[dateStr].push(`${b.eventTime} - ${b.eventType}`);
+            return acc;
+        }, {} as Record<string, string[]>);
+
+        Object.entries(grouped).forEach(([date, details]) => {
+            plainText += `📅 ${date}:\n${details.map(d => `   - ${d}`).join("\n")}\n\n`;
+        });
+
+        plainText += `Book your slot now! Powered by Book.Me 🚀`;
+
+        navigator.clipboard.writeText(plainText);
+        toast.success("Schedule copied as plain text! Ready for social media.");
+    };
+
     const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     return (
@@ -82,6 +113,16 @@ export function DashboardCalendar({ bookings }: DashboardCalendarProps) {
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={copyToSocialMedia}
+                        className="h-8 gap-2 text-[10px] font-bold uppercase tracking-widest border-slate-200 hover:bg-slate-100 px-3 mr-2"
+                        title="Copy as social media text"
+                    >
+                        <Share2 className="h-3 w-3" />
+                        Copy Schedule
+                    </Button>
                     <Button variant="outline" size="icon" onClick={prevMonth} className="h-8 w-8 rounded-lg border-slate-200">
                         <ChevronLeft className="h-4 w-4" />
                     </Button>

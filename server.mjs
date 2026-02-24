@@ -63,6 +63,11 @@ app.prepare().then(() => {
       socket.broadcast.emit("events-updated");
     });
 
+    socket.on("chat-updated", (chatData) => {
+      console.log("[Socket.IO] Chat updated, broadcasting to admins");
+      socket.to("admin-room").emit("chat-updated", chatData);
+    });
+
     socket.on("disconnect", () => {
       console.log("[Socket.IO] Client disconnected:", socket.id);
     });

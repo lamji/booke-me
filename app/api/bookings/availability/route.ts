@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import Booking from "@/lib/models/Booking";
+import { startOfDay, endOfDay } from "date-fns";
 
 /**
  * POST /api/bookings/availability — Check date/time availability
@@ -24,24 +25,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { eventDate, eventTime } = result.data;
+    const { eventDate } = result.data;
 
+    const target = new Date(eventDate);
     const conflict = await Booking.findOne({
-      eventDate: new Date(eventDate),
-      eventTime,
+      eventDate: {
+        $gte: startOfDay(target),
+        $lte: endOfDay(target),
+      },
       status: { $ne: "canceled" },
     }).lean();
 
     if (conflict) {
       return NextResponse.json({
         available: false,
-        message: "This date and time slot is already booked.",
+        message: "This date is already completely booked.",
       });
     }
 
     return NextResponse.json({
       available: true,
-      message: "This slot is available!",
+      message: "This date is available!",
     });
   } catch (error) {
     console.error("[API] POST /api/bookings/availability error:", error);

@@ -55,13 +55,14 @@ import autoTable from "jspdf-autotable";
 
 const STATUS_CONFIG = {
     pending: { color: "bg-yellow-400", label: "Pending" },
-    approved: { color: "bg-green-500", label: "Completed" },
+    approved: { color: "bg-emerald-500", label: "Approved" },
+    completed: { color: "bg-indigo-600", label: "Completed" },
     canceled: { color: "bg-red-500", label: "Canceled" },
 };
 
 interface BookingTableProps {
     data: IBooking[];
-    onUpdateStatus: (id: string, status: "approved" | "canceled") => void;
+    onUpdateStatus: (id: string, status: "approved" | "canceled" | "completed") => void;
     updatingId: string | null;
     hidePagination?: boolean;
 }
@@ -227,6 +228,7 @@ export function BookingTable({ data, onUpdateStatus, updatingId, hidePagination 
             cell: ({ row }) => {
                 const booking = row.original;
                 const isPending = booking.status === "pending";
+                const isApproved = booking.status === "approved";
 
                 return (
                     <DropdownMenu>
@@ -278,6 +280,21 @@ export function BookingTable({ data, onUpdateStatus, updatingId, hidePagination 
                                     >
                                         <CircleX className="h-4 w-4" />
                                         <span className="text-sm font-medium">Decline Request</span>
+                                    </DropdownMenuItem>
+                                </>
+                            )}
+
+                            {isApproved && (
+                                <>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem
+                                        onClick={() => onUpdateStatus(booking._id, "completed")}
+                                        disabled={updatingId === booking._id}
+                                        className="gap-2 cursor-pointer text-indigo-600 focus:text-indigo-700 focus:bg-indigo-50"
+                                        data-test-id={`admin-btn-complete-${booking._id}`}
+                                    >
+                                        <CircleCheck className="h-4 w-4" />
+                                        <span className="text-sm font-medium">Mark as Completed</span>
                                     </DropdownMenuItem>
                                 </>
                             )}

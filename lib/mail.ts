@@ -86,5 +86,45 @@ export const EmailTemplates = {
       <p>We can't wait to make it unforgettable.</p>
       <p>Best regards,<br/>The BOOK.ME Team</p>
     </div>
+  `,
+
+  reviewRequest: (name: string, bookingId: string, eventType: string) => {
+    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+    const reviewLink = `${baseUrl}/reviews/new?bkgId=${bookingId}`;
+
+    return `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 8px; border-top: 4px solid #6366f1;">
+        <h2 style="color: #6366f1;">Thank you for choosing BOOK.ME!</h2>
+        <p>Hi ${name},</p>
+        <p>We're so glad we could be a part of your <strong>${eventType}</strong>. Thank you for trusting us with your special event!</p>
+        <p>We'd love to hear about your experience. Please take a moment to <strong>rate our service and give your feedback</strong>.</p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${reviewLink}" style="background: #6366f1; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; font-size: 16px;">
+            Rate and Give Feedback
+          </a>
+        </div>
+
+        <p>If the button doesn't work, copy and paste this link into your browser to rate us:</p>
+        <p style="font-size: 12px; color: #6366f1; word-break: break-all;">${reviewLink}</p>
+
+        <p>Best regards,<br/>The BOOK.ME Team</p>
+      </div>
+    `;
+  },
+  adminBookingReceived: (name: string, date: string, time: string, type: string, id: string) => `
+    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+      <h2 style="color: #6366f1;">New Booking Alert</h2>
+      <p>Hello Admin,</p>
+      <p>A new booking has been submitted via the platform:</p>
+      <div style="background: #f8fafc; padding: 15px; border-radius: 6px; margin: 20px 0;">
+        <p style="margin: 0;"><strong>Client:</strong> ${name}</p>
+        <p style="margin: 0;"><strong>Event:</strong> ${type}</p>
+        <p style="margin: 0;"><strong>Date:</strong> ${date}</p>
+        <p style="margin: 0;"><strong>Time:</strong> ${time}</p>
+        <p style="margin: 0;"><strong>System ID:</strong> ${id}</p>
+      </div>
+      <p>Please log in to the admin dashboard to review and approve this request.</p>
+    </div>
   `
 };

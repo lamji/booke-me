@@ -3,8 +3,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSocket } from "@/lib/hooks/useSocket";
 import api from "@/lib/axios";
-import type { IBooking, INotification } from "@/types/booking";
+import type { IBooking, INotification, IReview } from "@/types/booking";
 import type { IEvent } from "@/lib/models/Event";
+import type { IClientDocument } from "@/lib/models/Client";
 
 interface SiteSettings {
   contactEmail?: string;
@@ -29,6 +30,8 @@ export function useAdmin() {
   const [bookings, setBookings] = useState<IBooking[]>([]);
   const [notifications, setNotifications] = useState<INotification[]>([]);
   const [events, setEvents] = useState<IEvent[]>([]);
+  const [reviews, setReviews] = useState<IReview[]>([]);
+  const [clients, setClients] = useState<IClientDocument[]>([]);
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const { socket, emit } = useSocket();
   const [isLoading, setIsLoading] = useState(true);
@@ -88,6 +91,34 @@ export function useAdmin() {
     }
   }, []);
 
+  const fetchReviews = useCallback(async () => {
+    try {
+      const res = await api.get("/api/reviews?admin=true");
+      setReviews(res.data);
+    } catch (error) {
+      console.error("[Admin] Failed to fetch reviews:", error);
+    }
+  }, []);
+
+  const fetchClients = useCallback(async (type?: "existing" | "potential") => {
+    try {
+      const res = await api.get("/api/admin/clients", { params: { type } });
+      setClients(res.data.clients);
+    } catch (error) {
+      console.error("[Admin] Failed to fetch clients:", error);
+    }
+  }, []);
+
+  const sendFollowUp = useCallback(async (email: string, subject: string, body: string, footer: string) => {
+    try {
+      await api.post("/api/admin/clients/follow", { email, subject, body, footer });
+      return { success: true };
+    } catch (error) {
+      console.error("[Admin] Failed to send follow-up:", error);
+      return { success: false, error };
+    }
+  }, []);
+
   const fetchSettings = useCallback(async () => {
     try {
       const res = await api.get("/api/settings");
@@ -136,7 +167,8 @@ export function useAdmin() {
     fetchBookings();
     fetchNotifications();
     fetchSettings();
-  }, [fetchEvents, fetchBookings, fetchNotifications, fetchSettings]);
+    fetchReviews();
+  }, [fetchEvents, fetchBookings, fetchNotifications, fetchSettings, fetchReviews]);
 
   // Real-time Socket.IO Listeners
   useEffect(() => {
@@ -161,19 +193,26 @@ export function useAdmin() {
       fetchNotifications();
     };
 
+    const onChatUpdated = (chatData: unknown) => {
+      console.log("[Admin] Chat updated via socket:", chatData);
+      fetchClients(); // Refresh the client registry list real-time
+    };
+
     socket.on("new-booking", onNewBooking);
     socket.on("booking-update", onBookingUpdate);
     socket.on("new-notification", onNewNotification);
+    socket.on("chat-updated", onChatUpdated);
 
     return () => {
       socket.off("new-booking", onNewBooking);
       socket.off("booking-update", onBookingUpdate);
       socket.off("new-notification", onNewNotification);
+      socket.off("chat-updated", onChatUpdated);
     };
-  }, [socket, fetchBookings, fetchNotifications]);
+  }, [socket, fetchBookings, fetchNotifications, fetchClients]);
 
   const updateStatus = useCallback(
-    async (id: string, status: "approved" | "canceled") => {
+    async (id: string, status: "approved" | "canceled" | "completed") => {
       setUpdatingId(id);
       try {
         await api.patch(`/api/bookings/${id}`, { status });
@@ -194,15 +233,37 @@ export function useAdmin() {
     [emit]
   );
 
+  const updateReviewStatus = useCallback(
+    async (id: string, status: "approved" | "rejected") => {
+      try {
+        await api.patch(`/api/reviews/${id}`, { status });
+        setReviews((prev) =>
+          prev.map((r) => (String(r._id) === id ? { ...r, status } : r))
+        );
+      } catch (error) {
+        console.error("[Admin] Failed to update review status:", error);
+      }
+    },
+    []
+  );
+
   const pendingCount = bookings.filter((b) => b.status === "pending").length;
   const approvedCount = bookings.filter((b) => b.status === "approved").length;
+  const completedCount = bookings.filter((b) => b.status === "completed").length;
   const canceledCount = bookings.filter((b) => b.status === "canceled").length;
   const unreadNotificationsCount = notifications.filter((n) => !n.isRead).length;
+
+  const approvedReviews = reviews.filter(r => r.status === "approved");
+  const averageRating = approvedReviews.length > 0 
+    ? (approvedReviews.reduce((acc, r) => acc + r.rating, 0) / approvedReviews.length).toFixed(1)
+    : "0.0";
 
   return {
     bookings,
     notifications,
     events,
+    reviews,
+    updateReviewStatus,
     isLoading,
     filter,
     setFilter,
@@ -220,8 +281,10 @@ export function useAdmin() {
     deleteNotification,
     pendingCount,
     approvedCount,
+    completedCount,
     canceledCount,
     unreadNotificationsCount,
+    averageRating,
     page,
     setPage,
     totalPages,
@@ -231,6 +294,9 @@ export function useAdmin() {
     updateSettings,
     selectedNotification,
     setSelectedNotification,
+    clients,
+    fetchClients,
+    sendFollowUp,
   };
 }
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { CalendarDays, Clock, CheckCircle, XCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,7 @@ const TIME_SLOTS = [
 ];
 
 export default function HeroSection() {
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
     const {
         selectedDate,
         setSelectedDate,
@@ -99,7 +101,7 @@ export default function HeroSection() {
                             <label className="text-sm text-white/60 mb-2 block text-left">
                                 Select Date
                             </label>
-                            <Popover>
+                            <Popover open={isDatePickerOpen} onOpenChange={setIsDatePickerOpen}>
                                 <PopoverTrigger asChild>
                                     <Button
                                         variant="outline"
@@ -118,7 +120,10 @@ export default function HeroSection() {
                                     <Calendar
                                         mode="single"
                                         selected={selectedDate}
-                                        onSelect={setSelectedDate}
+                                        onSelect={(date) => {
+                                            setSelectedDate(date);
+                                            if (date) setIsDatePickerOpen(false);
+                                        }}
                                         className="rounded-md border-none p-4"
                                         disabled={(date) => {
                                             const isPast = date < new Date(new Date().setHours(0, 0, 0, 0));
@@ -137,8 +142,8 @@ export default function HeroSection() {
                             <label className="text-sm text-white/60 mb-2 block text-left">
                                 Select Time
                             </label>
-                            <Select value={selectedTime} onValueChange={setSelectedTime}>
-                                <SelectTrigger className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-colors" data-test-id="hero-select-time">
+                            <Select value={selectedTime} onValueChange={setSelectedTime} disabled={!selectedDate}>
+                                <SelectTrigger className="bg-white/10 border-white/20 text-white data-[placeholder]:text-white/60 hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" data-test-id="hero-select-time">
                                     <div className="flex items-center gap-2">
                                         <Clock className="h-4 w-4" />
                                         <SelectValue placeholder="Pick a time" />

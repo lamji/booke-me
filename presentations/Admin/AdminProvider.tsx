@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useAdmin } from "./useAdmin";
 
-export type AdminView = "DASHBOARD" | "BOOKINGS" | "EVENTS" | "NOTIFICATIONS" | "CHATS";
+export type AdminView = "DASHBOARD" | "BOOKINGS" | "CLIENTS" | "EVENTS" | "NOTIFICATIONS" | "CHATS" | "REVIEWS";
 
 interface AdminContextType extends ReturnType<typeof useAdmin> {
     currentView: AdminView;

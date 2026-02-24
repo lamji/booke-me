@@ -27,6 +27,7 @@ export function useChat() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingType, setLoadingType] = useState<"general" | "availability">("general");
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const sessionIdRef = useRef<string | null>(null);
@@ -43,6 +44,13 @@ export function useChat() {
     }
   }, []);
 
+  // Ensure input stays focused after loading finishes
+  useEffect(() => {
+    if (!isLoading && isOpen) {
+      inputRef.current?.focus();
+    }
+  }, [isLoading, isOpen]);
+
   const send = useCallback(async () => {
     const text = input.trim();
     if (!text || isLoading) return;
@@ -57,11 +65,13 @@ export function useChat() {
     setInput("");
     setIsLoading(true);
 
+    // Detect if user is asking about availability
+    const isAvailabilityQuery = /availab|book.*date|date.*availab|can i book|is.*free|open slot/i.test(text);
+    setLoadingType(isAvailabilityQuery ? "availability" : "general");
+
     // Detect if user is asking about availability and extract date
-    // Simple heuristic: look for ISO dates or "YYYY-MM-DD" patterns
-    const dateMatch = text.match(/\b(\d{4}-\d{2}-\d{2}|\w+ \d{1,2},? \d{4})\b/i);
-    const isAvailabilityQuery =
-      /availab|book.*date|date.*availab|can i book|is.*free|open slot/i.test(text);
+    // Handles: 2026-05-10, May 10, May 10, 2026, etc.
+    const dateMatch = text.match(/\b(\d{4}-\d{2}-\d{2}|\w+ \d{1,2}(?:,? \d{4})?)\b/i);
 
     let checkDate: string | undefined;
     if (isAvailabilityQuery && dateMatch) {
@@ -126,6 +136,7 @@ export function useChat() {
     messages,
     input, setInput,
     isLoading,
+    loadingType,
     isOpen,
     openChat,
     closeChat,

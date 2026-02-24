@@ -9,6 +9,8 @@ import {
     ClipboardList,
     Settings,
     MessageSquare,
+    Star,
+    Users,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -17,6 +19,7 @@ import type { AdminView } from "./AdminProvider";
 import { SettingsModal } from "./sub-components/SettingsModal";
 import { NotificationDropdown } from "./sub-components/NotificationDropdown";
 import { NotificationDetailsModal } from "./sub-components/NotificationDetailsModal";
+import { AdminChatBot } from "../AdminChatBot";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const { currentView, setCurrentView } = useAdminContext();
@@ -27,7 +30,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             group: "Management", items: [
                 { icon: LayoutDashboard, label: "Dashboard", view: "DASHBOARD" },
                 { icon: ClipboardList, label: "Bookings", view: "BOOKINGS" },
+                { icon: Users, label: "Clients", view: "CLIENTS" },
                 { icon: MessageSquare, label: "Chats", view: "CHATS" },
+                { icon: Star, label: "Reviews", view: "REVIEWS" },
                 { icon: Calendar, label: "Events", view: "EVENTS" },
             ]
         }
@@ -131,6 +136,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 onClose={() => setIsSettingsOpen(false)}
             />
             <NotificationDetailsModal />
+            <AdminChatBot />
         </div>
     );
 }

@@ -15,13 +15,17 @@ import FooterSection from "@/presentations/Home/sub-components/FooterSection";
  * Location: presentations/Home/index.tsx
  */
 
+import { useHome } from "./useHome";
+
 export default function HomePresentation() {
+    const { reviews } = useHome();
+
     return (
         <div className="min-h-screen bg-background">
             <HeroSection />
             <AboutSection />
             <GallerySection />
-            <ReviewsSection />
+            <ReviewsSection reviews={reviews} />
             <FooterSection />
         </div>
     );

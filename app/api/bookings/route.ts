@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import Booking from "@/lib/models/Booking";
+import Client from "@/lib/models/Client";
 import { generateBookingId } from "@/lib/utils/id-generator";
 
 
@@ -62,15 +63,72 @@ export async function POST(req: NextRequest) {
       status: "pending",
     });
 
+    // --- Sync Client Data ---
+    try {
+      await Client.findOneAndUpdate(
+        { email: clientEmail.toLowerCase() },
+        { 
+          $set: { 
+            name: clientName,
+            phone: clientPhone,
+            type: "existing",
+            lastBookingId: booking.bookingId
+          }
+        },
+        { upsert: true }
+      );
+    } catch (cErr) {
+      console.error("[Booking API] Failed to sync Client:", cErr);
+    }
+
+    // Create Notification record for Admin
+    try {
+      const Notification = (await import("@/lib/models/Notification")).default;
+      await Notification.create({
+        type: "new_booking",
+        message: `New booking request from ${clientName} for ${eventType}`,
+        link: `/admin/bookings/${String(booking._id)}`,
+      });
+    } catch (nErr) {
+      console.error("[Booking API] Failed to create notification:", nErr);
+    }
+
 
     // Fire & Forget Email Notification
     const formattedDate = format(new Date(eventDate), "PPP");
+    
+    // Client Email
     sendMail({
       to: clientEmail,
       subject: "BOOK.ME - Booking Received",
       html: EmailTemplates.bookingReceived(clientName, formattedDate, eventTime, booking.bookingId),
-
     }).catch(console.error);
+
+    // Admin Email
+    if (process.env.ADMIN_EMAIL) {
+      sendMail({
+        to: process.env.ADMIN_EMAIL,
+        subject: "🚨 [ADMIN] New Booking Alert",
+        html: EmailTemplates.adminBookingReceived(clientName, formattedDate, eventTime, eventType, booking.bookingId),
+      }).catch(console.error);
+    }
+
+    // Socket.IO Emission
+    try {
+      const { io } = await import("socket.io-client");
+      const { getBaseUrl } = await import("@/lib/utils/base-url");
+      const socket = io(getBaseUrl(), { path: "/api/socketio", addTrailingSlash: false });
+      socket.on("connect", () => {
+        socket.emit("new-booking", booking);
+        socket.emit("new-notification", {
+          type: "new_booking",
+          message: `New booking request from ${clientName} for ${eventType}`,
+        });
+        setTimeout(() => socket.disconnect(), 1000);
+      });
+    } catch (sErr) {
+      console.error("[Booking API] Failed to emit socket event:", sErr);
+    }
 
     return NextResponse.json(
       { message: "Booking submitted successfully!", booking },

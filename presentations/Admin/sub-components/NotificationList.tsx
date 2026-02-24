@@ -8,7 +8,7 @@ import {
     MoreHorizontal,
     Inbox,
     Trash2,
-    Eye
+    ExternalLink,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -98,16 +98,6 @@ export function NotificationList() {
                                         Mark as read
                                     </Button>
                                 )}
-                                {notification.link && (
-                                    <Button
-                                        variant="link"
-                                        size="sm"
-                                        className="h-auto p-0 text-slate-900 font-medium text-xs uppercase underline tracking-tighter"
-                                        onClick={() => handleViewDetails(notification)}
-                                    >
-                                        View details
-                                    </Button>
-                                )}
                             </div>
                         </div>
 
@@ -122,7 +112,7 @@ export function NotificationList() {
                                     className="flex items-center gap-2 text-xs font-medium cursor-pointer"
                                     onClick={() => handleViewDetails(notification)}
                                 >
-                                    <Eye className="h-3.5 w-3.5" />
+                                    <ExternalLink className="h-3.5 w-3.5" />
                                     View Details
                                 </DropdownMenuItem>
                                 <DropdownMenuItem

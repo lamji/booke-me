@@ -68,9 +68,11 @@ export default withAuth(
           pathname === "/api/bookings/find" ||
           pathname === "/api/events" ||
           pathname === "/api/chat" ||
+          pathname === "/api/reviews" ||
           pathname.startsWith("/api/cron") ||
           pathname.startsWith("/api/auth") ||
-          pathname === "/api/settings"
+          pathname === "/api/settings" ||
+          pathname.startsWith("/api/admin/booking")
         ) {
           return true;
         }

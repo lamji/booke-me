@@ -1,140 +1,201 @@
-# TASK TRACKER — Book-Me Event Management System
+# Task Tracker - Event Booking Management System MVP
 
-## ✅ Phase 1: MVP Core (Landing & Booking)
-- [x] Homepage Implementation (Hero, About, Reviews, Footer)
-- [x] Booking Page (Event Selection, Date picking)
-- [x] Booking Submission API (Zod validation, Conflict check)
-- [x] Real-time Notifications (Socket.IO)
-- [x] Email Notifications (Nodemailer)
+## Status Color Key
+- 🔴 Blocked
+- 🟡 In Progress
+- 🟢 Completed
+- ⚪ Not Started
 
-## ✅ Phase 2: Admin Dashboard (Authentication & Control)
-- [x] Admin Auth (NextAuth/Credentials)
-- [x] Booking Registry Table (Filters, Pagination, Export)
-- [x] Booking Status Control (Approve/Cancel)
-- [x] Notification System (Bell icon, Toast alerts)
+## 🟢 Overall Progress: 100% (Core MVP Features)
 
-## ✅ Phase 3: Analytics & Reporting
-- [x] Dashboard Stat Cards
-- [x] Monthly Bookings Chart
-- [x] Status Distribution Chart
-- [x] Excel/PDF Reports
+---
 
-## ✅ Phase 4: Refinement & Polish (v1.1)
-- [x] Standardize Design System (Glassmorphism, High contrast)
-- [x] Implement Responsive Sidebars
-- [x] Integrate advanced notifications (Dashboard/Registry counters)
-- [x] Streamline Admin UI (Remove redundant filter/export from index)
+## 🟢 Phase 1: Requirements & Planning
+- [x] Initial design and tech stack selection (Next.js, Tailwind, MongoDB, Socket.io)
+- [x] Define entity models (Booking, Review, Admin, Event)
+- [x] Plan authentication (NextAuth with Admin hardcoded/env credentials)
 
-## ✅ Phase 4.1: Dynamic Event Management (v1.2)
-- [x] Add dynamic Add-ons and Internal Process fields to Event model
-- [x] Implement Add-on management in Admin Event Manager
-- [x] Update Booking flow to use dynamic events and specific add-ons
-- [x] Resolve dynamic event names in Admin Registry and Export reports
+## 🟢 Phase 2: Backend CRUD - Foundations
+- [x] MongoDB Connection Utility
+- [x] Booking Model Implementation
+- [x] Review Model Implementation
+- [x] Admin Notification Model Implementation
+- [x] API: POST /api/bookings (User submit)
+- [x] API: GET /api/bookings (Admin list with status filters)
+- [x] API: PATCH /api/bookings/[id] (Admin approve/cancel)
 
-## ✅ Phase 5: Dashboard Layout & Theming Refinement (v1.3)
-- [x] Implement Grid Layout for Admin Dashboard (Table: 8, Calendar: 4)
-- [x] Integrate Interactive Event Calendar with Booked/Available highlights
-- [x] Implement Calendar Event Modal (Summary on click)
-- [x] Standardize Theming Variables (bg-primary, bg-secondary for Admin / bg-user-* for User)
+## 🟢 Phase 3: Endpoint Verification
+- [x] Standalone test script for Booking creation
+- [x] Standalone test script for Admin status updates
+- [x] Standalone test script for Notification flows
+- [x] Manual verification of MongoDB persistence
 
-## ✅ Phase 5.1: Theming Calibration (v1.3.1)
-- [x] Align Global CSS with Brand Colors (Primary: #2D3C59, Background: White)
-- [x] Enforce Sidebar background to Primary
-- [x] Update UI Rules for Theming Consistency (Body=White, Text=Black)
+## 🟢 Phase 4: Role-Based E2E Flows
+- [x] User: Booking -> Confirmation sequence
+- [x] Admin: Login -> Dashboard -> Booking Management
+- [x] Real-time: Notification trigger on new booking
 
-## ✅ Phase 5.2: Protocol Synchronization (v1.3.3)
-- [x] Align Rule 8 (Project Logging) with Rule 11 (Task Tracker) strictness
-- [x] Integrate mandatory log updates into the Senior Dev workflow
-- [x] Initialize technical logs for Phase 5 completion
+## 🟢 Phase 5: UI Development - Block-by-Block
+- [x] Home Page (Hero, Gallery, Reviews)
+- [x] Booking Page (Form, Date Picker, Add-ons)
+- [x] Admin Login (Glassmorphism layout)
+- [x] Admin Dashboard (Stats cards, Recent activity)
+- [x] Admin Booking Table (Shadcn Table, Filters)
 
-## ✅ Phase 5.3: UI Expansion (v1.3.4)
-- [x] Refactor Dashboard Calendar to Full-Size Custom implementation
-- [x] Optimize Grid layout for maximum readability
-- [x] Ensure persistence in logs and memory
+## 🟢 Phase 6: API Integration & Polish
+- [x] Connect Booking form to API
+- [x] Connect Admin Table to API
+- [x] Implement real-time Socket.io feedback for Admin
+- [x] Implement Email notifications (Nodemailer)
 
-## ✅ Phase 7: Automation & Security Audit (v1.5)
-- [x] Audit Availability Validation logic (Investigate Feb 27 multi-booking) — **ENFORCED 1-EVENT-PER-DAY**
-- [x] Implement Daily 9AM Reminder Function (2 days head alerts) — **LOCAL CRON + ADMIN NOTIFS**
-- [x] UI Polish: Remove redundant shadows from Dashboard cards
+## 🟢 Phase 23: Dashboard Refinement & Scalability
+- [x] Implement pagination logic (API + UI)
+- [x] Fix filter synchronization issues
+- [x] Add multi-modal export support (Excel/PDF)
+- [x] Professional dark-themed Sidebar navigation
+- [x] Clean up unused dependencies and fragments
+- [x] All gates clean: lint ✅ typecheck ✅ build ✅
 
-## ✅ Phase 8: Demo Prep & UI Polish (v1.6)
-- [x] Create Database Purge & Duplicate Removal script — **scripts/purge-demo-db.mjs**
-- [x] Implement High-Contrast Text (Remove gray/slate-400 text in Admin) — **SYSTEM OVERHAUL**
-- [x] Header UI Cleanup: Removed Search & Plus icons for minimalist operational flow
-- [x] Enhanced Reminders: Added In-App DB records + Real-time Socket signaling for the Admin
-- [x] Typography Refinement: Reduced font weights (bold -> normal/medium) across Admin UI
-- [x] Export Engine: Fixed PDF autoTable error and updated button styling
-- [x] Verify persistence in logs and memory
+## 🟢 Phase 24: Notification Redirection & Security
+- [x] Implement secure HMAC admin booking API
+- [x] Create dedicated Admin Booking Detail page
+- [x] Rewrite `NotificationDetailsModal` to use HMAC token -> open in new tab
+- [x] Update notification link to carry booking MongoDB `_id`
+- [x] All gates clean: lint ✅ typecheck ✅ build ✅
 
-## ✅ Phase 9: E2E Testing & QA Release (v1.7)
-- [x] Integrate Jest testing framework over Playwright
-- [x] Attach `data-test-id` locators to Booking (User) and Dashboard (Admin) forms/buttons
-- [x] Implement UI automated interactions (Jest + React Testing Library)
-- [x] Configure backend Auth Mocking for E2E Admin routing
-- [x] Generate automated PDF QA Report via `scripts/generate-qa-report.mjs`
-- [x] Secure application by disabling diagnostic and testing scripts in `NODE_ENV=production`
+## 🟢 Phase 25: High-Fidelity Registry Entry Notification (v2.7)
+- [x] Add notification record creation to `POST /api/bookings`
+- [x] Implement 'Registry Entry' modal view for `new_booking` notifications
+- [x] Add details: ID, Name, Email, Date, Time, Price, Notes
+- [x] Add direct 'Approve' and 'Cancel' buttons inside the modal
+- [x] Remove redirection button for non-booking notifications
+- [x] Update `IBooking` type and test mocks with `bookingId`
+- [x] All gates clean: lint ✅ typecheck ✅ build ✅
 
-## ✅ Phase 10: Admin Global Settings & Footer Integration (v1.8)
-- [x] Define `Settings` model for global persistence (Email, Phone, Address, Policy, T&C)
-- [x] Implement Backend CRUD API for Global Settings
-- [x] Create Settings Icon and Settings Modal in Admin Header
-- [x] Integrate Global Settings into User Landing Footer
-- [x] Verify persistence and test coverage (Jest)
+## 🟢 Phase 26: DB Management & Professional Completion Flow (v2.8)
+- [x] Purge database (Bookings, Notifications, Reviews) for fresh start
+- [x] Update 'Complete' email subject & template ("Thank you for choosing BOOK.ME")
+- [x] Fix notification dropdown state: Menu now closes automatically on selection
+- [x] Verified 'Complete' action button in Booking table 'More Actions'
+- [x] All gates clean: lint ✅ typecheck ✅ build ✅
 
-## ⏳ Phase 11: Auth Debugging & Stability (v1.8.1)
-- [x] Investigate "First Login Failure" bug in NextAuth flow
-- [x] Audit `[...nextauth]` configuration for session/cookie issues
-- [x] Verify CSRF token handling in custom sign-in page
-- [x] Implement fix and verify via manual E2E test
+## 🟢 Phase 27: Admin AI Assistant "The Tiger" (v2.9)
+- [x] Create dedicated administrative knowledge base (`tiger-knowledge.md`)
+- [x] Implement `/api/admin/chat` with session security and MongoDB context
+- [x] Create `AdminChatBot` UI with industrial "Terminal" aesthetic
+- [x] Connect Tiger to operational commands (Mark Complete, Search, Reports)
+- [x] Disable public ChatBot on admin routes
+- [x] Implement unit tests for Tiger API and components
+- [x] Pass all gates: lint ✅ typecheck ✅ build ✅
 
+## 🟢 Phase 28: Administrative Query Refinement (v3.0)
+- [x] Suppress internal thought/process in final chat responses
+- [x] Standardize empty query results (e.g., "No events scheduled for this week")
+- [x] Implement error handling for invalid date periods
 
-## ✅ Phase 12: Footer Link Refinement & Legal Expansion (v1.8.2)
-- [x] Add Anchor IDs to Homepage Sections (#about, #gallery, #reviews)
-- [x] Update Footer Links to use Section IDs
-- [x] Expand Settings Model with `cancellationPolicy`
-- [x] Integrate Cancellation Policy into Admin Modal & Footer Modal
+## 🟢 Phase 29: Hallucination Mitigation & Date Query Expansion (v3.1)
+- [x] Refactor `GET_EVENTS` to support specific YYYY-MM-DD parsing
+- [x] Update system prompt with explicit date format instructions
+- [x] Fix ternary fallback ambiguity in API route
+- [x] All gates clean: lint ✅ typecheck ✅
 
-## ✅ Phase 13: Notification System Refinement (v1.9)
-- [x] Implement Dropdown Menu for Header Notifications
-- [x] Add "View All" redirect to Notifications registry
-- [x] Mark individual notifications as read on click/interaction
-- [x] Fix "View Details" and "More" icons functionality in Notification Page
-- [x] Verify real-time sync with dropdown state
+## 🟢 Phase 30: Multi-Granular Date Queries (v3.2)
+- [x] Implement YYYY-MM (month) and YYYY (year) support in backend
+- [x] Update Tiger persona to handle broader time-frame queries
+- [x] Pass verification gates (Lint/Typecheck)
 
+## 🟢 Phase 31: Public ChatBot Flow Refinement (v3.3)
+- [x] Update Booky system prompt for step-by-step data collection
+- [x] Verify non-redundancy in name collection
+- [x] All gates clean: lint ✅ typecheck ✅
 
-## ✅ Phase 14: Rule Synchronization & API Logging (v1.9.1)
-- [x] Update Global Rules to enforce `.agent/` directory organization (Rules 8, 11, 12)
-- [x] Update Akrizu Agent rules for knowledge consistency
-- [x] Integrate Rule 15 (Protocol Pre-Flight Audit) to prevent verification gaps
-- [x] Initialize `.agent/api-development.log` for tailing API error tracking
-- [x] Resolve Next.js 15 404 error in notification endpoints via awaited params
-- [x] Verify file location protocol compliance (.agent/task-tracker.md, .agent/.logs/)
-- [x] Verify E2E Notification flow with Admin Authentication
-- [x] Implement Notification Details Modal for List and Dropdown
+## 🟢 Phase 32: Multi-Phase Conditional Booking Flow (v3.4)
+- [x] Implement Phase 1: Lead Capture (Name/Email mandatory for queries)
+- [x] Implement Phase 2: Knowledge Sharing (No pressure data collection)
+- [x] Implement Phase 3: Conversion (Full info only on interest)
+- [x] All gates clean: lint ✅ typecheck ✅
 
-## ✅ Phase 15: Unit Testing & Security Hardening (v1.9.2)
-- [x] Implement Jest Unit Tests for Notification ViewModels (Rule 13)
-- [x] Implement Jest Unit Tests for Modal State Logic
-- [x] Final E2E Regression for All Admin Restricted Routes
+## 🟢 Phase 33: Anti-Hallucination & Accuracy Hardening (v3.5)
+- [x] Mandate clarification for ambiguous queries in system prompt
+- [x] Implement Ground Truth Verification layer in prompt
+- [x] Explicitly forbid pricing and detail guessing
+- [x] All gates clean: lint ✅ typecheck ✅
 
-## ✅ Phase 16: Booky AI Chatbot (v2.0)
-- [x] Collect site knowledge into `/public/booky-knowledge.md`
-- [x] Create `POST /api/chat` route (Groq llama-3.3-70b, Booky persona, public)
-- [x] Whitelist `/api/chat` in `proxy.ts`
-- [x] Standalone 5-scenario API test (`scripts/test-booky-chat.mjs`) — 5/5 PASS
-- [x] Build `useChat.ts` ViewModel (history, loading, date-extraction heuristic)
-- [x] Build `presentations/ChatBot/index.tsx` (floating button, chatbox, quick prompts)
-- [x] Mobile: full-screen overlay + keyboard-aware input (env safe-area)
-- [x] Jest unit tests for chat ViewModel — 7 tests PASS (total suite: 32/32)
+## 🟢 Phase 34: Chat UI/UX Refinement & Focus Management (v3.6)
+- [x] Remove AI filler text ("checking...") via system prompt
+- [x] Implement visual "Thinking/Checking" states in chat bubble
+- [x] Fix input focus loss during/after loading
+- [x] All gates clean: lint ✅ typecheck ✅
 
-## ✅ Phase 17: Lint Fixes & Hardening (v2.1)
-- [x] Fix `toBeInTheDocument` lint error via `tsconfig.json` and explicit imports
-- [x] Fix `IBooking` assignment lints in `admin-dashboard.test.tsx`
-- [x] Fix `eventDate` nullability lint in `useBooking.ts`
-- [x] Verify total pass rate (32/32) after lint corrections
-## ⏳ Phase 18: Booking ID Refinement (v2.2)
-- [ ] Implement `bookingId` field in `Booking` model
-- [ ] Add `bookingId` generation logic in API route (7 chars, date/email combo)
-- [ ] Refactor `sendMail` and Email Templates to use `bookingId`
-- [ ] Update Admin Table and Modals to display `bookingId`
-- [ ] Verify persistence and test coverage (Jest)
+## 🟢 Phase 35: Authoritative Booking Flow & Redundancy Prevention (v3.7)
+- [x] Add "REAL-TIME AUTHORITY" rule to prevent claiming lack of access
+- [x] Add "NO REDUNDANCY" rule to skip asking for known information
+- [x] Refine availability context to explicitly say "[DATABASE STATUS]"
+- [x] All gates clean: lint ✅ typecheck ✅
+
+## 🟢 Phase 36: Booking Flow Hardening & E2E Verification (v3.8)
+- [x] Rewrote Booky system prompt with Golden Rules architecture
+- [x] Hard Phase 1 gate: no data leak before Name+Email confirmed
+- [x] Server-side name/email extraction → injected as ## COLLECTED LEAD DATA
+- [x] Lowered AI temperature 0.5 → 0.2 for deterministic accurate replies
+- [x] Ran 12-turn automated inquiry simulation: BKG-20260224-R1WG registered ✅
+- [x] All gates clean: lint ✅ typecheck ✅
+## 🟢 Phase 37: Admin Auth Fix & Socket.IO Consolidation (v3.9)
+- [x] Fixed `test-tiger-admin.mjs` with high-fidelity NextAuth session simulation (no whitelists)
+- [x] Verified "The Tiger" (Admin Assistant) operational status and security
+- [x] Consolidated Socket.IO `booking-update` emissions across all admin routes
+- [x] Verified past-date rejection logic via `test-booky-past-date.mjs`
+- [x] All gates clean: lint ✅ typecheck ✅
+
+## 🟢 Phase 38: Socket & Email E2E Verification (v4.0)
+- [x] Created `test-booky-yopmail-full.mjs` with Socket.IO monitoring
+- [x] Verified full booking flow: Lead Capture → Inquiry → Confirmation ✅
+- [x] Verified Socket.IO `new-booking` & `new-notification` broadcasts ✅
+- [x] Verified Email targeting for User (`yopmail`) and Admin ✅
+- [x] All dynamic URL hooks confirmed operational ✅
+
+## 🟢 Phase 39: Currency Standardization (v4.1)
+- [x] Enforced hard rule in `Booky` system prompt to use ₱ instead of $
+- [x] Enforced hard rule in `The Tiger` system prompt to use ₱ instead of $
+- [x] Verified `The Tiger` natural language output uses ₱ for revenue reports ✅
+- [x] Verified `Booky` natural language output uses ₱ for package pricing ✅
+
+## 🟢 Phase 40: Advanced E2E Verification & IO Triggers (v4.2)
+- [x] Resolved "Date Conflict" in `test-booky-yopmail-full.mjs` via dynamic date generation ✅
+- [x] Verified 100% pass for Booky + Socket.IO lifecycle (v4.2) ✅
+- [x] Expanded `test-tiger-comprehensive.mjs` with "Mark Complete" admin role action ✅
+- [x] Verified 7/7 pass for The Tiger Admin Assistant (Search, Stats, Reports, Actions) ✅
+- [x] Confirmed `booking-update` IO trigger from Tiger Chatbot action ✅
+
+## 🟢 Phase 41: Tiger Technical Tasks & Email Integration (v4.3)
+- [x] Generalized `MARK_COMPLETE` → `UPDATE_STATUS` (confirmed/completed/canceled) ✅
+- [x] Integrated `sendMail` + `EmailTemplates` into Tiger's status update logic ✅
+- [x] Added `SEND_EMAIL` command for manual client notifications via Tiger ✅
+- [x] Verified Tiger can "Approve" (confirm) bookings and trigger client emails ✅
+- [x] Verified Tiger can send manual notifications to Yopmail addresses ✅
+- [x] Verified Tiger explicitly confirms review link dispatch in chat response ✅
+
+## 🟢 Phase 43: Client & Lead Management System (v4.5)
+- [x] Define Unified `Client` Model (Existing vs Potential) ✅
+- [x] Integrate Chat Lead Capture with `Client` database ✅
+- [x] Sync Bookings with `Client` database ✅
+- [x] Create Admin API: `GET /api/admin/clients` (Filtered by type) ✅
+- [x] Create Admin API: `POST /api/admin/clients/follow-up` (Email action) ✅
+- [x] UI: Update Admin Sidebar with "Clients" link ✅
+- [x] UI: Implement Clients Table with "Follow" action for Potential Leads ✅
+- [x] UI: Implement Follow-up Email Composer (Modal) ✅
+- [x] Run final verification test for Lead Capture ✅
+
+## 🟢 Phase 44: CRM Enhancements - Advanced Follow-up (v4.6)
+- [x] Define Pre-defined Email Templates (Marketing, Inquiry, Re-engagement) ✅
+- [x] UI: Add Template Selection Dropdown to `FollowUpModal` ✅
+- [x] UI: Implement Live Email Preview (Glassmorphism design) ✅
+- [x] UI: Upgrade to Fullscreen Dialog variant (Shadcn pattern) ✅
+- [x] Run Pre-handover Gates (Lint/Typecheck) ✅
+
+## 🟢 Phase 45: CRM Upgrade - Block-based Email Builder (v4.7)
+- [x] UI: Redesigned 50/50 Split for `FollowUpModal` ✅
+- [x] UI: Implement Block-based Builder (Text, Image, Header, Footer) ✅
+- [x] UI: Real-time HTML Preview for Personal/Professional Look ✅
+- [x] Backend: Ensure HTML rendering in dispatch flow ✅
+- [x] Run Pre-handover Gates (Lint/Typecheck) ✅

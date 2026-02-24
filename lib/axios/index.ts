@@ -66,4 +66,5 @@ api.interceptors.response.use(
   }
 );
 
+export const isAxiosError = axios.isAxiosError;
 export default api;

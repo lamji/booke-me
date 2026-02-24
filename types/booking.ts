@@ -5,7 +5,7 @@
  * Location: types/booking.ts (per scalability-protocol.md)
  */
 
-export type BookingStatus = "pending" | "approved" | "canceled";
+export type BookingStatus = "pending" | "approved" | "canceled" | "completed";
 
 // EventType is now dynamic — event names come from the MongoDB Events registry.
 // The old hardcoded enum is replaced with a plain string to support user-defined event types.
@@ -13,6 +13,7 @@ export type EventType = string;
 
 export interface IBooking {
   _id: string;
+  bookingId: string;
   eventType: EventType;
   eventDate: string;
   eventTime: string;
@@ -33,6 +34,18 @@ export interface INotification {
   isRead: boolean;
   link?: string;
   createdAt: string;
+}
+
+export interface IReview {
+  _id: string;
+  bookingId: string;
+  clientName: string;
+  eventType: string;
+  rating: number;
+  comment: string;
+  status: "pending" | "approved" | "rejected";
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CreateBookingPayload {
