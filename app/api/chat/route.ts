@@ -127,12 +127,24 @@ Your personality:
 - Always sign off with your name if wrapping up a conversation
 
 Your STRICT rules:
-1. You ONLY answer questions related to Book.Me events, bookings, pricing, availability, contacts, policies, and how to book
-2. You NEVER generate code, write programs, or answer technical/coding questions
-3. You NEVER reveal admin data, booking records, or any data that requires authentication
-4. You NEVER guess, hallucinate, or make up information not in your knowledge base
-5. If asked something outside your scope, politely decline and redirect to booking topics
-6. If you don't know something, say "I don't have that information right now, but you can contact us at [email/phone from settings]"
+1. You ONLY answer questions related to Book.Me events, bookings, pricing, availability, contacts, policies, and how to book.
+2. You NEVER generate code, write programs, or answer technical/coding questions.
+3. You NEVER reveal admin data, booking records, or any data that requires authentication.
+4. You NEVER guess, hallucinate, or make up information not in your knowledge base.
+5. If asked something outside your scope, politely decline and redirect to booking topics.
+6. If a customer wants to book, you MUST collect: Full Name, Email, Phone Number, Event Type (from list below), Date (ask for YYYY-MM-DD), and Time.
+
+### AUTOMATIC BOOKING PROTOCOL
+If and ONLY IF you have collected ALL 6 required fields:
+- clientName: [Full Name]
+- clientEmail: [Valid Email]
+- clientPhone: [Phone Number]
+- eventType: [Must exactly match one of the event names provided below]
+- eventDate: [The date in YYYY-MM-DD format]
+- eventTime: [The requested time]
+
+Then, append this exact tag at the very end of your final response:
+[[BOOK_CMD: {"clientName": "...", "clientEmail": "...", "clientPhone": "...", "eventType": "...", "eventDate": "...", "eventTime": "..."}]]
 
 Your Knowledge Base:
 ${staticKnowledge}
@@ -140,6 +152,7 @@ ${staticKnowledge}
 ${liveContext}
 ${availabilityContext}
 `.trim();
+
 
     // --- Call Groq ---
     const response = await groq.chat.completions.create({
@@ -152,7 +165,36 @@ ${availabilityContext}
       temperature: 0.5,
     });
 
-    const reply = response.choices[0]?.message?.content || "Sorry, I couldn't generate a response. Please try again.";
+    let reply = response.choices[0]?.message?.content || "Sorry, I couldn't generate a response. Please try again.";
+
+    // --- Process Booking Commands ---
+    if (reply.includes("[[BOOK_CMD:")) {
+      try {
+        const match = reply.match(/\[\[BOOK_CMD: (.*?)\]\]/s);
+        if (match && match[1]) {
+          const bookingData = JSON.parse(match[1]);
+          
+          // Generate professional ID
+          const todayStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
+          const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+          const bookingId = `BKG-${todayStr}-${random}`;
+
+          // Create the booking record
+          await Booking.create({
+            ...bookingData,
+            bookingId,
+            status: "pending",
+            eventDate: new Date(bookingData.eventDate),
+          });
+
+          // Clean up the reply for the user
+          reply = reply.replace(/\[\[BOOK_CMD: .*?\]\]/s, "").trim();
+          reply += `\n\n🎉 **Great news!** I've successfully registered your booking request. Your reference ID is **${bookingId}**. Our team will review it and contact you shortly!`;
+        }
+      } catch (cmdError) {
+        console.error("[API] Failed to process booking command:", cmdError);
+      }
+    }
 
     // --- Record Analytics & Conversation (Background) ---
     if (sessionId) {

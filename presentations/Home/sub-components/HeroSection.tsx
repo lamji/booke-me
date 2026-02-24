@@ -107,16 +107,19 @@ export default function HeroSection() {
                                         data-test-id="hero-btn-pick-date"
                                     >
                                         <CalendarDays className="mr-2 h-4 w-4" />
-                                        {selectedDate
-                                            ? format(selectedDate, "PPP")
-                                            : "Pick a date"}
+                                        <span className={selectedDate ? "text-white" : "text-white/60"}>
+                                            {selectedDate
+                                                ? format(selectedDate, "PPP")
+                                                : "Pick a date"}
+                                        </span>
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0 bg-white text-black" align="start">
+                                <PopoverContent className="w-auto p-0 bg-white text-black shadow-2xl border-none" align="start">
                                     <Calendar
                                         mode="single"
                                         selected={selectedDate}
                                         onSelect={setSelectedDate}
+                                        className="rounded-md border-none p-4"
                                         disabled={(date) => {
                                             const isPast = date < new Date(new Date().setHours(0, 0, 0, 0));
                                             const isBooked = bookedDates.some(
@@ -135,13 +138,15 @@ export default function HeroSection() {
                                 Select Time
                             </label>
                             <Select value={selectedTime} onValueChange={setSelectedTime}>
-                                <SelectTrigger className="bg-white/10 border-white/20 text-white" data-test-id="hero-select-time">
-                                    <Clock className="mr-2 h-4 w-4" />
-                                    <SelectValue placeholder="Pick a time" />
+                                <SelectTrigger className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-colors" data-test-id="hero-select-time">
+                                    <div className="flex items-center gap-2">
+                                        <Clock className="h-4 w-4" />
+                                        <SelectValue placeholder="Pick a time" />
+                                    </div>
                                 </SelectTrigger>
-                                <SelectContent className="bg-white text-black">
+                                <SelectContent className="bg-white text-black border-none shadow-2xl">
                                     {TIME_SLOTS.map((time) => (
-                                        <SelectItem key={time} value={time}>
+                                        <SelectItem key={time} value={time} className="cursor-pointer hover:bg-slate-100">
                                             {time}
                                         </SelectItem>
                                     ))}
