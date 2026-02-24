@@ -1,0 +1,939 @@
+
+> ai-template@0.1.0 test
+> jest --passWithNoTests --verbose
+
+FAIL tests/e2e/admin-flow.test.ts
+  E2E: Admin Booking Management
+    ├ù TC-A01: Admin login simulation returns a valid session cookie (5 ms)
+    ├ù TC-A02: GET /api/bookings returns paginated bookings list
+    ├ù TC-A03: GET /api/bookings?status=pending returns only pending bookings
+    ├ù TC-A04: PATCH /api/bookings/[id] approves a booking
+    ├ù TC-A05: PATCH /api/bookings/[id] cancels a booking (1 ms)
+    ├ù TC-A06: PATCH /api/bookings/[id] without auth returns non-200
+    ├ù TC-A07: GET /api/bookings without auth returns non-200 (1 ms)
+    ├ù TC-A08: Admin Logout simulation functional check
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A01: Admin login simulation returns a valid session cookie
+
+    FetchError: request to http://localhost:3000/api/auth/csrf failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A02: GET /api/bookings returns paginated bookings list
+
+    FetchError: request to http://localhost:3000/api/auth/csrf failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A03: GET /api/bookings?status=pending returns only pending bookings
+
+    FetchError: request to http://localhost:3000/api/auth/csrf failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A04: PATCH /api/bookings/[id] approves a booking
+
+    FetchError: request to http://localhost:3000/api/auth/csrf failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A05: PATCH /api/bookings/[id] cancels a booking
+
+    FetchError: request to http://localhost:3000/api/auth/csrf failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A06: PATCH /api/bookings/[id] without auth returns non-200
+
+    FetchError: request to http://localhost:3000/api/auth/csrf failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A07: GET /api/bookings without auth returns non-200
+
+    FetchError: request to http://localhost:3000/api/auth/csrf failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A08: Admin Logout simulation functional check
+
+    FetchError: request to http://localhost:3000/api/auth/csrf failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+FAIL tests/e2e/booking-flow.test.ts
+  E2E: User Booking Flow
+    ├ù TC-001: GET /api/bookings/dates returns a list of booked dates (59 ms)
+    ├ù TC-002: POST /api/bookings/availability returns available for a future date (6 ms)
+    ├ù TC-003: POST /api/bookings creates a new booking and returns 201 (3 ms)
+    ├ù TC-004: POST /api/bookings rejects a request missing required fields (3 ms)
+    ├ù TC-005: GET /api/bookings/find?email= returns a booking for test email (3 ms)
+    ├ù TC-006: GET /api/bookings/find?id=invalid returns 400 (3 ms)
+    ├ù TC-007: GET /api/bookings/find with no args returns 400 (3 ms)
+    ├ù TC-008: GET /api/cron/reminders returns 200 with message (5 ms)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-001: GET /api/bookings/dates returns a list of booked dates
+
+    FetchError: request to http://localhost:3000/api/bookings/dates failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-002: POST /api/bookings/availability returns available for a future date
+
+    FetchError: request to http://localhost:3000/api/bookings/availability failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-003: POST /api/bookings creates a new booking and returns 201
+
+    FetchError: request to http://localhost:3000/api/events failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-004: POST /api/bookings rejects a request missing required fields
+
+    FetchError: request to http://localhost:3000/api/bookings failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-005: GET /api/bookings/find?email= returns a booking for test email
+
+    FetchError: request to http://localhost:3000/api/bookings/find?email=test-case%40yopmail.com failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-006: GET /api/bookings/find?id=invalid returns 400
+
+    FetchError: request to http://localhost:3000/api/bookings/find?id=invalid123 failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-007: GET /api/bookings/find with no args returns 400
+
+    FetchError: request to http://localhost:3000/api/bookings/find failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-008: GET /api/cron/reminders returns 200 with message
+
+    FetchError: request to http://localhost:3000/api/cron/reminders failed, reason:
+
+      at ClientRequest.<anonymous> (node_modules/node-fetch/lib/index.js:1501:11)
+
+PASS tests/ui/chat-bot.test.ts
+  useChat ViewModel
+    ΓêÜ initializes with Booky greeting message (31 ms)
+    ΓêÜ isOpen defaults to false (3 ms)
+    ΓêÜ openChat sets isOpen to true (5 ms)
+    ΓêÜ closeChat sets isOpen to false (4 ms)
+    ΓêÜ send appends user message and calls API (10 ms)
+    ΓêÜ send does nothing when input is empty (8 ms)
+    ΓêÜ shows fallback message on API error (5 ms)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 51 |[39m     [36mtry[39m {
+     [90m 52 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/events?admin=true"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 53 |[39m       setEvents(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 54 |[39m     } [36mcatch[39m (error) {
+     [90m 55 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch events:"[39m[33m,[39m error)[33m;[39m
+     [90m 56 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setEvents (presentations/Admin/useAdmin.ts:53:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 70 |[39m
+     [90m 71 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/bookings"[39m[33m,[39m { params })[33m;[39m
+    [31m[1m>[22m[39m[90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+     [90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setBookings (presentations/Admin/useAdmin.ts:72:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 71 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/bookings"[39m[33m,[39m { params })[33m;[39m
+     [90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+    [31m[1m>[22m[39m[90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {
+     [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setTotalPages (presentations/Admin/useAdmin.ts:73:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+     [90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+    [31m[1m>[22m[39m[90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {
+     [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m
+     [90m 77 |[39m     } [36mfinally[39m {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setTotalItems (presentations/Admin/useAdmin.ts:74:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m
+     [90m 77 |[39m     } [36mfinally[39m {
+    [31m[1m>[22m[39m[90m 78 |[39m       setIsLoading([36mfalse[39m)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 79 |[39m     }
+     [90m 80 |[39m   }[33m,[39m [filter[33m,[39m eventTypeFilter[33m,[39m sortBy[33m,[39m sortOrder[33m,[39m page])[33m;[39m
+     [90m 81 |[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setIsLoading (presentations/Admin/useAdmin.ts:78:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 83 |[39m     [36mtry[39m {
+     [90m 84 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/notifications"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 85 |[39m       setNotifications(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 86 |[39m     } [36mcatch[39m (error) {
+     [90m 87 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch notifications:"[39m[33m,[39m error)[33m;[39m
+     [90m 88 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setNotifications (presentations/Admin/useAdmin.ts:85:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 92 |[39m     [36mtry[39m {
+     [90m 93 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/settings"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 94 |[39m       setSettings(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 95 |[39m     } [36mcatch[39m (error) {
+     [90m 96 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch settings:"[39m[33m,[39m error)[33m;[39m
+     [90m 97 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setSettings (presentations/Admin/useAdmin.ts:94:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 51 |[39m     [36mtry[39m {
+     [90m 52 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/events?admin=true"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 53 |[39m       setEvents(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 54 |[39m     } [36mcatch[39m (error) {
+     [90m 55 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch events:"[39m[33m,[39m error)[33m;[39m
+     [90m 56 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setEvents (presentations/Admin/useAdmin.ts:53:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 70 |[39m
+     [90m 71 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/bookings"[39m[33m,[39m { params })[33m;[39m
+    [31m[1m>[22m[39m[90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+     [90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setBookings (presentations/Admin/useAdmin.ts:72:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 71 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/bookings"[39m[33m,[39m { params })[33m;[39m
+     [90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+    [31m[1m>[22m[39m[90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {
+     [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setTotalPages (presentations/Admin/useAdmin.ts:73:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+     [90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+    [31m[1m>[22m[39m[90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {
+     [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m
+     [90m 77 |[39m     } [36mfinally[39m {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setTotalItems (presentations/Admin/useAdmin.ts:74:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m
+     [90m 77 |[39m     } [36mfinally[39m {
+    [31m[1m>[22m[39m[90m 78 |[39m       setIsLoading([36mfalse[39m)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 79 |[39m     }
+     [90m 80 |[39m   }[33m,[39m [filter[33m,[39m eventTypeFilter[33m,[39m sortBy[33m,[39m sortOrder[33m,[39m page])[33m;[39m
+     [90m 81 |[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setIsLoading (presentations/Admin/useAdmin.ts:78:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 83 |[39m     [36mtry[39m {
+     [90m 84 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/notifications"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 85 |[39m       setNotifications(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 86 |[39m     } [36mcatch[39m (error) {
+     [90m 87 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch notifications:"[39m[33m,[39m error)[33m;[39m
+     [90m 88 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setNotifications (presentations/Admin/useAdmin.ts:85:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 92 |[39m     [36mtry[39m {
+     [90m 93 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/settings"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 94 |[39m       setSettings(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 95 |[39m     } [36mcatch[39m (error) {
+     [90m 96 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch settings:"[39m[33m,[39m error)[33m;[39m
+     [90m 97 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setSettings (presentations/Admin/useAdmin.ts:94:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 51 |[39m     [36mtry[39m {
+     [90m 52 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/events?admin=true"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 53 |[39m       setEvents(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 54 |[39m     } [36mcatch[39m (error) {
+     [90m 55 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch events:"[39m[33m,[39m error)[33m;[39m
+     [90m 56 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setEvents (presentations/Admin/useAdmin.ts:53:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 70 |[39m
+     [90m 71 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/bookings"[39m[33m,[39m { params })[33m;[39m
+    [31m[1m>[22m[39m[90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+     [90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setBookings (presentations/Admin/useAdmin.ts:72:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 71 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/bookings"[39m[33m,[39m { params })[33m;[39m
+     [90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+    [31m[1m>[22m[39m[90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {
+     [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setTotalPages (presentations/Admin/useAdmin.ts:73:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+     [90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+    [31m[1m>[22m[39m[90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {
+     [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m
+     [90m 77 |[39m     } [36mfinally[39m {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setTotalItems (presentations/Admin/useAdmin.ts:74:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m
+     [90m 77 |[39m     } [36mfinally[39m {
+    [31m[1m>[22m[39m[90m 78 |[39m       setIsLoading([36mfalse[39m)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 79 |[39m     }
+     [90m 80 |[39m   }[33m,[39m [filter[33m,[39m eventTypeFilter[33m,[39m sortBy[33m,[39m sortOrder[33m,[39m page])[33m;[39m
+     [90m 81 |[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setIsLoading (presentations/Admin/useAdmin.ts:78:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 83 |[39m     [36mtry[39m {
+     [90m 84 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/notifications"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 85 |[39m       setNotifications(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 86 |[39m     } [36mcatch[39m (error) {
+     [90m 87 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch notifications:"[39m[33m,[39m error)[33m;[39m
+     [90m 88 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setNotifications (presentations/Admin/useAdmin.ts:85:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 92 |[39m     [36mtry[39m {
+     [90m 93 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/settings"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 94 |[39m       setSettings(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 95 |[39m     } [36mcatch[39m (error) {
+     [90m 96 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch settings:"[39m[33m,[39m error)[33m;[39m
+     [90m 97 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setSettings (presentations/Admin/useAdmin.ts:94:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 51 |[39m     [36mtry[39m {
+     [90m 52 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/events?admin=true"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 53 |[39m       setEvents(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 54 |[39m     } [36mcatch[39m (error) {
+     [90m 55 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch events:"[39m[33m,[39m error)[33m;[39m
+     [90m 56 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setEvents (presentations/Admin/useAdmin.ts:53:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 70 |[39m
+     [90m 71 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/bookings"[39m[33m,[39m { params })[33m;[39m
+    [31m[1m>[22m[39m[90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+     [90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setBookings (presentations/Admin/useAdmin.ts:72:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 71 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/bookings"[39m[33m,[39m { params })[33m;[39m
+     [90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+    [31m[1m>[22m[39m[90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {
+     [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setTotalPages (presentations/Admin/useAdmin.ts:73:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 72 |[39m       setBookings(res[33m.[39mdata[33m.[39mbookings)[33m;[39m
+     [90m 73 |[39m       setTotalPages(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotalPages)[33m;[39m
+    [31m[1m>[22m[39m[90m 74 |[39m       setTotalItems(res[33m.[39mdata[33m.[39mpagination[33m.[39mtotal)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 75 |[39m     } [36mcatch[39m (error) {
+     [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m
+     [90m 77 |[39m     } [36mfinally[39m {[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setTotalItems (presentations/Admin/useAdmin.ts:74:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 76 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch bookings:"[39m[33m,[39m error)[33m;[39m
+     [90m 77 |[39m     } [36mfinally[39m {
+    [31m[1m>[22m[39m[90m 78 |[39m       setIsLoading([36mfalse[39m)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 79 |[39m     }
+     [90m 80 |[39m   }[33m,[39m [filter[33m,[39m eventTypeFilter[33m,[39m sortBy[33m,[39m sortOrder[33m,[39m page])[33m;[39m
+     [90m 81 |[39m[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setIsLoading (presentations/Admin/useAdmin.ts:78:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 83 |[39m     [36mtry[39m {
+     [90m 84 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/notifications"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 85 |[39m       setNotifications(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 86 |[39m     } [36mcatch[39m (error) {
+     [90m 87 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch notifications:"[39m[33m,[39m error)[33m;[39m
+     [90m 88 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setNotifications (presentations/Admin/useAdmin.ts:85:7)
+
+  console.error
+    An update to TestComponent inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+    [0m [90m 92 |[39m     [36mtry[39m {
+     [90m 93 |[39m       [36mconst[39m res [33m=[39m [36mawait[39m api[33m.[39m[36mget[39m([32m"/api/settings"[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 94 |[39m       setSettings(res[33m.[39mdata)[33m;[39m
+     [90m    |[39m       [31m[1m^[22m[39m
+     [90m 95 |[39m     } [36mcatch[39m (error) {
+     [90m 96 |[39m       console[33m.[39merror([32m"[Admin] Failed to fetch settings:"[39m[33m,[39m error)[33m;[39m
+     [90m 97 |[39m     }[0m
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at setSettings (presentations/Admin/useAdmin.ts:94:7)
+
+PASS tests/ui/notifications.test.tsx
+  Notification Logic (Rule 13 Verification)
+    ΓêÜ should initialize with no selected notification (Modal Closed) (139 ms)
+    ΓêÜ should correctly set a selected notification (Open Modal) (28 ms)
+    ΓêÜ should clear the selection (Close Modal) (25 ms)
+    ΓêÜ should correctly identify unread notifications count (23 ms)
+
+PASS tests/ui/admin-dashboard.test.tsx
+  BookingTable Component
+    ΓêÜ renders export buttons and filters (187 ms)
+    ΓêÜ renders booking data and action button (116 ms)
+
+PASS tests/ui/user-booking.test.tsx
+  BookingPresentation Component
+    ΓêÜ renders all booking form fields (198 ms)
+    ΓêÜ calls submitBooking when submit button is clicked (101 ms)
+    ΓêÜ updates form fields on user input (147 ms)
+
+Test Suites: 2 failed, 4 passed, 6 total
+Tests:       16 failed, 16 passed, 32 total
+Snapshots:   0 total
+Time:        4.419 s, estimated 32 s
+Ran all test suites.

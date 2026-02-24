@@ -1,0 +1,689 @@
+
+> ai-template@0.1.0 test:e2e
+> npx jest --config jest.config.js --runInBand --verbose
+
+FAIL tests/ui/user-booking.test.tsx
+  BookingPresentation Component
+    ├ù renders all booking form fields (190 ms)
+    ├ù calls submitBooking when submit button is clicked (87 ms)
+    ├ù updates form fields on user input (82 ms)
+
+  ΓùÅ BookingPresentation Component ΓÇ║ renders all booking form fields
+
+    TestingLibraryElementError: Unable to find an element by: [data-testid="select-event-type"]
+
+    Ignored nodes: comments, script, style
+    <body>
+      <div>
+        <div
+          class="min-h-screen bg-muted/30 py-16 px-6"
+        >
+          <div
+            class="max-w-2xl mx-auto"
+          >
+            <div
+              class="bg-background border border-border/40 shadow-xl rounded-xl overflow-hidden"
+              style="opacity: 0; transform: translateY(20px);"
+            >
+              <div
+                class="text-center pb-2 pt-8 px-6 border-b border-border/10"
+              >
+                <h1
+                  class="text-2xl font-bold"
+                >
+                  Book Your Event
+                </h1>
+                <p
+                  class="text-muted-foreground text-sm mt-1"
+                >
+                  Fill in the details below and we'll confirm your booking.
+                </p>
+              </div>
+              <div
+                class="p-6 space-y-6"
+              >
+                <div
+                  class="space-y-2"
+                >
+                  <label
+                    class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    data-slot="label"
+                  >
+                    Event Type *
+                  </label>
+                  <button
+                    aria-autocomplete="none"
+                    aria-controls="radix-_r_0_"
+                    aria-expanded="false"
+                    class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 bg-muted/20"
+                    data-placeholder=""
+                    data-size="default"
+                    data-slot="select-trigger"
+                    data-state="closed"
+                    data-test-id="select-event-type"
+                    dir="ltr"
+                    role="combobox"
+                    type="button"
+                  >
+                    <span
+                      data-slot="select-value"
+                      style="pointer-events: none;"
+                    >
+                      Choose event type
+                    </span>
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-chevron-down size-4 opacity-50"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                >
+                  <div
+                    class="space-y-2"
+                  >
+                    <label
+                      class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                      data-slot="label"
+                    >
+                      Date *
+                    </label>
+                    <button
+                      aria-controls="radix-_r_1_"
+                      aria-expanded="false"
+                      aria-haspopup="dialog"
+                      class="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border shadow-xs dark:border-input h-9 px-4 py-2 has-[>svg]:px-3 w-full justify-start bg-muted/20"
+                      data-size="default"
+                      data-slot="popover-trigger"
+                      data-state="closed"
+                      data-test-id="btn-pick-date"
+                      data-variant="outline"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-calendar-days mr-2 h-4 w-4"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://w...
+
+      49 |         render(<BookingPresentation />);
+      50 |
+    > 51 |         expect(screen.getByTestId('select-event-type')).toBeInTheDocument();
+         |                       ^
+      52 |         expect(screen.getByTestId('btn-pick-date')).toBeInTheDocument();
+      53 |         expect(screen.getByTestId('select-time')).toBeInTheDocument();
+      54 |         expect(screen.getByTestId('input-client-name')).toBeInTheDocument();
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+      at Object.getByTestId (tests/ui/user-booking.test.tsx:51:23)
+
+  ΓùÅ BookingPresentation Component ΓÇ║ calls submitBooking when submit button is clicked
+
+    TestingLibraryElementError: Unable to find an element by: [data-testid="btn-submit-booking"]
+
+    Ignored nodes: comments, script, style
+    <body>
+      <div>
+        <div
+          class="min-h-screen bg-muted/30 py-16 px-6"
+        >
+          <div
+            class="max-w-2xl mx-auto"
+          >
+            <div
+              class="bg-background border border-border/40 shadow-xl rounded-xl overflow-hidden"
+              style="opacity: 0; transform: translateY(20px);"
+            >
+              <div
+                class="text-center pb-2 pt-8 px-6 border-b border-border/10"
+              >
+                <h1
+                  class="text-2xl font-bold"
+                >
+                  Book Your Event
+                </h1>
+                <p
+                  class="text-muted-foreground text-sm mt-1"
+                >
+                  Fill in the details below and we'll confirm your booking.
+                </p>
+              </div>
+              <div
+                class="p-6 space-y-6"
+              >
+                <div
+                  class="space-y-2"
+                >
+                  <label
+                    class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    data-slot="label"
+                  >
+                    Event Type *
+                  </label>
+                  <button
+                    aria-autocomplete="none"
+                    aria-controls="radix-_r_g_"
+                    aria-expanded="false"
+                    class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 bg-muted/20"
+                    data-placeholder=""
+                    data-size="default"
+                    data-slot="select-trigger"
+                    data-state="closed"
+                    data-test-id="select-event-type"
+                    dir="ltr"
+                    role="combobox"
+                    type="button"
+                  >
+                    <span
+                      data-slot="select-value"
+                      style="pointer-events: none;"
+                    >
+                      Choose event type
+                    </span>
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-chevron-down size-4 opacity-50"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                >
+                  <div
+                    class="space-y-2"
+                  >
+                    <label
+                      class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                      data-slot="label"
+                    >
+                      Date *
+                    </label>
+                    <button
+                      aria-controls="radix-_r_h_"
+                      aria-expanded="false"
+                      aria-haspopup="dialog"
+                      class="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border shadow-xs dark:border-input h-9 px-4 py-2 has-[>svg]:px-3 w-full justify-start bg-muted/20"
+                      data-size="default"
+                      data-slot="popover-trigger"
+                      data-state="closed"
+                      data-test-id="btn-pick-date"
+                      data-variant="outline"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-calendar-days mr-2 h-4 w-4"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://w...
+
+      62 |         render(<BookingPresentation />);
+      63 |
+    > 64 |         const submitBtn = screen.getByTestId('btn-submit-booking');
+         |                                  ^
+      65 |         fireEvent.click(submitBtn);
+      66 |
+      67 |         expect(mockSubmitBooking).toHaveBeenCalled();
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+      at Object.getByTestId (tests/ui/user-booking.test.tsx:64:34)
+
+  ΓùÅ BookingPresentation Component ΓÇ║ updates form fields on user input
+
+    TestingLibraryElementError: Unable to find an element by: [data-testid="input-client-name"]
+
+    Ignored nodes: comments, script, style
+    <body>
+      <div>
+        <div
+          class="min-h-screen bg-muted/30 py-16 px-6"
+        >
+          <div
+            class="max-w-2xl mx-auto"
+          >
+            <div
+              class="bg-background border border-border/40 shadow-xl rounded-xl overflow-hidden"
+              style="opacity: 0; transform: translateY(20px);"
+            >
+              <div
+                class="text-center pb-2 pt-8 px-6 border-b border-border/10"
+              >
+                <h1
+                  class="text-2xl font-bold"
+                >
+                  Book Your Event
+                </h1>
+                <p
+                  class="text-muted-foreground text-sm mt-1"
+                >
+                  Fill in the details below and we'll confirm your booking.
+                </p>
+              </div>
+              <div
+                class="p-6 space-y-6"
+              >
+                <div
+                  class="space-y-2"
+                >
+                  <label
+                    class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                    data-slot="label"
+                  >
+                    Event Type *
+                  </label>
+                  <button
+                    aria-autocomplete="none"
+                    aria-controls="radix-_r_10_"
+                    aria-expanded="false"
+                    class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 bg-muted/20"
+                    data-placeholder=""
+                    data-size="default"
+                    data-slot="select-trigger"
+                    data-state="closed"
+                    data-test-id="select-event-type"
+                    dir="ltr"
+                    role="combobox"
+                    type="button"
+                  >
+                    <span
+                      data-slot="select-value"
+                      style="pointer-events: none;"
+                    >
+                      Choose event type
+                    </span>
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-chevron-down size-4 opacity-50"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m6 9 6 6 6-6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                >
+                  <div
+                    class="space-y-2"
+                  >
+                    <label
+                      class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+                      data-slot="label"
+                    >
+                      Date *
+                    </label>
+                    <button
+                      aria-controls="radix-_r_11_"
+                      aria-expanded="false"
+                      aria-haspopup="dialog"
+                      class="inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border shadow-xs dark:border-input h-9 px-4 py-2 has-[>svg]:px-3 w-full justify-start bg-muted/20"
+                      data-size="default"
+                      data-slot="popover-trigger"
+                      data-state="closed"
+                      data-test-id="btn-pick-date"
+                      data-variant="outline"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-calendar-days mr-2 h-4 w-4"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http:/...
+
+      71 |         render(<BookingPresentation />);
+      72 |
+    > 73 |         const nameInput = screen.getByTestId('input-client-name');
+         |                                  ^
+      74 |         fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+      75 |         expect(mockSetClientName).toHaveBeenCalledWith('John Doe');
+      76 |
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+      at Object.getByTestId (tests/ui/user-booking.test.tsx:73:34)
+
+FAIL tests/e2e/admin-flow.test.ts
+  E2E: Admin Booking Management
+    ├ù TC-A01: Admin login simulation returns a valid session cookie (1 ms)
+    ├ù TC-A02: GET /api/bookings returns paginated bookings list (1 ms)
+    ├ù TC-A03: GET /api/bookings?status=pending returns only pending bookings
+    ├ù TC-A04: PATCH /api/bookings/[id] approves a booking (1 ms)
+    ├ù TC-A05: PATCH /api/bookings/[id] cancels a booking
+    ├ù TC-A06: PATCH /api/bookings/[id] without auth returns non-200
+    ├ù TC-A07: GET /api/bookings without auth returns non-200
+    ├ù TC-A08: Admin Logout simulation functional check
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A01: Admin login simulation returns a valid session cookie
+
+    ReferenceError: fetch is not defined
+
+      46 |
+      47 |   // Step 1: Get CSRF token
+    > 48 |   const csrfRes = await fetch(`${BASE_URL}/api/auth/csrf`);
+         |                   ^
+      49 |   collectCookies(csrfRes);
+      50 |   const csrfData = await csrfRes.json();
+      51 |   const csrfToken = csrfData.csrfToken;
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:48:19)
+      at Object.simulateAdminLogin (tests/e2e/admin-flow.test.ts:98:27)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A02: GET /api/bookings returns paginated bookings list
+
+    ReferenceError: fetch is not defined
+
+      46 |
+      47 |   // Step 1: Get CSRF token
+    > 48 |   const csrfRes = await fetch(`${BASE_URL}/api/auth/csrf`);
+         |                   ^
+      49 |   collectCookies(csrfRes);
+      50 |   const csrfData = await csrfRes.json();
+      51 |   const csrfToken = csrfData.csrfToken;
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:48:19)
+      at Object.simulateAdminLogin (tests/e2e/admin-flow.test.ts:98:27)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A03: GET /api/bookings?status=pending returns only pending bookings
+
+    ReferenceError: fetch is not defined
+
+      46 |
+      47 |   // Step 1: Get CSRF token
+    > 48 |   const csrfRes = await fetch(`${BASE_URL}/api/auth/csrf`);
+         |                   ^
+      49 |   collectCookies(csrfRes);
+      50 |   const csrfData = await csrfRes.json();
+      51 |   const csrfToken = csrfData.csrfToken;
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:48:19)
+      at Object.simulateAdminLogin (tests/e2e/admin-flow.test.ts:98:27)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A04: PATCH /api/bookings/[id] approves a booking
+
+    ReferenceError: fetch is not defined
+
+      46 |
+      47 |   // Step 1: Get CSRF token
+    > 48 |   const csrfRes = await fetch(`${BASE_URL}/api/auth/csrf`);
+         |                   ^
+      49 |   collectCookies(csrfRes);
+      50 |   const csrfData = await csrfRes.json();
+      51 |   const csrfToken = csrfData.csrfToken;
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:48:19)
+      at Object.simulateAdminLogin (tests/e2e/admin-flow.test.ts:98:27)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A05: PATCH /api/bookings/[id] cancels a booking
+
+    ReferenceError: fetch is not defined
+
+      46 |
+      47 |   // Step 1: Get CSRF token
+    > 48 |   const csrfRes = await fetch(`${BASE_URL}/api/auth/csrf`);
+         |                   ^
+      49 |   collectCookies(csrfRes);
+      50 |   const csrfData = await csrfRes.json();
+      51 |   const csrfToken = csrfData.csrfToken;
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:48:19)
+      at Object.simulateAdminLogin (tests/e2e/admin-flow.test.ts:98:27)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A06: PATCH /api/bookings/[id] without auth returns non-200
+
+    ReferenceError: fetch is not defined
+
+      46 |
+      47 |   // Step 1: Get CSRF token
+    > 48 |   const csrfRes = await fetch(`${BASE_URL}/api/auth/csrf`);
+         |                   ^
+      49 |   collectCookies(csrfRes);
+      50 |   const csrfData = await csrfRes.json();
+      51 |   const csrfToken = csrfData.csrfToken;
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:48:19)
+      at Object.simulateAdminLogin (tests/e2e/admin-flow.test.ts:98:27)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A07: GET /api/bookings without auth returns non-200
+
+    ReferenceError: fetch is not defined
+
+      46 |
+      47 |   // Step 1: Get CSRF token
+    > 48 |   const csrfRes = await fetch(`${BASE_URL}/api/auth/csrf`);
+         |                   ^
+      49 |   collectCookies(csrfRes);
+      50 |   const csrfData = await csrfRes.json();
+      51 |   const csrfToken = csrfData.csrfToken;
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:48:19)
+      at Object.simulateAdminLogin (tests/e2e/admin-flow.test.ts:98:27)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A08: Admin Logout simulation functional check
+
+    ReferenceError: fetch is not defined
+
+      46 |
+      47 |   // Step 1: Get CSRF token
+    > 48 |   const csrfRes = await fetch(`${BASE_URL}/api/auth/csrf`);
+         |                   ^
+      49 |   collectCookies(csrfRes);
+      50 |   const csrfData = await csrfRes.json();
+      51 |   const csrfToken = csrfData.csrfToken;
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:48:19)
+      at Object.simulateAdminLogin (tests/e2e/admin-flow.test.ts:98:27)
+
+FAIL tests/e2e/booking-flow.test.ts
+  E2E: User Booking Flow
+    ├ù TC-001: GET /api/bookings/dates returns a list of booked dates (1 ms)
+    ├ù TC-002: POST /api/bookings/availability returns available for a future date (1 ms)
+    ├ù TC-003: POST /api/bookings creates a new booking and returns 201 (5 ms)
+    ├ù TC-004: POST /api/bookings rejects a request missing required fields (1 ms)
+    ├ù TC-005: GET /api/bookings/find?email= returns a booking for test email (1 ms)
+    ├ù TC-006: GET /api/bookings/find?id=invalid returns 400 (1 ms)
+    ├ù TC-007: GET /api/bookings/find with no args returns 400
+    ├ù TC-008: GET /api/cron/reminders returns 200 with message
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-001: GET /api/bookings/dates returns a list of booked dates
+
+    ReferenceError: fetch is not defined
+
+      34 |   // ============================================================
+      35 |   test("TC-001: GET /api/bookings/dates returns a list of booked dates", async () => {
+    > 36 |     const res = await fetch(`${BASE_URL}/api/bookings/dates`);
+         |                 ^
+      37 |     expect(res.status).toBe(200);
+      38 |
+      39 |     const data = await res.json();
+
+      at Object.<anonymous> (tests/e2e/booking-flow.test.ts:36:17)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-002: POST /api/bookings/availability returns available for a future date
+
+    ReferenceError: fetch is not defined
+
+      50 |     const futureDate = getFutureDate();
+      51 |
+    > 52 |     const res = await fetch(`${BASE_URL}/api/bookings/availability`, {
+         |                 ^
+      53 |       method: "POST",
+      54 |       headers: { "Content-Type": "application/json" },
+      55 |       body: JSON.stringify({
+
+      at Object.<anonymous> (tests/e2e/booking-flow.test.ts:52:17)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-003: POST /api/bookings creates a new booking and returns 201
+
+    ReferenceError: fetch is not defined
+
+      83 |     };
+      84 |
+    > 85 |     const res = await fetch(`${BASE_URL}/api/bookings`, {
+         |                 ^
+      86 |       method: "POST",
+      87 |       headers: { "Content-Type": "application/json" },
+      88 |       body: JSON.stringify(payload),
+
+      at Object.<anonymous> (tests/e2e/booking-flow.test.ts:85:17)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-004: POST /api/bookings rejects a request missing required fields
+
+    ReferenceError: fetch is not defined
+
+      111 |   // ============================================================
+      112 |   test("TC-004: POST /api/bookings rejects a request missing required fields", async () => {
+    > 113 |     const res = await fetch(`${BASE_URL}/api/bookings`, {
+          |                 ^
+      114 |       method: "POST",
+      115 |       headers: { "Content-Type": "application/json" },
+      116 |       body: JSON.stringify({ eventType: "wedding" }), // Missing everything else
+
+      at Object.<anonymous> (tests/e2e/booking-flow.test.ts:113:17)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-005: GET /api/bookings/find?email= returns a booking for test email
+
+    ReferenceError: fetch is not defined
+
+      127 |   // ============================================================
+      128 |   test("TC-005: GET /api/bookings/find?email= returns a booking for test email", async () => {
+    > 129 |     const res = await fetch(
+          |                 ^
+      130 |       `${BASE_URL}/api/bookings/find?email=${encodeURIComponent(TEST_EMAIL)}`
+      131 |     );
+      132 |
+
+      at Object.<anonymous> (tests/e2e/booking-flow.test.ts:129:17)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-006: GET /api/bookings/find?id=invalid returns 400
+
+    ReferenceError: fetch is not defined
+
+      150 |   // ============================================================
+      151 |   test("TC-006: GET /api/bookings/find?id=invalid returns 400", async () => {
+    > 152 |     const res = await fetch(`${BASE_URL}/api/bookings/find?id=invalid123`);
+          |                 ^
+      153 |     expect(res.status).toBe(400);
+      154 |
+      155 |     const data = await res.json();
+
+      at Object.<anonymous> (tests/e2e/booking-flow.test.ts:152:17)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-007: GET /api/bookings/find with no args returns 400
+
+    ReferenceError: fetch is not defined
+
+      162 |   // ============================================================
+      163 |   test("TC-007: GET /api/bookings/find with no args returns 400", async () => {
+    > 164 |     const res = await fetch(`${BASE_URL}/api/bookings/find`);
+          |                 ^
+      165 |     expect(res.status).toBe(400);
+      166 |
+      167 |     const data = await res.json();
+
+      at Object.<anonymous> (tests/e2e/booking-flow.test.ts:164:17)
+
+  ΓùÅ E2E: User Booking Flow ΓÇ║ TC-008: GET /api/cron/reminders returns 200 with message
+
+    ReferenceError: fetch is not defined
+
+      174 |   // ============================================================
+      175 |   test("TC-008: GET /api/cron/reminders returns 200 with message", async () => {
+    > 176 |     const res = await fetch(`${BASE_URL}/api/cron/reminders`);
+          |                 ^
+      177 |     expect(res.status).toBe(200);
+      178 |
+      179 |     const data = await res.json();
+
+      at Object.<anonymous> (tests/e2e/booking-flow.test.ts:176:17)
+
+FAIL tests/ui/admin-dashboard.test.tsx
+  ΓùÅ Test suite failed to run
+
+    ReferenceError: TextEncoder is not defined
+
+      23 |     DropdownMenuSeparator,
+      24 |     DropdownMenuTrigger,
+    > 25 | } from "@/components/ui/dropdown-menu";
+         |                                                       ^
+      26 | import {
+      27 |     Select,
+      28 |     SelectContent,
+
+      at Object.<anonymous> (node_modules/iobuffer/src/text.ts:6:17)
+      at Object.<anonymous> (node_modules/iobuffer/src/IOBuffer.ts:1:1)
+      at Object.<anonymous> (node_modules/fast-png/src/PngDecoder.ts:1:1)
+      at Object.<anonymous> (node_modules/fast-png/src/index.ts:1:1)
+      at Object.<anonymous> (node_modules/jspdf/dist/jspdf.node.min.js:51:82)
+      at Object.<anonymous> (presentations/Admin/sub-components/BookingTable.tsx:25:55)
+      at Object.<anonymous> (tests/ui/admin-dashboard.test.tsx:29:23)
+
+Test Suites: 4 failed, 4 total
+Tests:       19 failed, 19 total
+Snapshots:   0 total
+Time:        4.976 s, estimated 31 s
+Ran all test suites.

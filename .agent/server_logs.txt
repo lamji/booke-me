@@ -1,0 +1,220 @@
+
+> ai-template@0.1.0 dev
+> node server.mjs
+
+> Custom Server + Socket.IO Ready on http://localhost:3000
+[Socket.IO] Client connected: emavYsDMkjl9SP55AAAB
+[DB] Connecting to MongoDB...
+ POST /api/bookings/availability 200 in 1815ms (compile: 693ms, proxy.ts: 164ms, render: 958ms)
+ POST /api/bookings 201 in 296ms (compile: 155ms, proxy.ts: 13ms, render: 127ms)
+ GET /api/bookings/find?email=jicktes-dev-ai@yopmail.com 200 in 124ms (compile: 60ms, proxy.ts: 13ms, render: 52ms)
+[Nodemailer] Email sent successfully to jicktes-dev-ai@yopmail.com. MessageId: <5cc73577-d2ff-1f7c-ea53-0cee08b63637@gmail.com>
+[Socket.IO] Client disconnected: emavYsDMkjl9SP55AAAB
+ GET /admin 200 in 2.2s (compile: 1679ms, proxy.ts: 27ms, render: 485ms)
+[Socket.IO] Client connected: 4oGtU5UGE5wPkd4lAAAD
+ GET /api/bookings?limit=50 200 in 184ms (compile: 7ms, proxy.ts: 18ms, render: 159ms)
+[Socket.IO] Admin joined: 4oGtU5UGE5wPkd4lAAAD
+ GET /api/auth/session 200 in 1008ms (compile: 967ms, proxy.ts: 12ms, render: 29ms)
+ POST /api/bookings/availability 200 in 87ms (compile: 9ms, proxy.ts: 10ms, render: 68ms)
+ POST /api/bookings 201 in 128ms (compile: 8ms, proxy.ts: 11ms, render: 109ms)
+ GET /api/bookings/find?email=jicktes-dev-ai@yopmail.com 200 in 61ms (compile: 5ms, proxy.ts: 7ms, render: 49ms)
+[Nodemailer] Email sent successfully to jicktes-dev-ai@yopmail.com. MessageId: <25b416f4-f340-5b2a-45c6-bd15ddf2d70b@gmail.com>
+ GET /api/auth/csrf 200 in 51ms (compile: 31ms, proxy.ts: 8ms, render: 13ms)
+ POST /api/auth/callback/credentials 200 in 46ms (compile: 14ms, proxy.ts: 10ms, render: 22ms)
+ GET /api/bookings?status=pending 200 in 71ms (compile: 5ms, proxy.ts: 10ms, render: 56ms)
+(node:12948) [MONGOOSE] Warning: mongoose: the `new` option for `findOneAndUpdate()` and `findOneAndReplace()` is deprecated. Use `returnDocument: 'after'` instead.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[AUDIT_LOG] {"timestamp":"2026-02-23T11:10:09.039Z","userId":"1","action":"UPDATE_BOOKING_STATUS","targetId":"699c358adb2c55c58f730a1f","details":{"status":"approved"},"ip":"::1","userAgent":"node"}
+ PATCH /api/bookings/699c358adb2c55c58f730a1f 200 in 1361ms (compile: 1280ms, proxy.ts: 12ms, render: 68ms)
+(node:12948) [MONGOOSE] Warning: mongoose: the `new` option for `findOneAndUpdate()` and `findOneAndReplace()` is deprecated. Use `returnDocument: 'after'` instead.
+[AUDIT_LOG] {"timestamp":"2026-02-23T11:10:09.133Z","userId":"1","action":"UPDATE_BOOKING_STATUS","targetId":"699c358adb2c55c58f730a1f","details":{"status":"canceled"},"ip":"::1","userAgent":"node"}
+ PATCH /api/bookings/699c358adb2c55c58f730a1f 200 in 86ms (compile: 18ms, proxy.ts: 7ms, render: 61ms)
+ GET /api/cron/reminders 200 in 112ms (compile: 48ms, proxy.ts: 5ms, render: 59ms)
+[Nodemailer] Email sent successfully to jicktes-dev-ai@yopmail.com. MessageId: <74c91ee4-bb71-0afa-e223-29bdcf9bc803@gmail.com>
+[Nodemailer] Email sent successfully to jicktes-dev-ai@yopmail.com. MessageId: <e7be4b5c-2b85-f009-8bd6-188410a1ade6@gmail.com>
+ GET /api/auth/session 200 in 66ms (compile: 39ms, proxy.ts: 10ms, render: 16ms)
+ GET /admin 200 in 219ms (compile: 19ms, proxy.ts: 14ms, render: 186ms)
+[Socket.IO] Client disconnected: 4oGtU5UGE5wPkd4lAAAD
+[Socket.IO] Client connected: uAWLLRrzn11xHcF9AAAF
+[Socket.IO] Admin joined: uAWLLRrzn11xHcF9AAAF
+ GET /api/auth/session 200 in 168ms (compile: 100ms, proxy.ts: 37ms, render: 31ms)
+ GET /api/bookings?limit=50 200 in 161ms (compile: 30ms, proxy.ts: 62ms, render: 69ms)
+Γ£ô Compiled in 1037ms
+Γ£ô Finished filesystem cache database compaction in 10.7s
+ GET /admin 200 in 414ms (compile: 111ms, proxy.ts: 124ms, render: 180ms)
+ GET /admin 200 in 125ms (compile: 12ms, proxy.ts: 9ms, render: 103ms)
+ GET /admin 200 in 116ms (compile: 13ms, proxy.ts: 12ms, render: 92ms)
+ GET /admin 200 in 123ms (compile: 8ms, proxy.ts: 10ms, render: 105ms)
+ GET /admin 200 in 130ms (compile: 8ms, proxy.ts: 13ms, render: 109ms)
+ GET /admin 200 in 126ms (compile: 7ms, proxy.ts: 17ms, render: 103ms)
+ GET /admin 200 in 119ms (compile: 11ms, proxy.ts: 12ms, render: 96ms)
+ GET /admin 200 in 131ms (compile: 11ms, proxy.ts: 11ms, render: 109ms)
+ GET /admin 200 in 125ms (compile: 7ms, proxy.ts: 11ms, render: 106ms)
+ GET /admin 200 in 82ms (compile: 9ms, proxy.ts: 17ms, render: 56ms)
+ GET /admin 200 in 111ms (compile: 14ms, proxy.ts: 9ms, render: 89ms)
+ GET /admin 200 in 67ms (compile: 11ms, proxy.ts: 7ms, render: 50ms)
+ GET /admin 200 in 110ms (compile: 10ms, proxy.ts: 14ms, render: 85ms)
+ GET /admin 200 in 121ms (compile: 6ms, proxy.ts: 9ms, render: 107ms)
+ GET /admin 200 in 146ms (compile: 10ms, proxy.ts: 13ms, render: 123ms)
+ GET /admin 200 in 188ms (compile: 15ms, proxy.ts: 24ms, render: 149ms)
+ GET /admin 200 in 117ms (compile: 12ms, proxy.ts: 15ms, render: 90ms)
+ GET /admin 200 in 67ms (compile: 8ms, proxy.ts: 9ms, render: 50ms)
+ GET /admin 200 in 98ms (compile: 11ms, proxy.ts: 13ms, render: 74ms)
+ GET /admin 200 in 97ms (compile: 8ms, proxy.ts: 8ms, render: 81ms)
+ GET /admin 200 in 106ms (compile: 9ms, proxy.ts: 11ms, render: 87ms)
+ GET /admin 200 in 107ms (compile: 6ms, proxy.ts: 9ms, render: 92ms)
+ GET /admin 200 in 123ms (compile: 7ms, proxy.ts: 23ms, render: 92ms)
+ GET /admin 200 in 107ms (compile: 12ms, proxy.ts: 9ms, render: 87ms)
+ GET /admin 200 in 87ms (compile: 7ms, proxy.ts: 11ms, render: 70ms)
+ GET /admin 200 in 125ms (compile: 37ms, proxy.ts: 21ms, render: 67ms)
+ GET /admin 200 in 127ms (compile: 37ms, proxy.ts: 26ms, render: 64ms)
+ GET /admin 200 in 176ms (compile: 49ms, proxy.ts: 6ms, render: 121ms)
+ GET /admin 200 in 98ms (compile: 10ms, proxy.ts: 24ms, render: 64ms)
+ GET /admin 200 in 185ms (compile: 10ms, proxy.ts: 9ms, render: 167ms)
+ GET /admin 200 in 173ms (compile: 39ms, proxy.ts: 48ms, render: 86ms)
+ GET /admin 200 in 59ms (compile: 9ms, proxy.ts: 8ms, render: 43ms)
+ GET /admin 200 in 823ms (compile: 533ms, proxy.ts: 40ms, render: 250ms)
+ GET /admin 200 in 220ms (compile: 16ms, proxy.ts: 114ms, render: 90ms)
+ GET /admin 200 in 74ms (compile: 7ms, proxy.ts: 14ms, render: 52ms)
+ GET /admin 200 in 202ms (compile: 111ms, proxy.ts: 12ms, render: 79ms)
+ GET /admin 200 in 68ms (compile: 7ms, proxy.ts: 8ms, render: 53ms)
+ GET /admin 200 in 112ms (compile: 20ms, proxy.ts: 9ms, render: 84ms)
+ GET /admin 200 in 94ms (compile: 12ms, proxy.ts: 7ms, render: 75ms)
+ GET /admin 200 in 99ms (compile: 7ms, proxy.ts: 9ms, render: 82ms)
+ GET /admin 200 in 111ms (compile: 7ms, proxy.ts: 10ms, render: 94ms)
+ GET /admin 200 in 120ms (compile: 7ms, proxy.ts: 11ms, render: 101ms)
+ GET /admin 200 in 109ms (compile: 8ms, proxy.ts: 12ms, render: 89ms)
+ GET /admin 200 in 132ms (compile: 9ms, proxy.ts: 12ms, render: 112ms)
+ GET /admin 200 in 105ms (compile: 28ms, proxy.ts: 22ms, render: 55ms)
+ GET /admin 200 in 80ms (compile: 12ms, proxy.ts: 10ms, render: 57ms)
+ GET /admin 200 in 86ms (compile: 10ms, proxy.ts: 10ms, render: 66ms)
+ GET /admin 200 in 138ms (compile: 13ms, proxy.ts: 12ms, render: 113ms)
+ GET /admin 200 in 82ms (compile: 15ms, proxy.ts: 11ms, render: 56ms)
+ GET /admin 200 in 83ms (compile: 12ms, proxy.ts: 11ms, render: 59ms)
+ GET /admin 200 in 172ms (compile: 85ms, proxy.ts: 12ms, render: 75ms)
+ GET /admin 200 in 137ms (compile: 34ms, proxy.ts: 35ms, render: 68ms)
+ GET /admin 200 in 56ms (compile: 21ms, proxy.ts: 6ms, render: 28ms)
+ GET /admin 200 in 47ms (compile: 12ms, proxy.ts: 7ms, render: 28ms)
+ GET /admin 200 in 210ms (compile: 128ms, proxy.ts: 6ms, render: 76ms)
+ GET /admin 200 in 85ms (compile: 8ms, proxy.ts: 8ms, render: 70ms)
+ GET /admin 200 in 106ms (compile: 7ms, proxy.ts: 9ms, render: 90ms)
+ GET /admin 200 in 73ms (compile: 8ms, proxy.ts: 8ms, render: 58ms)
+ GET /admin 200 in 55ms (compile: 9ms, proxy.ts: 10ms, render: 36ms)
+ GET /admin 200 in 126ms (compile: 9ms, proxy.ts: 7ms, render: 110ms)
+ GET /admin 200 in 101ms (compile: 9ms, proxy.ts: 6ms, render: 85ms)
+ GET /admin 200 in 134ms (compile: 26ms, proxy.ts: 38ms, render: 70ms)
+ GET /admin 200 in 86ms (compile: 8ms, proxy.ts: 8ms, render: 70ms)
+ GET /admin 200 in 88ms (compile: 7ms, proxy.ts: 8ms, render: 74ms)
+ GET /admin 200 in 93ms (compile: 7ms, proxy.ts: 16ms, render: 70ms)
+ GET /admin 200 in 47ms (compile: 7ms, proxy.ts: 6ms, render: 33ms)
+ POST /api/auth/signin?callbackUrl=%2Fapi%2Fnotifications 302 in 191ms (compile: 130ms, proxy.ts: 7ms, render: 54ms)
+ GET /api/auth/signin?csrf=true 302 in 28ms (compile: 8ms, proxy.ts: 4ms, render: 15ms)
+ GET /auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000 200 in 515ms (compile: 114ms, render: 401ms)
+ GET /api/auth/signin?callbackUrl=%2Fapi%2Fnotifications 302 in 45ms (compile: 14ms, proxy.ts: 6ms, render: 25ms)
+ GET /auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fnotifications 200 in 87ms (compile: 6ms, render: 81ms)
+ PATCH /api/auth/signin?callbackUrl=%2Fapi%2Fnotifications%2Fundefined 405 in 24ms (compile: 11ms, proxy.ts: 5ms, render: 7ms)
+ POST /api/auth/signin?callbackUrl=%2Fapi%2Fnotifications 302 in 40ms (compile: 17ms, proxy.ts: 5ms, render: 18ms)
+ GET /api/auth/signin?csrf=true 302 in 25ms (compile: 10ms, proxy.ts: 5ms, render: 10ms)
+ GET /auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000 200 in 72ms (compile: 4ms, render: 68ms)
+ GET /api/auth/signin?callbackUrl=%2Fapi%2Fnotifications 302 in 33ms (compile: 8ms, proxy.ts: 5ms, render: 20ms)
+ GET /auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fnotifications 200 in 64ms (compile: 5ms, render: 59ms)
+ PATCH /api/auth/signin?callbackUrl=%2Fapi%2Fnotifications%2Fundefined 405 in 21ms (compile: 11ms, proxy.ts: 6ms, render: 4ms)
+Γ£ô Compiled in 125ms
+[Socket.IO] Admin joined: uAWLLRrzn11xHcF9AAAF
+ GET /api/bookings?limit=50&sortBy=createdAt&sortOrder=desc 200 in 489ms (compile: 350ms, proxy.ts: 20ms, render: 120ms)
+ GET /api/notifications 200 in 1290ms (compile: 1200ms, proxy.ts: 19ms, render: 70ms)
+Γ£ô Compiled in 152ms
+[Socket.IO] Admin joined: uAWLLRrzn11xHcF9AAAF
+ GET /api/bookings?limit=50&sortBy=createdAt&sortOrder=desc 200 in 124ms (compile: 25ms, proxy.ts: 34ms, render: 65ms)
+ GET /api/notifications 200 in 168ms (compile: 38ms, proxy.ts: 30ms, render: 100ms)
+Γ£ô Compiled in 512ms
+Γ£ô Compiled in 187ms
+Γ£ô Compiled in 380ms
+Γ£ô Compiled in 744ms
+Γ£ô Compiled in 6.1s
+ GET /admin 200 in 1275ms (compile: 634ms, proxy.ts: 12ms, render: 628ms)
+Γ£ô Compiled in 607ms
+Γ£ô Compiled in 985ms
+Γ£ô Compiled in 374ms
+[Socket.IO] Admin joined: uAWLLRrzn11xHcF9AAAF
+ GET /api/bookings?limit=10&page=1&sortBy=createdAt&sortOrder=desc 200 in 75ms (compile: 7ms, proxy.ts: 12ms, render: 56ms)
+ GET /api/notifications 200 in 407ms (compile: 18ms, proxy.ts: 11ms, render: 377ms)
+Γ£ô Compiled in 884ms
+Γ£ô Compiled in 290ms
+Γ£ô Compiled in 418ms
+Γ£ô Compiled in 426ms
+ GET /api/auth/session 200 in 81ms (compile: 43ms, proxy.ts: 8ms, render: 30ms)
+Γ£ô Compiled in 219ms
+ GET /api/events?admin=true 200 in 167ms (compile: 66ms, proxy.ts: 6ms, render: 96ms)
+ GET /api/events?admin=true 200 in 66ms (compile: 5ms, proxy.ts: 8ms, render: 53ms)
+Γ£ô Compiled in 418ms
+ GET /api/auth/session 200 in 77ms (compile: 32ms, proxy.ts: 12ms, render: 33ms)
+ GET /api/events?admin=true 200 in 306ms (compile: 228ms, proxy.ts: 8ms, render: 70ms)
+ GET /api/events?admin=true 200 in 69ms (compile: 4ms, proxy.ts: 6ms, render: 60ms)
+ GET /api/auth/session 200 in 78ms (compile: 45ms, proxy.ts: 10ms, render: 24ms)
+Γ£ô Compiled in 761ms
+Γ£ô Compiled in 224ms
+[Socket.IO] Admin joined: uAWLLRrzn11xHcF9AAAF
+ GET /api/bookings?limit=10&page=1&sortBy=createdAt&sortOrder=desc 200 in 299ms (compile: 17ms, proxy.ts: 20ms, render: 262ms)
+ GET /api/notifications 200 in 301ms (compile: 28ms, proxy.ts: 19ms, render: 254ms)
+ GET /api/events?admin=true 200 in 372ms (compile: 260ms, proxy.ts: 22ms, render: 90ms)
+Γ£ô Compiled in 158ms
+Γ£ô Compiled in 168ms
+ GET /admin 200 in 237ms (compile: 130ms, proxy.ts: 7ms, render: 99ms)
+Γ£ô Compiled in 1028ms
+Γ£ô Compiled in 231ms
+Γ£ô Compiled in 137ms
+ΓÜá Fast Refresh had to perform a full reload due to a runtime error.
+[Socket.IO] Admin joined: uAWLLRrzn11xHcF9AAAF
+[Socket.IO] Client disconnected: uAWLLRrzn11xHcF9AAAF
+ POST /api/auth/_log 200 in 90ms (compile: 40ms, proxy.ts: 37ms, render: 13ms)
+ GET /admin 200 in 1272ms (compile: 239ms, proxy.ts: 9ms, render: 1024ms)
+ GET /api/auth/session 200 in 60ms (compile: 19ms, proxy.ts: 7ms, render: 34ms)
+[Socket.IO] Client connected: d3AxIhZkAfGrMjfNAAAH
+ GET /api/bookings?limit=10&page=1&sortBy=createdAt&sortOrder=desc 200 in 105ms (compile: 19ms, proxy.ts: 32ms, render: 54ms)
+ GET /api/events?admin=true 200 in 117ms (compile: 12ms, proxy.ts: 33ms, render: 72ms)
+[Socket.IO] Admin joined: d3AxIhZkAfGrMjfNAAAH
+ GET /api/notifications 200 in 423ms (compile: 27ms, proxy.ts: 32ms, render: 365ms)
+ GET /api/auth/session 200 in 63ms (compile: 33ms, proxy.ts: 12ms, render: 18ms)
+[Socket.IO] Client disconnected: d3AxIhZkAfGrMjfNAAAH
+ GET /admin 200 in 123ms (compile: 16ms, proxy.ts: 10ms, render: 97ms)
+[Socket.IO] Client connected: CLCNXKiQ2ysETBtRAAAJ
+[Socket.IO] Admin joined: CLCNXKiQ2ysETBtRAAAJ
+ GET /api/bookings?limit=10&page=1&sortBy=createdAt&sortOrder=desc 200 in 276ms (compile: 66ms, proxy.ts: 43ms, render: 167ms)
+ GET /api/events?admin=true 200 in 285ms (compile: 52ms, proxy.ts: 46ms, render: 187ms)
+ GET /api/auth/session 200 in 300ms (compile: 240ms, proxy.ts: 36ms, render: 25ms)
+ GET /api/notifications 200 in 327ms (compile: 81ms, proxy.ts: 53ms, render: 193ms)
+ GET /api/events?admin=true 200 in 68ms (compile: 3ms, proxy.ts: 6ms, render: 59ms)
+ GET /api/events?admin=true 200 in 91ms (compile: 8ms, proxy.ts: 8ms, render: 74ms)
+Γ£ô Compiled in 1067ms
+Γ£ô Compiled in 533ms
+Γ£ô Compiled in 548ms
+Γ£ô Compiled in 1135ms
+ GET /admin 200 in 524ms (compile: 376ms, proxy.ts: 7ms, render: 141ms)
+Γ£ô Compiled in 146ms
+Γ£ô Compiled in 508ms
+Γ£ô Compiled in 157ms
+ GET /api/auth/session 200 in 126ms (compile: 72ms, proxy.ts: 15ms, render: 38ms)
+Γ£ô Compiled in 622ms
+Γ£ô Compiled in 533ms
+Γ£ô Compiled in 404ms
+ GET /api/auth/session 200 in 57ms (compile: 36ms, proxy.ts: 7ms, render: 15ms)
+ GET /admin 200 in 1051ms (compile: 146ms, proxy.ts: 13ms, render: 893ms)
+[Socket.IO] Client disconnected: CLCNXKiQ2ysETBtRAAAJ
+[Socket.IO] Client connected: 9ckh3m2-9fl41812AAAL
+[Socket.IO] Admin joined: 9ckh3m2-9fl41812AAAL
+ GET /api/bookings?limit=10&page=1&sortBy=createdAt&sortOrder=desc 200 in 129ms (compile: 30ms, proxy.ts: 30ms, render: 69ms)
+ GET /api/auth/session 200 in 150ms (compile: 93ms, proxy.ts: 21ms, render: 36ms)
+ GET /api/events?admin=true 200 in 164ms (compile: 17ms, proxy.ts: 31ms, render: 117ms)
+ GET /api/notifications 200 in 165ms (compile: 46ms, proxy.ts: 30ms, render: 90ms)
+ GET /api/auth/session 200 in 124ms (compile: 74ms, proxy.ts: 21ms, render: 30ms)
+[Socket.IO] Client disconnected: 9ckh3m2-9fl41812AAAL
+ GET /admin 200 in 208ms (compile: 11ms, proxy.ts: 13ms, render: 184ms)
+[Socket.IO] Client connected: VWOw3-zH9rjcLjskAAAN
+[Socket.IO] Admin joined: VWOw3-zH9rjcLjskAAAN
+ GET /api/bookings?limit=10&page=1&sortBy=createdAt&sortOrder=desc 200 in 115ms (compile: 25ms, proxy.ts: 26ms, render: 64ms)
+ GET /api/auth/session 200 in 160ms (compile: 98ms, proxy.ts: 15ms, render: 48ms)
+ GET /api/events?admin=true 200 in 174ms (compile: 15ms, proxy.ts: 33ms, render: 126ms)
+ GET /api/notifications 200 in 170ms (compile: 68ms, proxy.ts: 23ms, render: 79ms)
+ GET /api/auth/session 200 in 81ms (compile: 37ms, proxy.ts: 14ms, render: 31ms)
+ GET /api/auth/session 200 in 30ms (compile: 8ms, proxy.ts: 9ms, render: 13ms)

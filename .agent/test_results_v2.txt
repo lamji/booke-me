@@ -1,0 +1,202 @@
+
+> ai-template@0.1.0 test:e2e
+> npx jest --config jest.config.js --runInBand --verbose
+
+PASS tests/ui/user-booking.test.tsx
+  BookingPresentation Component
+    ΓêÜ renders all booking form fields (180 ms)
+    ΓêÜ calls submitBooking when submit button is clicked (85 ms)
+    ΓêÜ updates form fields on user input (97 ms)
+
+  console.log
+      Γ£à TC-001: Received 6 booked dates
+
+      at Object.log (tests/e2e/booking-flow.test.ts:43:13)
+
+  console.log
+      Γ£à TC-002: Availability for 2026-03-01T16:00:00.000Z at 10:00 AM ΓåÆ false
+
+      at Object.log (tests/e2e/booking-flow.test.ts:66:13)
+
+  console.log
+      ΓÜá∩╕Å TC-003: Date conflict (409) ΓÇö slot already booked from previous run. Skipping ID capture.
+
+      at Object.log (tests/e2e/booking-flow.test.ts:102:15)
+
+  console.log
+      Γ£à TC-004: Validation correctly rejected incomplete payload
+
+      at Object.log (tests/e2e/booking-flow.test.ts:122:13)
+
+  console.log
+      Γ£à TC-005: Found booking for test-case@yopmail.com ΓåÆ Status: canceled
+
+      at Object.log (tests/e2e/booking-flow.test.ts:139:15)
+
+  console.log
+      Γ£à TC-006: Invalid ID correctly rejected ΓåÆ "Invalid Booking ID format."
+
+      at Object.log (tests/e2e/booking-flow.test.ts:157:13)
+
+  console.log
+      Γ£à TC-007: No-args request correctly rejected
+
+      at Object.log (tests/e2e/booking-flow.test.ts:169:13)
+
+  console.log
+      Γ£à TC-008: Cron endpoint ΓåÆ "No upcoming bookings require reminders today."
+
+      at Object.log (tests/e2e/booking-flow.test.ts:181:13)
+
+PASS tests/e2e/booking-flow.test.ts
+  E2E: User Booking Flow
+    ΓêÜ TC-001: GET /api/bookings/dates returns a list of booked dates (113 ms)
+    ΓêÜ TC-002: POST /api/bookings/availability returns available for a future date (121 ms)
+    ΓêÜ TC-003: POST /api/bookings creates a new booking and returns 201 (77 ms)
+    ΓêÜ TC-004: POST /api/bookings rejects a request missing required fields (22 ms)
+    ΓêÜ TC-005: GET /api/bookings/find?email= returns a booking for test email (102 ms)
+    ΓêÜ TC-006: GET /api/bookings/find?id=invalid returns 400 (20 ms)
+    ΓêÜ TC-007: GET /api/bookings/find with no args returns 400 (19 ms)
+    ΓêÜ TC-008: GET /api/cron/reminders returns 200 with message (507 ms)
+
+FAIL tests/e2e/admin-flow.test.ts
+  E2E: Admin Booking Management
+    ├ù TC-A01: Admin login simulation returns a valid session cookie (1 ms)
+    ├ù TC-A02: GET /api/bookings returns paginated bookings list
+    ├ù TC-A03: GET /api/bookings?status=pending returns only pending bookings
+    ├ù TC-A04: PATCH /api/bookings/[id] approves a booking
+    ├ù TC-A05: PATCH /api/bookings/[id] cancels a booking
+    ├ù TC-A06: PATCH /api/bookings/[id] without auth returns non-200 (1 ms)
+    ├ù TC-A07: GET /api/bookings without auth returns non-200
+    ├ù TC-A08: Admin Logout simulation functional check (1 ms)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A01: Admin login simulation returns a valid session cookie
+
+    Login simulation failed. Cookies: next-auth.csrf-token=7ec8066e22c99de07bd217e01fe9f412a54bbeeb30b92d089ff42d81802d9756%7C8ec3aaf1ad4eb7521e53015b02c6d259c0677494195b87f79fc1efbac4bb19a7; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000
+
+      82 |
+      83 |   if (!finalCookies.includes("next-auth.session-token")) {
+    > 84 |     throw new Error(
+         |           ^
+      85 |       `Login simulation failed. Cookies: ${finalCookies || "none"}`
+      86 |     );
+      87 |   }
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:84:11)
+      at Object.<anonymous> (tests/e2e/admin-flow.test.ts:98:21)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A02: GET /api/bookings returns paginated bookings list
+
+    Login simulation failed. Cookies: next-auth.csrf-token=7ec8066e22c99de07bd217e01fe9f412a54bbeeb30b92d089ff42d81802d9756%7C8ec3aaf1ad4eb7521e53015b02c6d259c0677494195b87f79fc1efbac4bb19a7; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000
+
+      82 |
+      83 |   if (!finalCookies.includes("next-auth.session-token")) {
+    > 84 |     throw new Error(
+         |           ^
+      85 |       `Login simulation failed. Cookies: ${finalCookies || "none"}`
+      86 |     );
+      87 |   }
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:84:11)
+      at Object.<anonymous> (tests/e2e/admin-flow.test.ts:98:21)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A03: GET /api/bookings?status=pending returns only pending bookings
+
+    Login simulation failed. Cookies: next-auth.csrf-token=7ec8066e22c99de07bd217e01fe9f412a54bbeeb30b92d089ff42d81802d9756%7C8ec3aaf1ad4eb7521e53015b02c6d259c0677494195b87f79fc1efbac4bb19a7; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000
+
+      82 |
+      83 |   if (!finalCookies.includes("next-auth.session-token")) {
+    > 84 |     throw new Error(
+         |           ^
+      85 |       `Login simulation failed. Cookies: ${finalCookies || "none"}`
+      86 |     );
+      87 |   }
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:84:11)
+      at Object.<anonymous> (tests/e2e/admin-flow.test.ts:98:21)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A04: PATCH /api/bookings/[id] approves a booking
+
+    Login simulation failed. Cookies: next-auth.csrf-token=7ec8066e22c99de07bd217e01fe9f412a54bbeeb30b92d089ff42d81802d9756%7C8ec3aaf1ad4eb7521e53015b02c6d259c0677494195b87f79fc1efbac4bb19a7; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000
+
+      82 |
+      83 |   if (!finalCookies.includes("next-auth.session-token")) {
+    > 84 |     throw new Error(
+         |           ^
+      85 |       `Login simulation failed. Cookies: ${finalCookies || "none"}`
+      86 |     );
+      87 |   }
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:84:11)
+      at Object.<anonymous> (tests/e2e/admin-flow.test.ts:98:21)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A05: PATCH /api/bookings/[id] cancels a booking
+
+    Login simulation failed. Cookies: next-auth.csrf-token=7ec8066e22c99de07bd217e01fe9f412a54bbeeb30b92d089ff42d81802d9756%7C8ec3aaf1ad4eb7521e53015b02c6d259c0677494195b87f79fc1efbac4bb19a7; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000
+
+      82 |
+      83 |   if (!finalCookies.includes("next-auth.session-token")) {
+    > 84 |     throw new Error(
+         |           ^
+      85 |       `Login simulation failed. Cookies: ${finalCookies || "none"}`
+      86 |     );
+      87 |   }
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:84:11)
+      at Object.<anonymous> (tests/e2e/admin-flow.test.ts:98:21)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A06: PATCH /api/bookings/[id] without auth returns non-200
+
+    Login simulation failed. Cookies: next-auth.csrf-token=7ec8066e22c99de07bd217e01fe9f412a54bbeeb30b92d089ff42d81802d9756%7C8ec3aaf1ad4eb7521e53015b02c6d259c0677494195b87f79fc1efbac4bb19a7; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000
+
+      82 |
+      83 |   if (!finalCookies.includes("next-auth.session-token")) {
+    > 84 |     throw new Error(
+         |           ^
+      85 |       `Login simulation failed. Cookies: ${finalCookies || "none"}`
+      86 |     );
+      87 |   }
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:84:11)
+      at Object.<anonymous> (tests/e2e/admin-flow.test.ts:98:21)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A07: GET /api/bookings without auth returns non-200
+
+    Login simulation failed. Cookies: next-auth.csrf-token=7ec8066e22c99de07bd217e01fe9f412a54bbeeb30b92d089ff42d81802d9756%7C8ec3aaf1ad4eb7521e53015b02c6d259c0677494195b87f79fc1efbac4bb19a7; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000
+
+      82 |
+      83 |   if (!finalCookies.includes("next-auth.session-token")) {
+    > 84 |     throw new Error(
+         |           ^
+      85 |       `Login simulation failed. Cookies: ${finalCookies || "none"}`
+      86 |     );
+      87 |   }
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:84:11)
+      at Object.<anonymous> (tests/e2e/admin-flow.test.ts:98:21)
+
+  ΓùÅ E2E: Admin Booking Management ΓÇ║ TC-A08: Admin Logout simulation functional check
+
+    Login simulation failed. Cookies: next-auth.csrf-token=7ec8066e22c99de07bd217e01fe9f412a54bbeeb30b92d089ff42d81802d9756%7C8ec3aaf1ad4eb7521e53015b02c6d259c0677494195b87f79fc1efbac4bb19a7; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000
+
+      82 |
+      83 |   if (!finalCookies.includes("next-auth.session-token")) {
+    > 84 |     throw new Error(
+         |           ^
+      85 |       `Login simulation failed. Cookies: ${finalCookies || "none"}`
+      86 |     );
+      87 |   }
+
+      at simulateAdminLogin (tests/e2e/admin-flow.test.ts:84:11)
+      at Object.<anonymous> (tests/e2e/admin-flow.test.ts:98:21)
+
+PASS tests/ui/admin-dashboard.test.tsx
+  BookingTable Component
+    ΓêÜ renders export buttons and filters (135 ms)
+    ΓêÜ renders booking data and action button (70 ms)
+
+Test Suites: 1 failed, 3 passed, 4 total
+Tests:       8 failed, 13 passed, 21 total
+Snapshots:   0 total
+Time:        6.943 s
+Ran all test suites.
