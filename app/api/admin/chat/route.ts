@@ -4,6 +4,7 @@ import Groq from "groq-sdk";
 import connectDB from "@/lib/db";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import Booking from "@/lib/models/Booking";
+import Client from "@/lib/models/Client";
 import { 
   startOfWeek, endOfWeek, addWeeks, startOfDay, endOfDay, 
   parseISO, isValid, startOfMonth, endOfMonth, startOfYear, endOfYear 
@@ -111,6 +112,10 @@ If the user asks you to perform an action, append the tag at the END of your res
 
 5. **Send Manual Notification**:
    [[ADMIN_CMD: {"action": "SEND_EMAIL", "email": "client@email.com", "subject": "Update on...", "message": "..."}]]
+
+6. **Convert Chat to Lead**:
+   [[ADMIN_CMD: {"action": "CONVERT_TO_LEAD", "name": "...", "email": "...", "phone": "...", "interest": "..."}]]
+   Use this when you identify a potential client in the conversation who hasn't booked yet.
 
 ### ADMINISTRATIVE KNOWLEDGE
 ${tigerKnowledge}
@@ -278,6 +283,27 @@ Current Time: ${new Date().toLocaleTimeString()}
               } catch (e) {
                 console.error("Manual Email Error:", e);
                 cmdResult = `\n\n❌ **Error:** Failed to send email to **${cmd.email}**.`;
+              }
+              break;
+
+            case "CONVERT_TO_LEAD":
+              try {
+                const existing = await Client.findOne({ email: cmd.email.toLowerCase() });
+                if (existing) {
+                  cmdResult = `\n\n⚠️ **System Note:** A client with email **${cmd.email}** already exists in our registry.`;
+                } else {
+                  await Client.create({
+                    name: cmd.name,
+                    email: cmd.email,
+                    phone: cmd.phone || "",
+                    type: "potential",
+                    lastInterest: cmd.interest || "General Inquiry"
+                  });
+                  cmdResult = `\n\n✅ **System Update:** **${cmd.name}** has been successfully added to our **Lead Registry** as a potential client.`;
+                }
+              } catch (e) {
+                console.error("Convert to Lead Error:", e);
+                cmdResult = `\n\n❌ **Error:** Failed to convert chat to lead.`;
               }
               break;
           }

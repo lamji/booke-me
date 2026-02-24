@@ -14,6 +14,7 @@ A high-performance, humanized AI assistant specialized in administrative operati
     - **Status Orchestration**: Execute state changes (e.g., "Approve booking BKG-123")
     - **Deep Inspection**: Inspect details (e.g., "Does Jick have add-ons for his wedding?")
     - **Client Outreach**: Send manual emails directly from the chat interface.
+    - **Lead Conversion**: Extract potential client data from chat transcripts and automatically create lead records.
 - **Security Guardrails**:
     - **Zero-Deletion Policy**: Strictly forbidden from deleting any records from the database.
     - **Restricted Modification**: Cannot edit client profiles, prices, or configuration directly. Modifications are restricted to authorized **UPDATE_STATUS** workflows only.

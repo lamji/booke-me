@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { ShieldAlert, Zap, BarChart3, Users, Calendar, Settings, LogOut, MessageSquare, Mail, Lock, CheckCircle2 } from "lucide-react";
+import { ShieldAlert, Zap, BarChart3, Users, Calendar, Settings, MessageSquare, Mail, Lock, CheckCircle2 } from "lucide-react";
 
 export default function FeaturesPage() {
     return (
@@ -63,6 +65,7 @@ export default function FeaturesPage() {
                                 {[
                                     "Read-Only Intelligence: Real-time stat queries",
                                     "Status Orchestration: Approve/Cancel workflows",
+                                    "Lead Conversion: Auto-create records from chat",
                                     "Deep Inspection: Analyze client add-ons & history",
                                     "Zero-Deletion Policy: Hard data integrity rules"
                                 ].map((item, idx) => (
