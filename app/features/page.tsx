@@ -142,7 +142,7 @@ export default function FeaturesPage() {
                             {
                                 icon: Calendar,
                                 title: "SocMed Export",
-                                desc: "Convert schedule to plain-text for Facebook/Viber in one click.",
+                                desc: "Interactive monthly pulse with detailed event modals and one-click plain-text export for SocMed dispatch (FB/Viber).",
                                 color: "orange"
                             }
                         ].map((card, i) => (

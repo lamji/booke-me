@@ -66,12 +66,13 @@ Immediate access to the latest platform activity.
 
 ### 2.3 Operational Calendar & SocMed Export
 A "Live Availability" hub with social media integration.
-- **Explanation**: An interactive calendar showing daily booking density. Includes a "Copy Schedule" feature.
+- **Explanation**: A high-density interactive monthly grid that serves as the "Live Pulse" of business availability. Features per-day event badges and a one-click social export engine.
 - **Flow**:
-    1. Admin views the monthly schedule.
-    2. Clicks "Copy Schedule" button.
-    3. System generates a clean, plain-text summary of the month's events (e.g., "📅 May 06: Wedding - 10:00 AM").
-    4. Plain text is copied to clipboard for instant posting to Facebook/Instagram/Viber.
+    1. **Overview**: Admin monitors the monthly grid where each date displays booking density through status-coded badges.
+    2. **Deep Dive**: Clicking any specific date triggers a secure **Details Modal** revealing precise event times, client identities, and requested add-ons.
+    3. **Data Aggregation**: Admin clicks the "Copy Schedule" button in the calendar header to prepare public-facing announcements.
+    4. **Transformation**: The system filters out internal metadata and transforms the monthly ledger into a curated, emoji-enhanced plain text summary.
+    5. **SocMed Dispatch**: The formatted schedule (e.g., "📅 May 06: Wedding - 10:00 AM") is saved to the clipboard for instant posting across Facebook/Viber/Instagram.
 
 ---
 
