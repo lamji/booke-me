@@ -16,6 +16,9 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
+  verification: {
+    google: "0ptoIDhjn_huteHxJHXkVU0zij2DgNS9Fa_btsODXis",
+  },
   title: "BOOK.ME | Premium Minimalist Event Booking",
   description: "A high-end, minimalist booking platform designed for seamless event management and elite client experiences.",
   keywords: ["event booking", "minimalist design", "premium scheduling", "booking management", "OrbitNest"],
