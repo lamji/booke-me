@@ -36,6 +36,7 @@ export default function AdminPresentation() {
         pendingCount,
         reviews,
         updateReviewStatus,
+        updateReviewFeatured,
         averageRating,
         currentView,
         clients,
@@ -219,6 +220,7 @@ export default function AdminPresentation() {
                     <ReviewTable
                         data={reviews}
                         onUpdateStatus={updateReviewStatus}
+                        onUpdateFeatured={updateReviewFeatured}
                     />
                 </div>
             </div>

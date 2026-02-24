@@ -247,6 +247,20 @@ export function useAdmin() {
     []
   );
 
+  const updateReviewFeatured = useCallback(
+    async (id: string, featured: boolean) => {
+      try {
+        await api.patch(`/api/reviews/${id}`, { featured });
+        setReviews((prev) =>
+          prev.map((r) => (String(r._id) === id ? { ...r, featured } : r))
+        );
+      } catch (error) {
+        console.error("[Admin] Failed to update review featured status:", error);
+      }
+    },
+    []
+  );
+
   const pendingCount = bookings.filter((b) => b.status === "pending").length;
   const approvedCount = bookings.filter((b) => b.status === "approved").length;
   const completedCount = bookings.filter((b) => b.status === "completed").length;
@@ -264,6 +278,7 @@ export function useAdmin() {
     events,
     reviews,
     updateReviewStatus,
+    updateReviewFeatured,
     isLoading,
     filter,
     setFilter,

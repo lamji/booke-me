@@ -44,6 +44,7 @@ export interface IReview {
   rating: number;
   comment: string;
   status: "pending" | "approved" | "rejected";
+  featured: boolean;
   createdAt: string;
   updatedAt: string;
 }

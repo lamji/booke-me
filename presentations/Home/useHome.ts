@@ -40,7 +40,7 @@ export function useHome() {
 
     const fetchReviews = async () => {
       try {
-        const res = await api.get("/api/reviews");
+        const res = await api.get("/api/reviews?featured=true");
         setReviews(res.data);
       } catch (error) {
         console.error("Failed to fetch reviews", error);

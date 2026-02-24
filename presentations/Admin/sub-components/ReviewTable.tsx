@@ -37,9 +37,10 @@ const STATUS_CONFIG = {
 interface ReviewTableProps {
     data: IReview[];
     onUpdateStatus: (id: string, status: "approved" | "rejected") => void;
+    onUpdateFeatured: (id: string, featured: boolean) => void;
 }
 
-export function ReviewTable({ data, onUpdateStatus }: ReviewTableProps) {
+export function ReviewTable({ data, onUpdateStatus, onUpdateFeatured }: ReviewTableProps) {
     return (
         <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
             <Table>
@@ -49,13 +50,14 @@ export function ReviewTable({ data, onUpdateStatus }: ReviewTableProps) {
                         <TableHead className="text-[10px] font-bold text-slate-400 uppercase tracking-widest py-4 text-center">Rating</TableHead>
                         <TableHead className="text-[10px] font-bold text-slate-400 uppercase tracking-widest py-4">Comment</TableHead>
                         <TableHead className="text-[10px] font-bold text-slate-400 uppercase tracking-widest py-4 text-center">Status</TableHead>
+                        <TableHead className="text-[10px] font-bold text-slate-400 uppercase tracking-widest py-4 text-center">Showcase</TableHead>
                         <TableHead className="text-[10px] font-bold text-slate-400 uppercase tracking-widest py-4 text-right">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {data.length === 0 ? (
                         <TableRow>
-                            <TableCell colSpan={5} className="h-32 text-center text-slate-400 text-xs font-medium italic">
+                            <TableCell colSpan={6} className="h-32 text-center text-slate-400 text-xs font-medium italic">
                                 No reviews found in the registry.
                             </TableCell>
                         </TableRow>
@@ -99,6 +101,20 @@ export function ReviewTable({ data, onUpdateStatus }: ReviewTableProps) {
                                         </div>
                                     </div>
                                 </TableCell>
+                                <TableCell className="text-center">
+                                    {review.featured ? (
+                                        <div className="flex justify-center">
+                                            <div className="px-2 py-0.5 rounded-full bg-amber-100 flex items-center gap-1.5">
+                                                <Star className="h-2 w-2 text-amber-600 fill-amber-600" />
+                                                <span className="text-[9px] font-black uppercase tracking-widest text-amber-600">
+                                                    Homepage
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Inactive</span>
+                                    )}
+                                </TableCell>
                                 <TableCell className="text-right">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
@@ -106,13 +122,13 @@ export function ReviewTable({ data, onUpdateStatus }: ReviewTableProps) {
                                                 <MoreHorizontal className="h-4 w-4" />
                                             </Button>
                                         </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end" className="w-48">
+                                        <DropdownMenuContent align="end" className="w-56">
                                             <DropdownMenuLabel className="text-[10px] font-bold text-slate-400 uppercase p-3">Moderation Control</DropdownMenuLabel>
                                             <DropdownMenuSeparator />
 
                                             {review.status !== "approved" && (
                                                 <DropdownMenuItem
-                                                    onClick={() => onUpdateStatus(review._id, "approved")}
+                                                    onClick={() => onUpdateStatus(String(review._id), "approved")}
                                                     className="gap-2 cursor-pointer text-emerald-600 focus:text-emerald-700 focus:bg-emerald-50"
                                                 >
                                                     <CheckCircle className="h-4 w-4" />
@@ -122,12 +138,27 @@ export function ReviewTable({ data, onUpdateStatus }: ReviewTableProps) {
 
                                             {review.status !== "rejected" && (
                                                 <DropdownMenuItem
-                                                    onClick={() => onUpdateStatus(review._id, "rejected")}
+                                                    onClick={() => onUpdateStatus(String(review._id), "rejected")}
                                                     className="gap-2 cursor-pointer text-red-600 focus:text-red-700 focus:bg-red-50"
                                                 >
                                                     <XCircle className="h-4 w-4" />
                                                     <span className="text-sm font-medium">Reject Review</span>
                                                 </DropdownMenuItem>
+                                            )}
+
+                                            {review.status === "approved" && (
+                                                <>
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem
+                                                        onClick={() => onUpdateFeatured(String(review._id), !review.featured)}
+                                                        className="gap-2 cursor-pointer text-amber-600 focus:text-amber-700 focus:bg-amber-50"
+                                                    >
+                                                        <Star className={`h-4 w-4 ${review.featured ? 'fill-amber-600' : ''}`} />
+                                                        <span className="text-sm font-medium">
+                                                            {review.featured ? "Remove from Homepage" : "Show on Homepage"}
+                                                        </span>
+                                                    </DropdownMenuItem>
+                                                </>
                                             )}
                                         </DropdownMenuContent>
                                     </DropdownMenu>

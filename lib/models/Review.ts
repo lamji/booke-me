@@ -7,6 +7,7 @@ export interface IReview extends Document {
   rating: number; // 1-5
   comment: string;
   status: "pending" | "approved" | "rejected";
+  featured: boolean; // Shown on homepage
   createdAt: Date;
   updatedAt: Date;
 }
@@ -42,6 +43,11 @@ const ReviewSchema = new Schema<IReview>(
       type: String,
       enum: ["pending", "approved", "rejected"],
       default: "pending",
+      index: true,
+    },
+    featured: {
+      type: Boolean,
+      default: false,
       index: true,
     },
   },

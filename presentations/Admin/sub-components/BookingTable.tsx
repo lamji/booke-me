@@ -329,7 +329,8 @@ export function BookingTable({ data, onUpdateStatus, updatingId, hidePagination 
                             <SelectContent className="border-none shadow-2xl bg-white">
                                 <SelectItem value="all" className="text-xs font-medium uppercase tracking-tighter" data-test-id="admin-filter-status-all">All Status</SelectItem>
                                 <SelectItem value="pending" className="text-xs font-medium uppercase tracking-tighter" data-test-id="admin-filter-status-pending">Pending</SelectItem>
-                                <SelectItem value="approved" className="text-xs font-medium uppercase tracking-tighter" data-test-id="admin-filter-status-approved">Completed</SelectItem>
+                                <SelectItem value="approved" className="text-xs font-medium uppercase tracking-tighter" data-test-id="admin-filter-status-approved">Approved</SelectItem>
+                                <SelectItem value="completed" className="text-xs font-medium uppercase tracking-tighter" data-test-id="admin-filter-status-completed">Completed</SelectItem>
                                 <SelectItem value="canceled" className="text-xs font-medium uppercase tracking-tighter" data-test-id="admin-filter-status-canceled">Canceled</SelectItem>
                             </SelectContent>
                         </Select>

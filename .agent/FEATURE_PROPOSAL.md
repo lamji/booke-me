@@ -8,7 +8,7 @@ This document outlines the complete feature set of the Book.Me Event Booking Man
 
 ### 1.1 The Tiger: Elite AI Business Partner
 A high-performance, humanized AI assistant specialized in administrative operations.
-- **Explanation**: The Tiger has direct "Search & Destroy" access to the MongoDB collections. It can parse complex requests about bookings, clients, and revenue without requiring manual menu navigation.
+- **Explanation**: The Tiger has direct "Search" access to the MongoDB collections. It can parse complex requests about bookings, clients, and revenue without requiring manual menu navigation.
 - **Capabilities**:
     - **Read-Only Intelligence**: Query status (e.g., "Any pending bookings for next week?")
     - **Status Orchestration**: Execute state changes (e.g., "Approve booking BKG-123")

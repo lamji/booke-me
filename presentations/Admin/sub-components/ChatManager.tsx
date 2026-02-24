@@ -93,7 +93,7 @@ export function ChatManager() {
     return (
         <div className="flex h-[calc(100vh-160px)] gap-6 animate-in fade-in duration-700">
             {/* ── Chat Sidebar (Table List) ── */}
-            <div className={`flex-col bg-white rounded-xl border border-border shadow-sm overflow-hidden ${selectedChat ? 'hidden lg:flex lg:w-96' : 'flex flex-1'}`}>
+            <div className={`flex-col bg-white rounded-xl border border-border shadow-sm overflow-hidden min-w-0 ${selectedChat ? 'hidden lg:flex lg:flex-1' : 'flex flex-1'}`}>
                 <div className="p-4 border-b border-border bg-slate-50/50 flex items-center justify-between">
                     <h2 className="font-bold text-slate-800 flex items-center gap-2">
                         <MessageSquare className="h-4 w-4" />
@@ -116,7 +116,7 @@ export function ChatManager() {
                     </div>
                 </div>
 
-                <div className="flex-1 overflow-y-auto">
+                <div className="flex-1 overflow-y-auto min-w-0">
                     {isLoading ? (
                         <div className="p-8 text-center text-slate-400 text-sm italic uppercase tracking-widest">
                             Synchronizing records...
@@ -156,7 +156,7 @@ export function ChatManager() {
             </div>
 
             {/* ── Messenger View (Detailed Conversation) ── */}
-            <div className={`flex-1 bg-white rounded-xl border border-border shadow-sm flex flex-col ${!selectedChat ? 'hidden lg:flex' : 'flex'}`}>
+            <div className={`flex-1 bg-white rounded-xl border border-border shadow-sm flex flex-col min-w-0 ${!selectedChat ? 'hidden lg:flex' : 'flex'}`}>
                 {!selectedChat ? (
                     <div className="flex-1 flex flex-col items-center justify-center text-slate-300 space-y-4">
                         <div className="h-20 w-20 rounded-full bg-slate-50 flex items-center justify-center">
@@ -215,7 +215,7 @@ export function ChatManager() {
                                         </div>
 
                                         <div className="space-y-1">
-                                            <div className={`px-4 py-2.5 rounded-2xl text-sm shadow-sm ${msg.role === 'user'
+                                            <div className={`px-4 py-2.5 rounded-2xl text-sm shadow-sm whitespace-pre-wrap break-words ${msg.role === 'user'
                                                 ? 'bg-blue-600 text-white rounded-tr-none'
                                                 : 'bg-white border border-slate-100 text-slate-800 rounded-tl-none'
                                                 }`}>

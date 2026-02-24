@@ -61,7 +61,20 @@ export async function GET(req: NextRequest) {
     const isAdmin = searchParams.get("admin") === "true";
     
     // Only admins can see pending/rejected reviews
-    const filter = isAdmin ? {} : { status: "approved" };
+    const filter: Record<string, unknown> = isAdmin ? {} : { status: "approved" };
+    
+    const isFeatured = searchParams.get("featured") === "true";
+    if (isFeatured && !isAdmin) {
+      filter.featured = true;
+      let reviews = await Review.find(filter).sort({ createdAt: -1 }).limit(3).lean();
+      
+      // Fallback: If no featured reviews, get latest 3 approved
+      if (reviews.length === 0) {
+        delete filter.featured;
+        reviews = await Review.find(filter).sort({ createdAt: -1 }).limit(3).lean();
+      }
+      return NextResponse.json(reviews);
+    }
 
     const reviews = await Review.find(filter).sort({ createdAt: -1 }).limit(20).lean();
 

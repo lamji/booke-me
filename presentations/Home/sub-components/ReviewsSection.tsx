@@ -8,37 +8,6 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
  * ReviewsSection — Client testimonials with premium card design
  */
 
-const REVIEWS = [
-    {
-        name: "Maria Santos",
-        initials: "MS",
-        role: "Bride",
-        rating: 5,
-        text: "They made our dream wedding a reality. Every detail was perfect — from the floral arrangements to the seamless coordination. We couldn't have asked for a better team.",
-    },
-    {
-        name: "James Rodriguez",
-        initials: "JR",
-        role: "Event Organizer",
-        rating: 5,
-        text: "Booked their band for our corporate gala and the energy was incredible. Professional, punctual, and they read the room perfectly. Standing ovation!",
-    },
-    {
-        name: "Sarah Chen",
-        initials: "SC",
-        role: "Birthday Client",
-        rating: 5,
-        text: "My daughter's 18th birthday was absolutely magical. The decor, the entertainment, the food — everything exceeded our expectations. Thank you for making it so special!",
-    },
-    {
-        name: "David Park",
-        initials: "DP",
-        role: "Corporate Client",
-        rating: 5,
-        text: "We've used their services for three consecutive annual conferences. Consistent quality, innovative ideas, and flawless execution every single time.",
-    },
-];
-
 interface Review {
     _id: string;
     clientName: string;
@@ -49,17 +18,13 @@ interface Review {
 }
 
 export default function ReviewsSection({ reviews = [] }: { reviews?: Review[] }) {
-    // Combine dynamic and static reviews for a full grid
-    const displayReviews = reviews.length > 0
-        ? reviews.map(r => ({
-            name: r.clientName,
-            initials: r.clientName.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2),
-            role: r.eventType,
-            rating: r.rating,
-            text: r.comment,
-            isDynamic: true
-        }))
-        : REVIEWS;
+    const displayReviews = reviews.map(r => ({
+        name: r.clientName,
+        initials: r.clientName.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2),
+        role: r.eventType,
+        rating: r.rating,
+        text: r.comment,
+    }));
 
     return (
         <section id="reviews" className="py-24 px-6 bg-background relative overflow-hidden">
@@ -94,8 +59,8 @@ export default function ReviewsSection({ reviews = [] }: { reviews?: Review[] })
                         className="hidden md:block"
                     >
                         <div className="flex -space-x-3 mb-4">
-                            {REVIEWS.map((r, i) => (
-                                <div key={i} className="h-10 w-10 rounded-full border-2 border-background bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-400">
+                            {displayReviews.slice(0, 3).map((r, i) => (
+                                <div key={i} className="h-10 w-10 rounded-full border-2 border-background bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-400 uppercase">
                                     {r.initials}
                                 </div>
                             ))}

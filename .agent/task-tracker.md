@@ -153,6 +153,7 @@
 - [x] Verified Socket.IO `new-booking` & `new-notification` broadcasts ✅
 - [x] Verified Email targeting for User (`yopmail`) and Admin ✅
 - [x] All dynamic URL hooks confirmed operational ✅
+- [x] All gates clean: lint ✅ typecheck ✅
 
 ## 🟢 Phase 39: Currency Standardization (v4.1)
 - [x] Enforced hard rule in `Booky` system prompt to use ₱ instead of $
@@ -199,3 +200,14 @@
 - [x] UI: Real-time HTML Preview for Personal/Professional Look ✅
 - [x] Backend: Ensure HTML rendering in dispatch flow ✅
 - [x] Run Pre-handover Gates (Lint/Typecheck) ✅
+
+## 🟢 Phase 46: Review Management & Featured System (v4.8)
+- [x] Update `IReview` type with `featured` field ✅
+- [x] Modify `GET /api/reviews` for featured filtering & fallback ✅
+- [x] Implement `PATCH /api/reviews/[id]` for moderation & toggling ✅
+- [x] UI: Update `ReviewTable` with Homepage badges & actions ✅
+- [x] UI: Fix Booking Table filter status alignment ✅
+- [x] UI: Implement 50/50 responsive split in Chat Manager ✅
+- [x] UI: Redesign Features page as professional proposal document ✅
+- [x] Run Pre-handover Gates (Lint/Typecheck/Build) ✅
+- [x] Standalone verification of individual endpoints ✅
