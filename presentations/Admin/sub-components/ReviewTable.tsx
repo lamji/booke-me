@@ -38,12 +38,13 @@ interface ReviewTableProps {
     data: IReview[];
     onUpdateStatus: (id: string, status: "approved" | "rejected") => void;
     onUpdateFeatured: (id: string, featured: boolean) => void;
+    loading?: boolean;
 }
 
-export function ReviewTable({ data, onUpdateStatus, onUpdateFeatured }: ReviewTableProps) {
+export function ReviewTable({ data, onUpdateStatus, onUpdateFeatured, loading }: ReviewTableProps) {
     return (
         <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
-            <Table>
+            <Table loading={loading}>
                 <TableHeader className="bg-slate-50/50">
                     <TableRow className="border-slate-200 hover:bg-transparent">
                         <TableHead className="w-[200px] text-[10px] font-bold text-slate-400 uppercase tracking-widest py-4">Client</TableHead>
@@ -122,7 +123,7 @@ export function ReviewTable({ data, onUpdateStatus, onUpdateFeatured }: ReviewTa
                                                 <MoreHorizontal className="h-4 w-4" />
                                             </Button>
                                         </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end" className="w-56">
+                                        <DropdownMenuContent align="end" className="w-56 bg-white shadow-xl border border-slate-200">
                                             <DropdownMenuLabel className="text-[10px] font-bold text-slate-400 uppercase p-3">Moderation Control</DropdownMenuLabel>
                                             <DropdownMenuSeparator />
 

@@ -51,11 +51,14 @@ export function useAdmin() {
   const [selectedNotification, setSelectedNotification] = useState<INotification | null>(null);
 
   const fetchEvents = useCallback(async () => {
+    setIsLoading(true);
     try {
       const res = await api.get("/api/events?admin=true");
       setEvents(res.data);
     } catch (error) {
       console.error("[Admin] Failed to fetch events:", error);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -83,29 +86,38 @@ export function useAdmin() {
   }, [filter, eventTypeFilter, sortBy, sortOrder, page]);
 
   const fetchNotifications = useCallback(async () => {
+    setIsLoading(true);
     try {
       const res = await api.get("/api/notifications");
       setNotifications(res.data);
     } catch (error) {
       console.error("[Admin] Failed to fetch notifications:", error);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
   const fetchReviews = useCallback(async () => {
+    setIsLoading(true);
     try {
       const res = await api.get("/api/reviews?admin=true");
       setReviews(res.data);
     } catch (error) {
       console.error("[Admin] Failed to fetch reviews:", error);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
   const fetchClients = useCallback(async (type?: "existing" | "potential") => {
+    setIsLoading(true);
     try {
       const res = await api.get("/api/admin/clients", { params: { type } });
       setClients(res.data.clients);
     } catch (error) {
       console.error("[Admin] Failed to fetch clients:", error);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 

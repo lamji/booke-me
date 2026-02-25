@@ -65,9 +65,10 @@ interface BookingTableProps {
     onUpdateStatus: (id: string, status: "approved" | "canceled" | "completed") => void;
     updatingId: string | null;
     hidePagination?: boolean;
+    loading?: boolean;
 }
 
-export function BookingTable({ data, onUpdateStatus, updatingId, hidePagination = false }: BookingTableProps) {
+export function BookingTable({ data, onUpdateStatus, updatingId, hidePagination = false, loading }: BookingTableProps) {
     "use no memo";
     const {
         filter, setFilter,
@@ -376,7 +377,7 @@ export function BookingTable({ data, onUpdateStatus, updatingId, hidePagination 
             )}
 
             <div className="w-full bg-white rounded-xl border border-slate-200 shadow-none overflow-hidden">
-                <Table>
+                <Table loading={loading}>
                     <TableHeader className="bg-slate-50/50">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="hover:bg-transparent border-b border-slate-200">

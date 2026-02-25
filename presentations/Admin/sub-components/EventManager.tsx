@@ -131,7 +131,7 @@ export function EventManager() {
         }
     };
 
-    if (isLoading) return <div className="p-8 text-center text-slate-900 font-medium uppercase tracking-widest">Synchronizing Event Engine...</div>;
+    // if (isLoading) return <div className="p-8 text-center text-slate-900 font-medium uppercase tracking-widest">Synchronizing Event Engine...</div>;
 
     return (
         <div className="space-y-6">
@@ -157,7 +157,7 @@ export function EventManager() {
             </div>
 
             <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-md">
-                <Table>
+                <Table loading={isLoading}>
                     <TableHeader className="bg-slate-50/50">
                         <TableRow className="border-b border-slate-200">
                             <TableHead className="font-medium text-slate-900 text-[11px] uppercase tracking-widest px-6 h-12 text-center w-16">#</TableHead>

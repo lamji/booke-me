@@ -17,12 +17,13 @@ import type { IClientDocument } from "@/lib/models/Client";
 interface ClientTableProps {
     data: IClientDocument[];
     onFollowUp: (client: IClientDocument) => void;
+    loading?: boolean;
 }
 
-export function ClientTable({ data, onFollowUp }: ClientTableProps) {
+export function ClientTable({ data, onFollowUp, loading }: ClientTableProps) {
     return (
         <div className="w-full bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
-            <Table>
+            <Table loading={loading}>
                 <TableHeader className="bg-slate-50/50">
                     <TableRow className="hover:bg-transparent border-b border-slate-200">
                         <TableHead className="h-12 text-[11px] font-medium text-slate-900 uppercase tracking-widest px-6">Client</TableHead>

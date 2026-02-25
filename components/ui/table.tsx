@@ -4,7 +4,11 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+interface TableProps extends React.ComponentProps<"table"> {
+  loading?: boolean;
+}
+
+function Table({ className, loading, ...props }: TableProps) {
   return (
     <div
       data-slot="table-container"
@@ -12,9 +16,17 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
     >
       <table
         data-slot="table"
-        className={cn("w-full caption-bottom text-sm", className)}
+        className={cn("w-full caption-bottom text-sm transition-opacity duration-300", loading && "opacity-40 pointer-events-none", className)}
         {...props}
       />
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/5 backdrop-blur-[1px] z-10">
+          <div className="flex flex-col items-center gap-2">
+            <div className="h-6 w-6 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-900 animate-pulse">Syncing...</span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

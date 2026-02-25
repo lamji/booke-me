@@ -41,7 +41,8 @@ export default function AdminPresentation() {
         currentView,
         clients,
         fetchClients,
-        sendFollowUp
+        sendFollowUp,
+        isLoading
     } = useAdminContext();
 
     const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
@@ -112,6 +113,7 @@ export default function AdminPresentation() {
                                 onUpdateStatus={updateStatus}
                                 updatingId={updatingId}
                                 hidePagination={true}
+                                loading={isLoading}
                             />
                         </div>
                     </div>
@@ -155,6 +157,7 @@ export default function AdminPresentation() {
                         data={bookings}
                         onUpdateStatus={updateStatus}
                         updatingId={updatingId}
+                        loading={isLoading}
                     />
                 </div>
             </div>
@@ -221,6 +224,7 @@ export default function AdminPresentation() {
                         data={reviews}
                         onUpdateStatus={updateReviewStatus}
                         onUpdateFeatured={updateReviewFeatured}
+                        loading={isLoading}
                     />
                 </div>
             </div>
@@ -264,6 +268,7 @@ export default function AdminPresentation() {
                     <ClientTable
                         data={clients}
                         onFollowUp={(client) => setSelectedClient(client)}
+                        loading={isLoading}
                     />
                 </div>
 

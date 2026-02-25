@@ -12,6 +12,11 @@ export function useSignIn() {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePassword = useCallback(() => {
+        setShowPassword((prev) => !prev);
+    }, []);
 
     const handleSubmit = useCallback(
         async (e: React.FormEvent) => {
@@ -45,6 +50,8 @@ export function useSignIn() {
         setPassword,
         isLoading,
         error,
+        showPassword,
+        togglePassword,
         handleSubmit,
     };
 }

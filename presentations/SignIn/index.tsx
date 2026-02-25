@@ -2,7 +2,7 @@
 
 import { useSignIn } from "./useSignIn";
 import { motion } from "framer-motion";
-import { Calendar, Lock, User } from "lucide-react";
+import { Calendar, Lock, User, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,6 +23,8 @@ export default function SignInPresentation() {
         setPassword,
         isLoading,
         error,
+        showPassword,
+        togglePassword,
         handleSubmit,
     } = useSignIn();
 
@@ -67,13 +69,25 @@ export default function SignInPresentation() {
                                 <div className="relative">
                                     <Lock className="absolute left-3 top-3 h-4 w-4 text-zinc-500" />
                                     <Input
-                                        type="password"
+                                        type={showPassword ? "text" : "password"}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="pl-10 bg-white/5 border-white/10 text-white focus:border-amber-500"
+                                        className="pl-10 pr-10 bg-white/5 border-white/10 text-white focus:border-amber-500"
                                         placeholder="••••••••"
                                         required
                                     />
+                                    <button
+                                        type="button"
+                                        onClick={togglePassword}
+                                        className="absolute right-3 top-3 text-zinc-500 hover:text-white transition-colors"
+                                        tabIndex={-1}
+                                    >
+                                        {showPassword ? (
+                                            <EyeOff className="h-4 w-4" />
+                                        ) : (
+                                            <Eye className="h-4 w-4" />
+                                        )}
+                                    </button>
                                 </div>
                             </div>
 

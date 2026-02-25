@@ -145,7 +145,9 @@ export function ChatManager() {
                                         </span>
                                     </div>
                                     <p className="text-xs text-slate-500 truncate">
-                                        {chat.messages[chat.messages.length - 1]?.content || "No messages"}
+                                        {(chat.messages[chat.messages.length - 1]?.content || "No messages").length > 20
+                                            ? `${(chat.messages[chat.messages.length - 1]?.content || "No messages").slice(0, 20)}...`
+                                            : (chat.messages[chat.messages.length - 1]?.content || "No messages")}
                                     </p>
                                 </div>
                                 <ChevronRight className="h-4 w-4 text-slate-300" />
