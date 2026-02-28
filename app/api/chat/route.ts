@@ -98,6 +98,32 @@ export async function POST(req: NextRequest) {
       if (settings.cancellationPolicy) liveContext += `- Cancellation Policy: ${settings.cancellationPolicy}\n`;
     }
 
+    // --- Extract lead info from conversation history (server-side fact extraction) ---
+    // This prevents the LLM from "forgetting" name/email in long conversations
+    interface RawMessage { role: string; content: string; }
+    const userMessages = (messages as RawMessage[]).filter((m) => m.role === "user").map((m) => m.content);
+    const allText = userMessages.join(" ");
+
+    const emailMatch = allText.match(/\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b/);
+    const extractedEmail = emailMatch ? emailMatch[0] : null;
+
+    let extractedName = null;
+    const nameMatch = allText.match(/(?:my name is|i(?:'m| am)|call me|name's)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/i);
+
+    if (nameMatch) {
+      extractedName = nameMatch[1].trim();
+    } else {
+      // Look for 2 consecutive capitalized words in the conversation to capture a freestanding name
+      const twoCapsMatch = allText.match(/\b([A-Z][a-z]{1,}\s+[A-Z][a-z]{1,})\b/);
+      if (twoCapsMatch && !/Hi There|What Events|Can You/i.test(twoCapsMatch[1])) {
+        extractedName = twoCapsMatch[1];
+      } else if (extractedEmail) {
+        // Guess name from email prefix if no real name was found
+        const prefix = extractedEmail.split("@")[0];
+        extractedName = prefix.split(/[._-]/).map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
+      }
+    }
+
     // --- Availability check if date provided ---
     let availabilityContext = "";
     if (checkDate) {
@@ -116,40 +142,22 @@ export async function POST(req: NextRequest) {
             },
             status: { $ne: "canceled" },
           }).lean();
-          availabilityContext = conflict
-            ? `\n\n## Availability Result\n[DATABASE STATUS] The date ${checkDate} is **NOT AVAILABLE** — it is already booked. You MUST inform the user of this conflict.`
-            : `\n\n## Availability Result\n[DATABASE STATUS] The date ${checkDate} is **AVAILABLE** — this slot is open! You MUST inform the user they can proceed with this date.`;
+
+          if (conflict) {
+            if (extractedEmail && conflict.clientEmail.toLowerCase() === extractedEmail.toLowerCase()) {
+              availabilityContext = `\n\n## Availability Result\n[DATABASE STATUS] The user ALREADY has a successful booking for ${checkDate} (ID: ${conflict.bookingId}). \n- **Event Type**: ${conflict.eventType}\n- **Event Time**: ${conflict.eventTime}\nDo NOT tell them it is snatched. Confirm these details are theirs!`;
+            } else {
+              availabilityContext = `\n\n## Availability Result\n[DATABASE STATUS] The date ${checkDate} is **NOT AVAILABLE** — it is already booked by another client. You MUST inform the user of this conflict.`;
+            }
+          } else {
+            availabilityContext = `\n\n## Availability Result\n[DATABASE STATUS] The date ${checkDate} is **AVAILABLE** — this slot is open! You MUST inform the user they can proceed with this date.`;
+          }
         }
       } catch {
         availabilityContext = "\n\n## Availability Result\nUnable to check availability at this time.";
       }
     }
 
-    // --- Extract lead info from conversation history (server-side fact extraction) ---
-    // This prevents the LLM from "forgetting" name/email in long conversations
-    interface RawMessage { role: string; content: string; }
-    const userMessages = (messages as RawMessage[]).filter((m) => m.role === "user").map((m) => m.content);
-    const allText = userMessages.join(" ");
-
-    const emailMatch = allText.match(/\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b/);
-    const extractedEmail = emailMatch ? emailMatch[0] : null;
-
-    let extractedName = null;
-    const nameMatch = allText.match(/(?:my name is|i(?:'m| am)|call me|name's)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)/i);
-    
-    if (nameMatch) {
-      extractedName = nameMatch[1].trim();
-    } else {
-      // Look for 2 consecutive capitalized words in the conversation to capture a freestanding name
-      const twoCapsMatch = allText.match(/\b([A-Z][a-z]{1,}\s+[A-Z][a-z]{1,})\b/);
-      if (twoCapsMatch && !/Hi There|What Events|Can You/i.test(twoCapsMatch[1])) {
-        extractedName = twoCapsMatch[1];
-      } else if (extractedEmail) {
-        // Guess name from email prefix if no real name was found
-        const prefix = extractedEmail.split("@")[0];
-        extractedName = prefix.split(/[._-]/).map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
-      }
-    }
 
     // Build lead context block injected into the prompt
     let leadContext = "\n\n## COLLECTED LEAD DATA (server-extracted from conversation)\n";
@@ -167,11 +175,11 @@ export async function POST(req: NextRequest) {
         try {
           await Client.findOneAndUpdate(
             { email: extractedEmail.toLowerCase() },
-            { 
+            {
               $set: { name: extractedName || "Anonymous Prospect" },
               $addToSet: { chatSessions: sessionId || "web-chat" },
               // Note: We don't change 'type' if it's already 'existing'
-              $setOnInsert: { type: "potential" } 
+              $setOnInsert: { type: "potential" }
             },
             { upsert: true }
           );
@@ -214,7 +222,10 @@ When writing eventDate in [[BOOK_CMD:...]], ALWAYS use ISO format: YYYY-MM-DD (e
 **RULE 6 — CURRENCY PRICING**
 ALWAYS use the Philippine Peso sign (₱) for all monetary values. NEVER use the dollar sign ($) or USD. Example: "₱5,000" NOT "$100".
 
-**RULE 7 — GRACEFUL EXIT**
+**RULE 7 — NO MULTI-DAY COMMANDS**
+The [[BOOK_CMD]] tag ONLY supports a SINGLE date. If a user wants to book multiple dates or a whole month, you MUST inform them that you can only process one date at a time or they can book via the website/team for bulk bookings. NEVER put a date range in the command.
+
+**RULE 8 — GRACEFUL EXIT**
 If the user indicates they want to end the conversation, stop, or express gratitude without explicitly confirming a booking (e.g., "ok thanks", "got it", "maybe later", "bye"), YOU MUST exit gracefully. Say something like "You're welcome! Let me know if you change your mind." and DO NOT ask for any more information. Do NOT try to proceed to Phase 3 or 4.
 
 ---
@@ -273,107 +284,116 @@ ${availabilityContext}
         const match = reply.match(/\[\[BOOK_CMD: (.*?)\]\]/s);
         if (match && match[1]) {
           const bookingData = JSON.parse(match[1]);
-          
+
           // 1. Double check availability & dates
           const target = new Date(bookingData.eventDate);
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
 
-          if (target < today) {
-            reply = `I apologize, but I cannot process a booking for a date in the past (${bookingData.eventDate}). Please choose a future date!`;
+          if (!bookingData.eventDate || isNaN(target.getTime())) {
+            reply = `I apologize, but I couldn't understand the date "${bookingData.eventDate}". Could you please provide it in YYYY-MM-DD format?`;
           } else {
-            const conflict = await Booking.findOne({
-              eventDate: {
-                $gte: startOfDay(target),
-                $lte: endOfDay(target),
-              },
-              status: { $ne: "canceled" },
-            }).lean();
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
 
-            if (conflict) {
-              reply = `I'm very sorry! It looks like someone just snatched that date (${bookingData.eventDate}) while we were chatting. 😔 Would you like to try another date?`;
+            if (target < today) {
+              reply = `I apologize, but I cannot process a booking for a date in the past (${bookingData.eventDate}). Please choose a future date!`;
             } else {
-              // 2. Generate professional ID
-              const todayStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
-              const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-              const bookingId = `BKG-${todayStr}-${random}`;
+              const conflict = await Booking.findOne({
+                eventDate: {
+                  $gte: startOfDay(target),
+                  $lte: endOfDay(target),
+                },
+                status: { $ne: "canceled" },
+              }).lean();
 
-              // 3. Create the booking record
-              const booking = await Booking.create({
-                ...bookingData,
-                bookingId,
-                status: "pending",
-                eventDate: target,
-              });
-              
-              // 3.1 Link/Upgrade Client to "existing"
-              try {
-                await Client.findOneAndUpdate(
-                  { email: bookingData.clientEmail.toLowerCase() },
-                  { 
-                    $set: { 
-                      name: bookingData.clientName,
-                      phone: bookingData.clientPhone,
-                      type: "existing",
-                      lastBookingId: bookingId
-                    }
-                  },
-                  { upsert: true }
-                );
-              } catch (cErr) {
-                console.error("[Booking API] Failed to sync Client:", cErr);
-              }
+              if (conflict) {
+                if (conflict.clientEmail.toLowerCase() === bookingData.clientEmail.toLowerCase()) {
+                  reply = `Wait, Jick! You already have a booking for this date (${bookingData.eventDate}) with ID **${conflict.bookingId}**. Did you want to book another package, or were you just checking?`;
+                } else {
+                  reply = `I'm very sorry! It looks like someone just snatched that date (${bookingData.eventDate}) while we were chatting. 😔 Would you like to try another date?`;
+                }
+              } else {
+                // 2. Generate professional ID
+                const todayStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
+                const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+                const bookingId = `BKG-${todayStr}-${random}`;
 
-              // 4. Create Notification for Admin
-              try {
-                await Notification.create({
-                  type: "new_booking",
-                  message: `New booking request from ${bookingData.clientName} for ${bookingData.eventType}`,
-                  link: `/admin/bookings/${String(booking._id)}`,
+                // 3. Create the booking record
+                const booking = await Booking.create({
+                  ...bookingData,
+                  bookingId,
+                  status: "pending",
+                  eventDate: target,
                 });
-              } catch (nErr) {
-                console.error("[Chat API] Failed to create notification:", nErr);
-              }
 
-              // 5. Fire & Forget Notifications (Emails & Socket)
-              const formattedDate = format(target, "PPP");
-              
-              // Email to Client
-              sendMail({
-                to: bookingData.clientEmail,
-                subject: "BOOK.ME - Booking Received",
-                html: EmailTemplates.bookingReceived(bookingData.clientName, formattedDate, bookingData.eventTime, bookingId),
-              }).catch(console.error);
+                // 3.1 Link/Upgrade Client to "existing"
+                try {
+                  await Client.findOneAndUpdate(
+                    { email: bookingData.clientEmail.toLowerCase() },
+                    {
+                      $set: {
+                        name: bookingData.clientName,
+                        phone: bookingData.clientPhone,
+                        type: "existing",
+                        lastBookingId: bookingId
+                      }
+                    },
+                    { upsert: true }
+                  );
+                } catch (cErr) {
+                  console.error("[Booking API] Failed to sync Client:", cErr);
+                }
 
-              // Email to Admin
-              if (process.env.ADMIN_EMAIL) {
-                sendMail({
-                  to: process.env.ADMIN_EMAIL,
-                  subject: "🚨 [ADMIN] New Booking Alert",
-                  html: EmailTemplates.adminBookingReceived(bookingData.clientName, formattedDate, bookingData.eventTime, bookingData.eventType, bookingId),
-                }).catch(console.error);
-              }
-
-              // Socket.IO Emission to Admin
-              try {
-                const { io: socketClient } = await import("socket.io-client");
-                const { getBaseUrl } = await import("@/lib/utils/base-url");
-                const socket = socketClient(getBaseUrl(), { path: "/api/socketio", addTrailingSlash: false });
-                socket.on("connect", () => {
-                  socket.emit("new-booking", booking);
-                  socket.emit("new-notification", {
+                // 4. Create Notification for Admin
+                try {
+                  await Notification.create({
                     type: "new_booking",
                     message: `New booking request from ${bookingData.clientName} for ${bookingData.eventType}`,
+                    link: `/admin/bookings/${String(booking._id)}`,
                   });
-                  setTimeout(() => socket.disconnect(), 1000);
-                });
-              } catch (sErr) {
-                console.error("[Chat API] Failed to emit socket event:", sErr);
-              }
+                } catch (nErr) {
+                  console.error("[Chat API] Failed to create notification:", nErr);
+                }
 
-              // 6. Success message
-              reply = reply.replace(/\[\[BOOK_CMD: .*?\]\]/s, "").trim();
-              reply += `\n\n✅ **Booking Success!** I have registered your request. Your reference ID is **${bookingId}**. Our team will review everything and contact you shortly. We're excited to help make your event special! 🎉`;
+                // 5. Fire & Forget Notifications (Emails & Socket)
+                const formattedDate = format(target, "PPP");
+
+                // Email to Client
+                sendMail({
+                  to: bookingData.clientEmail,
+                  subject: "BOOK.ME - Booking Received",
+                  html: EmailTemplates.bookingReceived(bookingData.clientName, formattedDate, bookingData.eventTime, bookingId),
+                }).catch(console.error);
+
+                // Email to Admin
+                if (process.env.ADMIN_EMAIL) {
+                  sendMail({
+                    to: process.env.ADMIN_EMAIL,
+                    subject: "🚨 [ADMIN] New Booking Alert",
+                    html: EmailTemplates.adminBookingReceived(bookingData.clientName, formattedDate, bookingData.eventTime, bookingData.eventType, bookingId),
+                  }).catch(console.error);
+                }
+
+                // Socket.IO Emission to Admin
+                try {
+                  const { io: socketClient } = await import("socket.io-client");
+                  const { getBaseUrl } = await import("@/lib/utils/base-url");
+                  const socket = socketClient(getBaseUrl(), { path: "/api/socketio", addTrailingSlash: false });
+                  socket.on("connect", () => {
+                    socket.emit("new-booking", booking);
+                    socket.emit("new-notification", {
+                      type: "new_booking",
+                      message: `New booking request from ${bookingData.clientName} for ${bookingData.eventType}`,
+                    });
+                    setTimeout(() => socket.disconnect(), 1000);
+                  });
+                } catch (sErr) {
+                  console.error("[Chat API] Failed to emit socket event:", sErr);
+                }
+
+                // 6. Success message
+                reply = reply.replace(/\[\[BOOK_CMD: .*?\]\]/s, "").trim();
+                reply += `\n\n✅ **Booking Success!** I have registered your request. Your reference ID is **${bookingId}**. Our team will review everything and contact you shortly. We're excited to help make your event special! 🎉`;
+              }
             }
           }
         }
@@ -393,9 +413,9 @@ ${availabilityContext}
           // 1. Log Visitor Stats
           await VisitorStats.findOneAndUpdate(
             { date: today },
-            { 
+            {
               $inc: { count: 1 },
-              $addToSet: { uniqueSessions: sessionId } 
+              $addToSet: { uniqueSessions: sessionId }
             },
             { upsert: true, new: true }
           );
@@ -415,8 +435,8 @@ ${availabilityContext}
                     ]
                   }
                 },
-                $set: { 
-                  lastMessageAt: new Date(), 
+                $set: {
+                  lastMessageAt: new Date(),
                   status: "active",
                   ...(extractedName || extractedEmail ? {
                     clientInfo: {
